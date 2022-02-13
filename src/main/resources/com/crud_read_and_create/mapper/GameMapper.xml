@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
+<mapper namespace="com.crud_read_and_create.mapper.GameMapper">
+    <select id="findAllAsc" resultType="com.crud_read_and_create.entity.Game">
+        SELECT * FROM games ORDER BY id ASC
+    </select>
+    
+    <select id="findAllDesc" resultType="com.crud_read_and_create.entity.Game">
+        SELECT * FROM games ORDER BY id DESC
+    </select>
+    
+    <select id="findById" resultType="com.crud_read_and_create.entity.Game">
+        SELECT * FROM games WHERE id = #{id} 
+    </select>
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+    	INSERT INTO games (name, genru, platform, price) VALUES(#{name}, #{genru}, #{platform}, #{price})   
+    </insert>
+    
+</mapper>

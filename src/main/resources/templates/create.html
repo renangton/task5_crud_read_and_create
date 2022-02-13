@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  	<meta charset="UTF-8"></meta>
+  	<link th:href = "@{/css/stylesheet.css}" rel = "stylesheet">
+	<title>GameSearch</title>
+</head>
+<body>
+	<header>
+		<div class = "header-logo">GAMEを検索</div>
+		<div class = "header-list">
+			<ul>
+	    		<li><a th:href="@{/search}">検索条件</a></li>
+			</ul>
+		</div>
+	</header>
+	<div class = "main">
+		<form method="post" th:action="@{/search}">
+			<table>
+    			<tr class = "field">
+            		<th>タイトル</th>
+            		<th>ジャンル</th>
+            		<th>プラットフォーム</th>
+            		<th>価格</th>
+        		</tr>
+        		<tr>
+            		<td><input type="text" name="name" th:value="${name_value}"></td>
+            		<td><input type="text" name="genru" th:value="${genru_value}"></td>
+            		<td><input type="text" name="platform" th:value="${platform_value}"></td>
+            		<td><input type="text" name="price" th:value="${price_value}"></td>
+        		</tr>
+        	</table>  
+        	<input class="btn" type="submit" value="登録">
+  		</form>
+	</div>
+</body>
+</html>
