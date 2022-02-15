@@ -1,5 +1,6 @@
 package com.crud_read_and_create.form;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class GameForm {
@@ -7,17 +8,17 @@ public class GameForm {
 
 	private String order;
 
-	@NotNull
+	@NotBlank(message = "タイトルが未入力です。")
 	private String name;
 
-	@NotNull
+	@NotBlank(message = "ジャンルが未入力です。")
 	private String genru;
 
-	@NotNull
+	@NotBlank(message = "プラットフォームが未入力です。")
 	private String platform;
 
-	@NotNull
-	private int price;
+	@NotNull(message = "価格が未入力です。")
+	private Integer price;
 
 	public String getId() {
 		return id;
@@ -51,11 +52,11 @@ public class GameForm {
 		this.platform = platform;
 	}
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 

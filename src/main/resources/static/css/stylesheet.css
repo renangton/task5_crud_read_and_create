@@ -58,6 +58,7 @@ a:visited{
 
 .btn{
     margin-top : 10px;
+    margin-bottom :10px;
     padding : 6px 18px;
     color : black;
     font-size: 18px;
@@ -88,6 +89,12 @@ table th, table td {
 
 .field{
 	background-color : #c0c0c0;
+}
+
+.success{
+	color : green;
+	 margin : 10px 0;
+	 font-size : 20px;
 }
 
 .exception{

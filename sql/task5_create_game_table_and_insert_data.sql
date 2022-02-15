@@ -6,7 +6,7 @@ CREATE TABLE games
 	name VARCHAR(100) NOT NULL,
 	genru VARCHAR(100) NOT NULL,
 	platform VARCHAR(100) NOT NULL,
-	price INT(10) NOT NULL,
+	price int(10) NOT NULL,
 	
 	PRIMARY KEY(id)
 );

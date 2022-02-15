@@ -27,10 +27,13 @@
             		<td><input type="text" name="name" th:value="${name_value}"></td>
             		<td><input type="text" name="genru" th:value="${genru_value}"></td>
             		<td><input type="text" name="platform" th:value="${platform_value}"></td>
-            		<td><input type="text" name="price" th:value="${price_value}"></td>
+            		<td><input type="number" name="price" th:value="${price_value}"></td>
         		</tr>
         	</table>  
         	<input class="btn" type="submit" value="登録">
+        	<div class="success" th:text = "${createSuccess}"></div>
+        	<div class="exception" th:text = "${createFailed}"></div>
+        	<!-- <div th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}" class="exception"></div> -->
   		</form>
 	</div>
 </body>
