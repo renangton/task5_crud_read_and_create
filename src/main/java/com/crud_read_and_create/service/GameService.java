@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crud_read_and_create.entity.Game;
+import com.crud_read_and_create.form.GameForm;
 import com.crud_read_and_create.mapper.GameMapper;
 
 @Service
@@ -32,7 +33,7 @@ public class GameService {
 		return gameMapper.findById(gameId);
 	}
 
-	public int create(Game game) {
-		return gameMapper.create(game);
+	public int create(GameForm gameForm) {
+		return gameMapper.create(gameForm);
 	}
 }

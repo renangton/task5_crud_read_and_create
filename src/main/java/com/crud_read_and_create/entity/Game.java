@@ -5,9 +5,9 @@ public class Game {
 	private String name;
 	private String genru;
 	private String platform;
-	private int price;
+	private Integer price;
 
-	public Game(String id, String name, String genru, String platform, int price) {
+	public Game(String id, String name, String genru, String platform, Integer price) {
 		this.id = id;
 		this.name = name;
 		this.genru = genru;
@@ -51,11 +51,11 @@ public class Game {
 		this.platform = platform;
 	}
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 

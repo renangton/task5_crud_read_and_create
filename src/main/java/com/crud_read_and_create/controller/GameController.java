@@ -7,6 +7,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +35,7 @@ public class GameController {
 	}
 
 	@GetMapping("/create")
-	public String create() {
+	public String getCreate() {
 
 		return "/create";
 	}
@@ -74,10 +76,16 @@ public class GameController {
 	}
 
 	@PostMapping("/search")
-	public String create(GameForm gameForm, @ModelAttribute Game game) {
+	public String create(@ModelAttribute @Validated GameForm gameForm, BindingResult bindingResult, Model model) {
 
-		gameService.create(game);
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("createFailed", "登録に失敗しました。");
+			return "/create";
+		} else {
+			gameService.create(gameForm);
+			model.addAttribute("createSuccess", "登録に成功しました。");
+		}
 
-		return "redirect:/create";
+		return "/create";
 	}
 }

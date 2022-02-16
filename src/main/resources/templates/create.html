@@ -15,7 +15,7 @@
 		</div>
 	</header>
 	<div class = "main">
-		<form method="post" th:action="@{/search}">
+		<form method="post" th:action="@{/search}" th:object="${gameForm}">
 			<table>
     			<tr class = "field">
             		<th>タイトル</th>
@@ -27,10 +27,18 @@
             		<td><input type="text" name="name" th:value="${name_value}"></td>
             		<td><input type="text" name="genru" th:value="${genru_value}"></td>
             		<td><input type="text" name="platform" th:value="${platform_value}"></td>
-            		<td><input type="text" name="price" th:value="${price_value}"></td>
+            		<td><input type="number" name="price" th:value="${price_value}"></td>
         		</tr>
         	</table>  
         	<input class="btn" type="submit" value="登録">
+        	<div class="success" th:text = "${createSuccess}"></div>
+        	<div class="exception" th:text = "${createFailed}"></div>
+        	<div class="validation-error">
+        		<p th:errors="*{name}"></p>
+        		<p th:errors="*{genru}"></p>
+        		<p th:errors="*{platform}"></p>
+        		<p th:errors="*{price}"></p>
+        	</div>
   		</form>
 	</div>
 </body>
