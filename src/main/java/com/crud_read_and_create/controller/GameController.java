@@ -76,8 +76,7 @@ public class GameController {
 	}
 
 	@PostMapping("/search")
-	public String create(@Validated GameForm formValid, BindingResult bindingResult, @ModelAttribute GameForm gameForm,
-			Model model) {
+	public String create(@ModelAttribute @Validated GameForm gameForm, BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("createFailed", "登録に失敗しました。");

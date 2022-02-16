@@ -102,3 +102,9 @@ table th, table td {
 	 margin : 10px 0;
 	 font-size : 20px;
 }
+
+.validation-error{
+	 color : red;
+	 margin-top :10px;
+	 font-size : 12px;
+}
