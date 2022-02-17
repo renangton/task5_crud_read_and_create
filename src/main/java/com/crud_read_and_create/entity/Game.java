@@ -35,11 +35,11 @@ public class Game {
 		this.name = name;
 	}
 
-	public String getgenre() {
+	public String getGenre() {
 		return genre;
 	}
 
-	public void setgenre(String genre) {
+	public void setGenre(String genre) {
 		this.genre = genre;
 	}
 
