@@ -34,16 +34,12 @@
         	<input class="btn" type="submit" value="登録">
         	<div class="success" th:text = "${createSuccess}"></div>
         	<div class="exception" th:text = "${createFailed}"></div>
-<<<<<<< Updated upstream
         	<div class="validation-error">
         		<p th:errors="*{name}"></p>
         		<p th:errors="*{genru}"></p>
         		<p th:errors="*{platform}"></p>
         		<p th:errors="*{price}"></p>
         	</div>
-=======
-        	<!-- <div th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}" class="exception"></div> -->
->>>>>>> Stashed changes
   		</form>
 	</div>
 </body>

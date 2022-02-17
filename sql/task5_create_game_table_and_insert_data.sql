@@ -3,15 +3,9 @@ DROP TABLE IF EXISTS games;
 CREATE TABLE games
 (
 	id int unsigned AUTO_INCREMENT,
-<<<<<<< Updated upstream
 	name VARCHAR(20) NOT NULL,
 	genru VARCHAR(20) NOT NULL,
 	platform VARCHAR(20) NOT NULL,
-=======
-	name VARCHAR(100) NOT NULL,
-	genru VARCHAR(100) NOT NULL,
-	platform VARCHAR(100) NOT NULL,
->>>>>>> Stashed changes
 	price int(10) NOT NULL,
 	
 	PRIMARY KEY(id)
