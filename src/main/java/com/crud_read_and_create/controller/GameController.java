@@ -76,12 +76,7 @@ public class GameController {
 	}
 
 	@PostMapping("/search")
-<<<<<<< Updated upstream
 	public String create(@ModelAttribute @Validated GameForm gameForm, BindingResult bindingResult, Model model) {
-=======
-	public String create(@Validated GameForm formValid, BindingResult bindingResult, @ModelAttribute GameForm gameForm,
-			Model model) {
->>>>>>> Stashed changes
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("createFailed", "登録に失敗しました。");

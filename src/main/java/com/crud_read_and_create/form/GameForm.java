@@ -11,7 +11,6 @@ public class GameForm {
 
 	private String order;
 
-<<<<<<< Updated upstream
 	@Length(max = 20, message = "タイトルは20文字以内で入力して下さい。")
 	@NotBlank(message = "タイトルが未入力です。")
 	private String name;
@@ -25,17 +24,6 @@ public class GameForm {
 	private String platform;
 
 	@Range(min = 0, max = 100000, message = "価格は0~100000の範囲で入力してください。")
-=======
-	@NotBlank(message = "タイトルが未入力です。")
-	private String name;
-
-	@NotBlank(message = "ジャンルが未入力です。")
-	private String genru;
-
-	@NotBlank(message = "プラットフォームが未入力です。")
-	private String platform;
-
->>>>>>> Stashed changes
 	@NotNull(message = "価格が未入力です。")
 	private Integer price;
 
