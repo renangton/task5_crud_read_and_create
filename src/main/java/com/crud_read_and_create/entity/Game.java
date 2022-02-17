@@ -13,6 +13,7 @@ public class Game {
 		this.genru = genru;
 		this.platform = platform;
 		this.price = price;
+
 	}
 
 	public Game() {
