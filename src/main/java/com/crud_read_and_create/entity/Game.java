@@ -3,14 +3,14 @@ package com.crud_read_and_create.entity;
 public class Game {
 	private String id;
 	private String name;
-	private String genru;
+	private String genre;
 	private String platform;
 	private Integer price;
 
-	public Game(String id, String name, String genru, String platform, Integer price) {
+	public Game(String id, String name, String genre, String platform, Integer price) {
 		this.id = id;
 		this.name = name;
-		this.genru = genru;
+		this.genre = genre;
 		this.platform = platform;
 		this.price = price;
 	}
@@ -36,11 +36,11 @@ public class Game {
 	}
 
 	public String getGenru() {
-		return genru;
+		return genre;
 	}
 
-	public void setGenru(String genru) {
-		this.genru = genru;
+	public void setGenru(String genre) {
+		this.genre = genre;
 	}
 
 	public String getPlatform() {

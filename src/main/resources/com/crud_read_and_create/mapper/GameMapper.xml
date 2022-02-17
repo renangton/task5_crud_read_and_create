@@ -15,7 +15,7 @@
         SELECT * FROM games WHERE id = #{id} 
     </select>
     <insert id="create" useGeneratedKeys="true" keyProperty="id">
-    	INSERT INTO games (name, genru, platform, price) VALUES(#{name}, #{genru}, #{platform}, #{price})   
+    	INSERT INTO games (name, genre, platform, price) VALUES(#{name}, #{genre}, #{platform}, #{price})   
     </insert>
     
 </mapper>
