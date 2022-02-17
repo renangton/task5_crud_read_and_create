@@ -7,7 +7,7 @@
 </head>
 <body>
 	<header>
-		<div class = "header-logo">GAMEを検索</div>
+		<div class = "header-logo">GAMEの検索と登録</div>
 		<div class = "header-list">
 			<ul>
 	    		<li><a th:href="@{/search}">検索条件</a></li>
@@ -15,6 +15,7 @@
 		</div>
 	</header>
 	<div class = "main">
+		<div class = "main-logo">新規登録</div>
 		<form method="post" th:action="@{/search}" th:object="${gameForm}">
 			<table>
     			<tr class = "field">
@@ -33,12 +34,16 @@
         	<input class="btn" type="submit" value="登録">
         	<div class="success" th:text = "${createSuccess}"></div>
         	<div class="exception" th:text = "${createFailed}"></div>
+<<<<<<< Updated upstream
         	<div class="validation-error">
         		<p th:errors="*{name}"></p>
         		<p th:errors="*{genru}"></p>
         		<p th:errors="*{platform}"></p>
         		<p th:errors="*{price}"></p>
         	</div>
+=======
+        	<!-- <div th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}" class="exception"></div> -->
+>>>>>>> Stashed changes
   		</form>
 	</div>
 </body>
