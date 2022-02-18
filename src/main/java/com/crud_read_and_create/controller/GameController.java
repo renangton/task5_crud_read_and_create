@@ -19,14 +19,17 @@ import com.crud_read_and_create.service.GameService;
 
 @Controller
 public class GameController {
+	private final GameService gameService;
+
+	@Autowired
+	public GameController(GameService gameService) {
+		this.gameService = gameService;
+	}
 
 	@ModelAttribute
 	GameForm setupForm() {
 		return new GameForm();
 	}
-
-	@Autowired
-	GameService gameService;
 
 	@GetMapping("/search")
 	public String getSearch() {

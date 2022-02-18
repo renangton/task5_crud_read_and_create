@@ -26,7 +26,7 @@
         		</tr>
         		<tr>
             		<td><input type="text" name="name" th:value="${name_value}"></td>
-            		<td><input type="text" name="genru" th:value="${genru_value}"></td>
+            		<td><input type="text" name="genre" th:value="${genre_value}"></td>
             		<td><input type="text" name="platform" th:value="${platform_value}"></td>
             		<td><input type="number" name="price" th:value="${price_value}"></td>
         		</tr>
@@ -36,7 +36,7 @@
         	<div class="exception" th:text = "${createFailed}"></div>
         	<div class="validation-error">
         		<p th:errors="*{name}"></p>
-        		<p th:errors="*{genru}"></p>
+        		<p th:errors="*{genre}"></p>
         		<p th:errors="*{platform}"></p>
         		<p th:errors="*{price}"></p>
         	</div>
