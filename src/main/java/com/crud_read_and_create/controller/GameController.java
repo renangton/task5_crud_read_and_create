@@ -24,6 +24,9 @@ public class GameController {
 		this.gameService = gameService;
 	}
 
+	@Autowired
+	GameService gameService;
+
 	@ModelAttribute
 	GameForm setupForm() {
 		return new GameForm();
@@ -31,13 +34,11 @@ public class GameController {
 
 	@GetMapping("/search")
 	public String getSearch() {
-
 		return "search";
 	}
 
 	@GetMapping("/create")
 	public String getCreate() {
-
 		return "/create";
 	}
 
@@ -47,12 +48,10 @@ public class GameController {
 		if (StringUtils.isEmpty(gameForm.getId())) {
 
 			if (gameForm.getOrder().equals("asc")) {
-
 				List<Game> gameListAsc = gameService.getGamesAsc();
 				model.addAttribute("gameList", gameListAsc);
 
 			} else if (gameForm.getOrder().equals("desc")) {
-
 				List<Game> gameListDesc = gameService.getGamesDesc();
 				model.addAttribute("gameList", gameListDesc);
 			}
@@ -82,9 +81,11 @@ public class GameController {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("createFailed", "登録に失敗しました。");
 			return "/create";
+
 		} else {
 			gameService.create(gameForm);
 			model.addAttribute("createSuccess", "登録に成功しました。");
+
 		}
 
 		return "/create";

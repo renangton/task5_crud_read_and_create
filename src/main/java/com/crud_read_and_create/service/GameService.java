@@ -17,15 +17,11 @@ public class GameService {
 	}
 
 	public List<Game> getGamesAsc() {
-
 		return gameMapper.findAllAsc();
-
 	}
 
 	public List<Game> getGamesDesc() {
-
 		return gameMapper.findAllDesc();
-
 	}
 
 	public Game findById(String id) {
