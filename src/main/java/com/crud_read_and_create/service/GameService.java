@@ -2,7 +2,6 @@ package com.crud_read_and_create.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crud_read_and_create.entity.Game;
@@ -11,9 +10,11 @@ import com.crud_read_and_create.mapper.GameMapper;
 
 @Service
 public class GameService {
+	private final GameMapper gameMapper;
 
-	@Autowired
-	GameMapper gameMapper;
+	public GameService(GameMapper gameMapper) {
+		this.gameMapper = gameMapper;
+	}
 
 	public List<Game> getGamesAsc() {
 

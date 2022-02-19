@@ -17,7 +17,7 @@ public class GameForm {
 
 	@Length(max = 20, message = "ジャンルは20文字以内で入力して下さい。")
 	@NotBlank(message = "ジャンルが未入力です。")
-	private String genru;
+	private String genre;
 
 	@Length(max = 20, message = "プラットフォームは20文字以内で入力して下さい。")
 	@NotBlank(message = "プラットフォームが未入力です。")
@@ -43,12 +43,12 @@ public class GameForm {
 		this.name = name;
 	}
 
-	public String getGenru() {
-		return genru;
+	public String getGenre() {
+		return genre;
 	}
 
-	public void setGenru(String genru) {
-		this.genru = genru;
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 	public String getPlatform() {
