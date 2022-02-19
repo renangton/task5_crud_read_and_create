@@ -24,9 +24,6 @@ public class GameController {
 		this.gameService = gameService;
 	}
 
-	@Autowired
-	GameService gameService;
-
 	@ModelAttribute
 	GameForm setupForm() {
 		return new GameForm();
