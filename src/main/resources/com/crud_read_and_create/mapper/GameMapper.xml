@@ -4,16 +4,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
 <mapper namespace="com.crud_read_and_create.mapper.GameMapper">
     <select id="findAllAsc" resultType="com.crud_read_and_create.entity.Game">
-        SELECT * FROM games ORDER BY id ASC
+        SELECT games.id, name, platform, genre, price 
+        FROM games_platforms
+        INNER JOIN games
+ 		ON games_platforms.games_id = games.id
+ 		INNER JOIN platforms
+ 		ON games_platforms.platforms_id = platforms.id
+ 		ORDER BY games.id ASC;
+        
     </select>
     
     <select id="findAllDesc" resultType="com.crud_read_and_create.entity.Game">
-        SELECT * FROM games ORDER BY id DESC
+        SELECT games.id, name, platform, genre, price 
+        FROM games_platforms
+        INNER JOIN games
+ 		ON games_platforms.games_id = games.id
+ 		INNER JOIN platforms
+ 		ON games_platforms.platforms_id = platforms.id
+ 		ORDER BY games.id DESC;
     </select>
     
     <select id="findById" resultType="com.crud_read_and_create.entity.Game">
-        SELECT * FROM games WHERE id = #{id} 
+        SELECT games.id, name, platform, genre, price 
+        FROM games_platforms
+        INNER JOIN games
+ 		ON games_platforms.games_id = games.id
+ 		INNER JOIN platforms
+ 		ON games_platforms.platforms_id = platforms.id
+        WHERE games.id = #{id} 
     </select>
+    
     <insert id="create" useGeneratedKeys="true" keyProperty="id">
     	INSERT INTO games (name, genre, platform, price) VALUES(#{name}, #{genre}, #{platform}, #{price})   
     </insert>
