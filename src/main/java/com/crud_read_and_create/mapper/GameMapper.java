@@ -9,6 +9,7 @@ import com.crud_read_and_create.form.GameForm;
 
 @Mapper
 public interface GameMapper {
+
 	public List<Game> findAllAsc();
 
 	public List<Game> findAllDesc();
