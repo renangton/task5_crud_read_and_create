@@ -34,7 +34,7 @@ CREATE TABLE platforms
 
 INSERT INTO platforms (platform) VALUES ("PS4");
 INSERT INTO platforms (platform) VALUES ("PS5");
-INSERT INTO platforms (platform) VALUES ("SWITCH");
+INSERT INTO platforms (platform) VALUES ("Switch");
 INSERT INTO platforms (platform) VALUES ("Steam");
 INSERT INTO platforms (platform) VALUES ("Origin");
 INSERT INTO platforms (platform) VALUES ("UBI");
