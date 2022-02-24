@@ -5,20 +5,19 @@
 <mapper namespace="com.crud_read_and_create.mapper.GameMapper">
 	
 	<resultMap type="com.crud_read_and_create.entity.Game" id="gameMap">
-		<id property="games.id" column="games.id"/>
-		<result property="id" column="id" />
+		<result property="id" column="game_id" />
 		<result property="name" column="name" />
 		<result property="genre" column="genre" />
 		<result property="price" column="price" />
 		
 		<collection property="platforms" ofType="com.crud_read_and_create.entity.Platform">
-			<id property="platforms.id" column="platforms.id"/>
-			<result property="platform" column="platform"/>		
+			<id property="id" column="platform_id"/>
+			<result property="platform" column="platform"/>
 		</collection>
 	</resultMap>
 	
     <select id="findAllAsc" resultMap="gameMap">
-        SELECT games.id, name, platform, genre, price 
+        SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
         FROM games
         INNER JOIN games_platforms
  		ON games.id = games_platforms.games_id

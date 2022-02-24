@@ -1,7 +1,9 @@
 package com.crud_read_and_create.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.crud_read_and_create.controller.view.GameView;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Controller;
@@ -46,7 +48,8 @@ public class GameController {
 
 			if (gameForm.getOrder().equals("asc")) {
 				List<Game> gameListAsc = gameService.getGamesAsc();
-				model.addAttribute("gameList", gameListAsc);
+				List<GameView> gameViews = gameListAsc.stream().map(GameView::new).collect(Collectors.toList());;
+				model.addAttribute("gameList", gameViews);
 
 			} else if (gameForm.getOrder().equals("desc")) {
 				List<Game> gameListDesc = gameService.getGamesDesc();
