@@ -17,25 +17,7 @@
   </header>
 	<div class = main>
 		<div class = "main-logo">検索結果</div>
-		<div th:if = "${game} != null" th:object = "${game}">
-    		<table>
-    			<tr class = "field">
-    				<th>ID</th>
-            		<th>タイトル</th>
-            		<th>ジャンル</th>
-            		<th>プラットフォーム</th>
-            		<th>価格</th>
-        		</tr>
-        		<tr>
-            		<td th:text="*{id}">ID</td>
-            		<td th:text="*{name}">タイトル</td>
-            		<td th:text="*{genre}">ジャンル</td>
-            		<td th:text="*{platform}">プラットフォーム</td>
-            		<td th:text="*{price}">価格</td>
-        		</tr>  
-    		</table>
-    	</div>
-  		<div th:if = "${gameList} != null"> 
+  			<div th:if = "${gameList} != null">
     		<table>
     			<tr class = "field">
     				<th>ID</th>
@@ -48,11 +30,11 @@
             		<td th:text="*{id}">ID</td>
             		<td th:text="*{name}">タイトル</td>
             		<td th:text="*{genre}">ジャンル</td>
-            		<td th:text="*{platform}">プラットフォーム	</td>
+            		<td th:text="*{platforms}">プラットフォーム</td>
             		<td th:text="*{price}">価格</td>
         		</tr>  
     		</table>
-    	 </div>
+     	 </div>
     	 <div class = exception> 
     	 	<div th:text = "${notFound}"></div>
     	  	<div th:text = "${mojiretsu}"></div>

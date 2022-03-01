@@ -1,4 +1,6 @@
+SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS games;
+SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE games
 (
@@ -22,7 +24,9 @@ INSERT INTO games (name, genre, price) VALUES ("DARKSOULS", "ARPG", 4200);
 INSERT INTO games (name, genre, price) VALUES ("Among Us", "Party", 0);
 INSERT INTO games (name, genre, price) VALUES ("MOTHER3", "RPG", 26000);
 
+SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS platforms;
+SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE platforms
 (
@@ -34,7 +38,7 @@ CREATE TABLE platforms
 
 INSERT INTO platforms (platform) VALUES ("PS4");
 INSERT INTO platforms (platform) VALUES ("PS5");
-INSERT INTO platforms (platform) VALUES ("SWITCH");
+INSERT INTO platforms (platform) VALUES ("Switch");
 INSERT INTO platforms (platform) VALUES ("Steam");
 INSERT INTO platforms (platform) VALUES ("Origin");
 INSERT INTO platforms (platform) VALUES ("UBI");

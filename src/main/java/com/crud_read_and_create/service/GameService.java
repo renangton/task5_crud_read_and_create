@@ -24,7 +24,12 @@ public class GameService {
 		return gameMapper.findAllDesc();
 	}
 
-	public Game findById(String id) {
+	/*
+	 * public Game findById(String id) { Game gameId = new Game(); gameId.setId(id);
+	 * return gameMapper.findById(gameId); }
+	 */
+
+	public List<Game> getGamesId(String id) {
 		Game gameId = new Game();
 		gameId.setId(id);
 		return gameMapper.findById(gameId);

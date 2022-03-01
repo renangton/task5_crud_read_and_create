@@ -14,7 +14,7 @@ public interface GameMapper {
 
 	public List<Game> findAllDesc();
 
-	public Game findById(Game game);
+	public List<Game> findById(Game game);
 
 	public Integer create(GameForm gameForm);
 
