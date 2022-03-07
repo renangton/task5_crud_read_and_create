@@ -1,6 +1,7 @@
 package com.crud_read_and_create.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.crud_read_and_create.controller.view.GameView;
 import com.crud_read_and_create.entity.Game;
+import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.form.GameForm;
+import com.crud_read_and_create.form.GameFormPlatform;
 import com.crud_read_and_create.service.GameService;
 
 @Controller
@@ -29,6 +33,11 @@ public class GameController {
 		return new GameForm();
 	}
 
+	@ModelAttribute
+	GameFormPlatform setupFormPlatform() {
+		return new GameFormPlatform();
+	}
+
 	@GetMapping("/search")
 	public String getSearch() {
 		return "search";
@@ -39,6 +48,13 @@ public class GameController {
 		return "/create";
 	}
 
+	@GetMapping("/createPlatform")
+	public String getCreatePlatform(Model model) {
+		List<Platform> platformList = gameService.getPlatform();
+		model.addAttribute("platformList", platformList);
+		return "/createPlatform";
+	}
+
 	@PostMapping("/search/db")
 	public String search(GameForm gameForm, Model model) {
 
@@ -46,23 +62,25 @@ public class GameController {
 
 			if (gameForm.getOrder().equals("asc")) {
 				List<Game> gameListAsc = gameService.getGamesAsc();
-				model.addAttribute("gameList", gameListAsc);
+				List<GameView> gameViewAsc = gameListAsc.stream().map(GameView::new).collect(Collectors.toList());
+				model.addAttribute("gameList", gameViewAsc);
 
 			} else if (gameForm.getOrder().equals("desc")) {
 				List<Game> gameListDesc = gameService.getGamesDesc();
-				model.addAttribute("gameList", gameListDesc);
+				List<GameView> gameViewDesc = gameListDesc.stream().map(GameView::new).collect(Collectors.toList());
+				model.addAttribute("gameList", gameViewDesc);
 			}
 
 		} else {
 
 			if (NumberUtils.isNumber(gameForm.getId())) {
-				Game game = gameService.findById(gameForm.getId());
-				model.addAttribute("game", game);
-
-				if (game == null) {
+				List<Game> gameId = gameService.getGamesId(gameForm.getId());
+				if (gameId.size() == 0) {
 					model.addAttribute("notFound", "レコードは存在しませんでした。");
+				} else {
+					List<GameView> gameViewId = gameId.stream().map(GameView::new).collect(Collectors.toList());
+					model.addAttribute("gameList", gameViewId);
 				}
-
 			} else {
 				model.addAttribute("mojiretsu", "数字を入力して下さい。");
 			}
@@ -72,7 +90,7 @@ public class GameController {
 		return "search/db";
 	}
 
-	@PostMapping("/search")
+	@PostMapping("/create")
 	public String create(@ModelAttribute @Validated GameForm gameForm, BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
@@ -82,9 +100,38 @@ public class GameController {
 		} else {
 			gameService.create(gameForm);
 			model.addAttribute("createSuccess", "登録に成功しました。");
-
 		}
 
 		return "/create";
 	}
+
+	@PostMapping("/createPlatform")
+	public String createPlatform(@ModelAttribute @Validated GameFormPlatform gameFormPlatform,
+			BindingResult bindingResult, Model model) {
+
+		List<Platform> platformList = gameService.getPlatform();
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("createFailed", "登録に失敗しました。");
+		} else {
+			boolean check = true;
+			for (int i = 0; i < platformList.size(); i++) {
+				if (gameFormPlatform.getPlatform().equals(platformList.get(i).getPlatform())) {
+					check = false;
+					model.addAttribute("createFailed", "登録に失敗しました。");
+					model.addAttribute("duplicate", "プラットフォームが重複しています。");
+					break;
+				}
+			}
+			if (check) {
+				gameService.createPlatform(gameFormPlatform);
+				model.addAttribute("createSuccess", "登録に成功しました。");
+			}
+		}
+		platformList = gameService.getPlatform();
+		model.addAttribute("platformList", platformList);
+
+		return "/createPlatform";
+	}
+
 }

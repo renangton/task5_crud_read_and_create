@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.crud_read_and_create.entity.Game;
+import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.form.GameForm;
+import com.crud_read_and_create.form.GameFormPlatform;
 import com.crud_read_and_create.mapper.GameMapper;
 
 @Service
@@ -24,13 +26,21 @@ public class GameService {
 		return gameMapper.findAllDesc();
 	}
 
-	public Game findById(String id) {
+	public List<Game> getGamesId(String id) {
 		Game gameId = new Game();
 		gameId.setId(id);
 		return gameMapper.findById(gameId);
 	}
 
+	public List<Platform> getPlatform() {
+		return gameMapper.findPlatform();
+	}
+
 	public int create(GameForm gameForm) {
 		return gameMapper.create(gameForm);
+	}
+
+	public int createPlatform(GameFormPlatform gameFormPlatform) {
+		return gameMapper.createPlatform(gameFormPlatform);
 	}
 }

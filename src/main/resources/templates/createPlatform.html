@@ -11,37 +11,41 @@
 		<div class = "header-list">
 			<ul>
 	    		<li><a th:href="@{/search}">検索条件</a></li>
-	    		<li><a th:href="@{/createPlatform}">PLATFORM登録</a></li>
+	    		<li><a th:href="@{/create}">GAME登録</a></li>
 			</ul>
 		</div>
 	</header>
 	<div class = "main">
 		<div class = "main-logo">新規登録</div>
-		<form method="post" th:action="@{/create}" th:object="${gameForm}">
+		<form method="post" th:action="@{/createPlatform}" th:object="${gameFormPlatform}">
 			<table>
     			<tr class = "field">
-            		<th>タイトル</th>
-            		<th>ジャンル</th>
             		<th>プラットフォーム</th>
-            		<th>価格</th>
         		</tr>
         		<tr>
-            		<td><input type="text" name="name" th:value="${name_value}"></td>
-            		<td><input type="text" name="genre" th:value="${genre_value}"></td>
             		<td><input type="text" name="platform" th:value="${platform_value}"></td>
-            		<td><input type="number" name="price" th:value="${price_value}"></td>
         		</tr>
         	</table>  
         	<input class="btn" type="submit" value="登録">
         	<div class="success" th:text = "${createSuccess}"></div>
         	<div class="exception" th:text = "${createFailed}"></div>
+        	<div class="duplicate-error" th:text = "${duplicate}"></div>
         	<div class="validation-error">
-        		<p th:errors="*{name}"></p>
-        		<p th:errors="*{genre}"></p>
         		<p th:errors="*{platform}"></p>
-        		<p th:errors="*{price}"></p>
         	</div>
   		</form>
+  		<div th:if = "${platformList} != null">
+    	<table>
+    		<tr class = "field">
+    			<th>ID</th>
+            	<th>プラットフォーム</th>
+        	</tr>
+        	<tr th:each="platformCheck:${platformList}" th:object="${platformCheck}">
+            	<td th:text="*{id}">ID</td>
+            	<td th:text="*{platform}">プラットフォーム</td>
+        	</tr>
+    	</table>
+     	</div>
 	</div>
 </body>
 </html>

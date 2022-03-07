@@ -108,3 +108,9 @@ table th, table td {
 	 margin-top :10px;
 	 font-size : 12px;
 }
+
+.duplicate-error{
+	 color : red;
+	 margin-top :10px;
+	 font-size : 12px;
+}
