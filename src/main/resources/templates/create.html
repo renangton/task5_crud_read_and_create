@@ -28,7 +28,12 @@
         		<tr>
             		<td><input type="text" name="name" th:value="${name_value}"></td>
             		<td><input type="text" name="genre" th:value="${genre_value}"></td>
-            		<td><input type="text" name="platform" th:value="${platform_value}"></td>
+            		<td>
+            			<select th:field="*{platformId}" id="multiSelect" name="platformId" multiple>
+            				<option th:each="platform:${platformList}" th:value="${id}" th:text="${platform}"></option>
+            			</select>
+            		</td>
+            		<!-- <td><input type="text" name="platform" th:value="${platform_value}"></td> -->
             		<td><input type="number" name="price" th:value="${price_value}"></td>
         		</tr>
         	</table>  
@@ -38,7 +43,7 @@
         	<div class="validation-error">
         		<p th:errors="*{name}"></p>
         		<p th:errors="*{genre}"></p>
-        		<p th:errors="*{platform}"></p>
+        		<p th:errors="*{platformId}"></p>
         		<p th:errors="*{price}"></p>
         	</div>
   		</form>

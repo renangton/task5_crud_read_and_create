@@ -44,7 +44,9 @@ public class GameController {
 	}
 
 	@GetMapping("/create")
-	public String getCreate() {
+	public String getCreate(Model model) {
+		List<Platform> platformList = gameService.getPlatform();
+		model.addAttribute("platformList", platformList);
 		return "/create";
 	}
 
@@ -95,13 +97,12 @@ public class GameController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("createFailed", "登録に失敗しました。");
-			return "/create";
-
 		} else {
 			gameService.create(gameForm);
 			model.addAttribute("createSuccess", "登録に成功しました。");
 		}
-
+		List<Platform> platformList = gameService.getPlatform();
+		model.addAttribute("platformList", platformList);
 		return "/create";
 	}
 

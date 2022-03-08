@@ -21,6 +21,10 @@ public class Platform {
 		return platform;
 	}
 
+	public String toString() {
+		return platform;
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
