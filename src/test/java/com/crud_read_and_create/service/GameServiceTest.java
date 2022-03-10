@@ -14,11 +14,11 @@ import com.crud_read_and_create.mapper.GameMapper;
 @SpringBootTest
 class GameServiceTest {
 
-	@Autowired
-	private GameService gameService;
-
 	@MockBean
 	private GameMapper gameMapper;
+
+	@Autowired
+	private GameService gameService;
 
 	@Test
 	void ゲームの全件が昇順で取得できること() {
@@ -26,6 +26,15 @@ class GameServiceTest {
 		exampleGame.setName("DARKSOULS");
 		Mockito.when(gameMapper.findAllAsc()).thenReturn(null);
 		String actual = gameService.getGamesAsc().get(8).getName();
+		assertThat(exampleGame.getName()).isEqualTo(actual);
+	}
+
+	@Test
+	void ゲームの全件が降順で取得できること() {
+		Game exampleGame = new Game();
+		exampleGame.setName("Apex");
+		Mockito.when(gameMapper.findAllDesc()).thenReturn(null);
+		String actual = gameService.getGamesDesc().get(8).getName();
 		assertThat(exampleGame.getName()).isEqualTo(actual);
 	}
 }
