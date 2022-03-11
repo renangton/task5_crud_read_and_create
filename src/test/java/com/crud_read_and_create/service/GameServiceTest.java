@@ -2,6 +2,9 @@ package com.crud_read_and_create.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,7 @@ import com.crud_read_and_create.mapper.GameMapper;
 @SpringBootTest
 class GameServiceTest {
 
-	@MockBean
+	@MockBean(name = "gameMapper")
 	private GameMapper gameMapper;
 
 	@Autowired
@@ -24,8 +27,10 @@ class GameServiceTest {
 	void ゲームの全件が昇順で取得できること() {
 		Game exampleGame = new Game();
 		exampleGame.setName("DARKSOULS");
-		Mockito.when(gameMapper.findAllAsc()).thenReturn(null);
-		String actual = gameService.getGamesAsc().get(8).getName();
+		List<Game> findAsc = new ArrayList<Game>();
+		findAsc.add(exampleGame);
+		Mockito.when(gameMapper.findAllAsc()).thenReturn(findAsc);
+		String actual = gameService.getGamesAsc().get(0).getName();
 		assertThat(exampleGame.getName()).isEqualTo(actual);
 	}
 
@@ -33,8 +38,10 @@ class GameServiceTest {
 	void ゲームの全件が降順で取得できること() {
 		Game exampleGame = new Game();
 		exampleGame.setName("Apex");
-		Mockito.when(gameMapper.findAllDesc()).thenReturn(null);
-		String actual = gameService.getGamesDesc().get(8).getName();
+		List<Game> findDesc = new ArrayList<Game>();
+		findDesc.add(exampleGame);
+		Mockito.when(gameMapper.findAllDesc()).thenReturn(findDesc);
+		String actual = gameService.getGamesDesc().get(0).getName();
 		assertThat(exampleGame.getName()).isEqualTo(actual);
 	}
 }
