@@ -24,7 +24,7 @@
 
 **検索画面**
 
-![task5search](https://user-images.githubusercontent.com/97335620/154416093-2b440f58-1e16-4fff-b64d-f8e7f5db9b8b.png)
+![検索画面](https://user-images.githubusercontent.com/97335620/158062540-e48bf687-e93f-4670-a517-d20f383dd0a3.png)
 
 - 検索条件のIDがnullの場合、全件検索
   - 昇順か降順を選択し、選択に応じ表示する
@@ -33,21 +33,29 @@
 
 **検索結果（昇順全件検索）**
 
-![ascresult](https://user-images.githubusercontent.com/97335620/154419786-58dadc8a-2e2d-4eb2-abf2-1e3369dfc65e.png)
+![検索結果](https://user-images.githubusercontent.com/97335620/158062636-5865077a-5e4e-421d-a7fb-2da0ac568f03.png)
 
-**登録画面**
+**GAME登録画面**
 
-![create](https://user-images.githubusercontent.com/97335620/154419986-7c892c2e-a7a1-4a6a-8799-75fd860a7225.png)
+![登録画面](https://user-images.githubusercontent.com/97335620/158062752-3cedae6e-785f-43e2-b296-aa21b355579a.png)
 
-- 各項目を入力し、登録する
+- 各項目を入力及び選択し、登録する
   - 登録時に入力エラーがあった場合、登録が失敗し、どのエラーが発生したか表示する
+  - プラットフォームを複数登録する場合は、「ctrl + クリック」で選択する
 
 **登録成功時**
 
-![createOK](https://user-images.githubusercontent.com/97335620/154424777-3a2eeebc-ef13-424d-93b4-d850e55defbb.png)
+![登録成功](https://user-images.githubusercontent.com/97335620/158062779-5b1abaf7-0400-4d53-b11f-308f1fae140c.png)
 
 **登録失敗時**
 
-![createNO](https://user-images.githubusercontent.com/97335620/154424877-79a23316-b401-4201-97d7-d6be50bae44d.png)
+![登録失敗](https://user-images.githubusercontent.com/97335620/158062805-2cde9c67-21e2-4b01-b0f0-71afa121e1eb.png)
+
+**PLATFORM登録画面**
+
+![プラットフォーム登録画面](https://user-images.githubusercontent.com/97335620/158063227-70bc07ff-1f45-4445-af77-7309c0192679.png)
+
+- プラットフォームを入力し、登録する
+  - 登録時に入力エラー及び重複していた場合、登録が失敗し、どのエラーが発生したか表示する
 
 （`./gradlew bootRun`コマンドで実行している場合）`ctrl + c`で終了する
