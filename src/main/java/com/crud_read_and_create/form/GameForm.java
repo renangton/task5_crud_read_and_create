@@ -2,11 +2,10 @@ package com.crud_read_and_create.form;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
-
-import com.crud_read_and_create.entity.Platform;
 
 public class GameForm {
 	private String id;
@@ -24,8 +23,8 @@ public class GameForm {
 	@NotNull(message = "価格が未入力です。")
 	private Integer price;
 
-//	@NotBlank(message = "プラットフォームが未選択です。")
-	private Platform[] platformId;
+	@Size(min = 1, message = "プラットフォームが未選択です。")
+	private String[] platformId;
 
 	public String getId() {
 		return id;
@@ -47,7 +46,7 @@ public class GameForm {
 		return price;
 	}
 
-	public Platform[] getPlatformId() {
+	public String[] getPlatformId() {
 		return platformId;
 	}
 
@@ -71,7 +70,7 @@ public class GameForm {
 		this.price = price;
 	}
 
-	public void setPlatformId(Platform[] platformId) {
+	public void setPlatformId(String[] platformId) {
 		this.platformId = platformId;
 	}
 

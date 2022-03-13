@@ -26,15 +26,14 @@
             		<th>価格</th>
         		</tr>
         		<tr>
-            		<td><input type="text" name="name" th:value="${name_value}"></td>
-            		<td><input type="text" name="genre" th:value="${genre_value}"></td>
+            		<td><input class="createGame" type="text" name="name" th:value="${name_value}"></td>
+            		<td><input class="createGame" type="text" name="genre" th:value="${genre_value}"></td>
             		<td>
-            			<select th:field="*{platformId}" id="multiSelect" name="platformId" multiple>
-            				<option th:each="platform:${platformList}" th:value="${id}" th:text="${platform}"></option>
+            			<select th:field="*{platformId}" id="multiSelect" name="platformId" multiple size=4>
+            				<option class="createPlatform" th:each="platform:${platformList}" th:value="${platform.id}" th:text="${platform}"></option>
             			</select>
             		</td>
-            		<!-- <td><input type="text" name="platform" th:value="${platform_value}"></td> -->
-            		<td><input type="number" name="price" th:value="${price_value}"></td>
+            		<td><input class="createGame" type="number" name="price" th:value="${price_value}"></td>
         		</tr>
         	</table>  
         	<input class="btn" type="submit" value="登録">

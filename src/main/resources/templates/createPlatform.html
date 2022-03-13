@@ -17,13 +17,13 @@
 	</header>
 	<div class = "main">
 		<div class = "main-logo">新規登録</div>
-		<form method="post" th:action="@{/createPlatform}" th:object="${gameFormPlatform}">
+		<form method="post" th:action="@{/createPlatform}" th:object="${platformForm}">
 			<table>
     			<tr class = "field">
             		<th>プラットフォーム</th>
         		</tr>
         		<tr>
-            		<td><input type="text" name="platform" th:value="${platform_value}"></td>
+            		<td><input class="createGame" type="text" name="platform" th:value="${platform_value}"></td>
         		</tr>
         	</table>  
         	<input class="btn" type="submit" value="登録">

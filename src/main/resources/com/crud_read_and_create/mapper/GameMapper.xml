@@ -56,11 +56,16 @@
     	FROM platforms
     </select>
     
-    <insert id="create" useGeneratedKeys="true" keyProperty="id">
-    	INSERT INTO games (name, genre, platform, price) VALUES(#{name}, #{genre}, #{platform}, #{price})   
+    <insert id="createGame" useGeneratedKeys="true" keyProperty="id">
+    	INSERT INTO games (name, genre, price) VALUES(#{name}, #{genre}, #{price}) 
     </insert>
     
     <insert id="createPlatform" useGeneratedKeys="true" keyProperty="id">
     	INSERT INTO platforms (platform) VALUES(#{platform}) 
     </insert>
+    
+    <insert id="createGamePlatform">
+		INSERT INTO games_platforms (games_id, platforms_id) VALUES(#{gameId}, #{platformId})	
+	</insert>
+    
 </mapper>

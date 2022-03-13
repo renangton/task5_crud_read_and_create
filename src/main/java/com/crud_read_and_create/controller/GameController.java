@@ -17,7 +17,8 @@ import com.crud_read_and_create.controller.view.GameView;
 import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.form.GameForm;
-import com.crud_read_and_create.form.GameFormPlatform;
+import com.crud_read_and_create.form.GamePlatformForm;
+import com.crud_read_and_create.form.PlatformForm;
 import com.crud_read_and_create.service.GameService;
 
 @Controller
@@ -34,8 +35,8 @@ public class GameController {
 	}
 
 	@ModelAttribute
-	GameFormPlatform setupFormPlatform() {
-		return new GameFormPlatform();
+	PlatformForm setupFormPlatform() {
+		return new PlatformForm();
 	}
 
 	@GetMapping("/search")
@@ -86,19 +87,18 @@ public class GameController {
 			} else {
 				model.addAttribute("mojiretsu", "数字を入力して下さい。");
 			}
-
 		}
-
 		return "search/db";
 	}
 
 	@PostMapping("/create")
-	public String create(@ModelAttribute @Validated GameForm gameForm, BindingResult bindingResult, Model model) {
+	public String create(@ModelAttribute @Validated GameForm gameForm, BindingResult bindingResult,
+			GamePlatformForm gamePlatformForm, Model model) {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("createFailed", "登録に失敗しました。");
 		} else {
-			gameService.create(gameForm);
+			gameService.createGame(gameForm, gamePlatformForm);
 			model.addAttribute("createSuccess", "登録に成功しました。");
 		}
 		List<Platform> platformList = gameService.getPlatform();
@@ -107,8 +107,8 @@ public class GameController {
 	}
 
 	@PostMapping("/createPlatform")
-	public String createPlatform(@ModelAttribute @Validated GameFormPlatform gameFormPlatform,
-			BindingResult bindingResult, Model model) {
+	public String createPlatform(@ModelAttribute @Validated PlatformForm platformForm, BindingResult bindingResult,
+			Model model) {
 
 		List<Platform> platformList = gameService.getPlatform();
 
@@ -117,7 +117,7 @@ public class GameController {
 		} else {
 			boolean check = true;
 			for (int i = 0; i < platformList.size(); i++) {
-				if (gameFormPlatform.getPlatform().equals(platformList.get(i).getPlatform())) {
+				if (platformForm.getPlatform().equals(platformList.get(i).getPlatform())) {
 					check = false;
 					model.addAttribute("createFailed", "登録に失敗しました。");
 					model.addAttribute("duplicate", "プラットフォームが重複しています。");
@@ -125,13 +125,12 @@ public class GameController {
 				}
 			}
 			if (check) {
-				gameService.createPlatform(gameFormPlatform);
+				gameService.createPlatform(platformForm);
 				model.addAttribute("createSuccess", "登録に成功しました。");
 			}
 		}
 		platformList = gameService.getPlatform();
 		model.addAttribute("platformList", platformList);
-
 		return "/createPlatform";
 	}
 

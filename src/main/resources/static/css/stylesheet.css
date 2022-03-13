@@ -19,7 +19,7 @@ header{
 }
 
 ul{
-	list-style :none;
+	list-style : none;
 }
 
 .header-list li{
@@ -39,7 +39,7 @@ a{
     background-color : #a2d729;
     border-radius : 10px;
     font-size : 16px;
-    border: 1px solid #1a7940;
+    border : 1px solid #1a7940;
 }
 
 a:visited{
@@ -48,7 +48,7 @@ a:visited{
 }
 
 .main{
-    padding :100px 40px;
+    padding : 100px 40px;
 }
 
 .main-logo{
@@ -58,10 +58,10 @@ a:visited{
 
 .btn{
     margin-top : 10px;
-    margin-bottom :10px;
+    margin-bottom : 10px;
     padding : 6px 18px;
     color : black;
-    font-size: 18px;
+    font-size : 18px;
     background-color : #a2d729;
     cursor : pointer;
     box-shadow: 0 5px #1a7940;
@@ -70,12 +70,22 @@ a:visited{
 .btn:active{
     position : relative;
     top : 5px;
-    box-shadow: none;
+    box-shadow : none;
 }
 
-input{
-    padding: 6px;
-    font-size : 8px;
+.searchId{
+    padding : 6px;
+    font-size : 12px;
+}
+
+.createGame{
+	padding : 10px 3px;
+	font-size : 15px;
+}
+
+.createPlatform{
+	padding : 0 30px 0 10px; 
+	font-size : 15px;
 }
 
 table{
@@ -83,8 +93,8 @@ table{
 }
 
 table th, table td {
-    border: 1px solid black;
-    padding: 6px;
+    border : 1px solid black;
+    padding : 6px;
 }
 
 .field{
@@ -105,12 +115,12 @@ table th, table td {
 
 .validation-error{
 	 color : red;
-	 margin-top :10px;
+	 margin-top : 10px;
 	 font-size : 12px;
 }
 
 .duplicate-error{
 	 color : red;
-	 margin-top :10px;
+	 margin-top : 10px;
 	 font-size : 12px;
 }
