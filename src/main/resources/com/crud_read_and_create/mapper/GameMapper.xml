@@ -65,7 +65,7 @@
     </insert>
     
     <insert id="createGamePlatform">
-		INSERT INTO games_platforms (games_id, platforms_id) VALUES(#{gameId}, #{platformId})	
+		INSERT INTO games_platforms (games_id, platforms_id) VALUES(#{gameId}, #{platformId})
 	</insert>
     
 </mapper>
