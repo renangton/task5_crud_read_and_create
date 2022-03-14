@@ -30,7 +30,7 @@
             		<td><input class="createGame" type="text" name="genre" th:value="${genre_value}"></td>
             		<td>
             			<select th:field="*{platformId}" id="multiSelect" name="platformId" multiple size=4>
-            				<option class="createPlatform" th:each="platform:${platformList}" th:value="${platform.id}" th:text="${platform}"></option>
+            				<option class="createPlatform" th:each="platform:${platformList}" th:value="${platform.id}" th:text="${platform.platform}"></option>
             			</select>
             		</td>
             		<td><input class="createGame" type="number" name="price" th:value="${price_value}"></td>
