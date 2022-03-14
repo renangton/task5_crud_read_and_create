@@ -1,71 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.crud_read_and_create.mapper.GameMapper">
-	
+
 	<resultMap type="com.crud_read_and_create.entity.Game" id="gameMap">
 		<result property="id" column="game_id" />
 		<result property="name" column="name" />
 		<result property="genre" column="genre" />
 		<result property="price" column="price" />
-		
+
 		<collection property="platforms" ofType="com.crud_read_and_create.entity.Platform">
-			<id property="id" column="platform_id"/>
-			<result property="platform" column="platform"/>		
+			<id property="id" column="platform_id" />
+			<result property="platform" column="platform" />
 		</collection>
 	</resultMap>
-	
+
 	<resultMap type="com.crud_read_and_create.entity.Platform" id="platformMap">
 		<id property="id" column="platform_id" />
 		<result property="platform" column="platform" />
 	</resultMap>
-	
-    <select id="findAllAsc" resultMap="gameMap">
-        SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
-        FROM games
-        INNER JOIN games_platforms
- 		ON games.id = games_platforms.games_id
- 		INNER JOIN platforms
- 		ON games_platforms.platforms_id = platforms.id
- 		ORDER BY games_platforms.id ASC;
-    </select>
-    
-    <select id="findAllDesc" resultMap="gameMap">
-        SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
-        FROM games
-        INNER JOIN games_platforms
- 		ON games.id = games_platforms.games_id
- 		INNER JOIN platforms
- 		ON games_platforms.platforms_id = platforms.id
- 		ORDER BY games_platforms.id DESC;
-    </select>
-    
-    <select id="findById" resultMap="gameMap">
-        SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform 
-        FROM games_platforms
-        INNER JOIN games
- 		ON games_platforms.games_id = games.id
- 		INNER JOIN platforms
- 		ON games_platforms.platforms_id = platforms.id
-        WHERE games_id = #{id} 
-    </select>
-    
-    <select id="findPlatform" resultMap="platformMap">
-    	SELECT platforms.id as platform_id, platform
-    	FROM platforms
-    </select>
-    
-    <insert id="createGame" useGeneratedKeys="true" keyProperty="id">
-    	INSERT INTO games (name, genre, price) VALUES(#{name}, #{genre}, #{price}) 
-    </insert>
-    
-    <insert id="createPlatform" useGeneratedKeys="true" keyProperty="id">
-    	INSERT INTO platforms (platform) VALUES(#{platform}) 
-    </insert>
-    
-    <insert id="createGamePlatform">
-    	INSERT INTO games_platforms (games_id, platforms_id) VALUES(#{gameId}, #{platformId})
-    </insert>
-    
+
+	<select id="findAllAsc" resultMap="gameMap">
+		SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
+		FROM games
+		INNER JOIN
+		games_platforms
+		ON games.id = games_platforms.games_id
+		INNER JOIN platforms
+		ON games_platforms.platforms_id = platforms.id
+		ORDER BY games_platforms.id
+		ASC;
+	</select>
+
+	<select id="findAllDesc" resultMap="gameMap">
+		SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
+		FROM games
+		INNER JOIN
+		games_platforms
+		ON games.id = games_platforms.games_id
+		INNER JOIN platforms
+		ON games_platforms.platforms_id = platforms.id
+		ORDER BY games_platforms.id
+		DESC;
+	</select>
+
+	<select id="findById" resultMap="gameMap">
+		SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
+		FROM games_platforms
+		INNER JOIN games
+		ON games_platforms.games_id = games.id
+		INNER JOIN platforms
+		ON games_platforms.platforms_id = platforms.id
+		WHERE games_id = #{id}
+	</select>
+
+	<select id="findPlatform" resultMap="platformMap">
+		SELECT platforms.id as platform_id, platform
+		FROM platforms
+	</select>
+
+	<insert id="createGame" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO games (name, genre, price) VALUES(#{name}, #{genre}, #{price})
+	</insert>
+
+	<insert id="createPlatform" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO platforms (platform) VALUES(#{platform})
+	</insert>
+
+	<insert id="createGamePlatform">
+		INSERT INTO games_platforms (games_id, platforms_id) VALUES(#{gameId}, #{platformId})
+	</insert>
+
 </mapper>
