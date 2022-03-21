@@ -48,14 +48,14 @@ public class GameController {
 	public String getCreate(Model model) {
 		List<Platform> platformList = gameService.getPlatform();
 		model.addAttribute("platformList", platformList);
-		return "/create";
+		return "create";
 	}
 
 	@GetMapping("/createPlatform")
 	public String getCreatePlatform(Model model) {
 		List<Platform> platformList = gameService.getPlatform();
 		model.addAttribute("platformList", platformList);
-		return "/createPlatform";
+		return "createPlatform";
 	}
 
 	@PostMapping("/search/db")
@@ -103,7 +103,7 @@ public class GameController {
 		}
 		List<Platform> platformList = gameService.getPlatform();
 		model.addAttribute("platformList", platformList);
-		return "/create";
+		return "create";
 	}
 
 	@PostMapping("/createPlatform")
@@ -131,7 +131,7 @@ public class GameController {
 		}
 		platformList = gameService.getPlatform();
 		model.addAttribute("platformList", platformList);
-		return "/createPlatform";
+		return "createPlatform";
 	}
 
 }
