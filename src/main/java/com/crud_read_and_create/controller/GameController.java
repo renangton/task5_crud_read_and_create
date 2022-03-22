@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.crud_read_and_create.controller.view.GameView;
 import com.crud_read_and_create.entity.Game;
@@ -92,28 +93,31 @@ public class GameController {
 	}
 
 	@PostMapping("/create")
-	public String create(@ModelAttribute @Validated GameForm gameForm, BindingResult bindingResult,
-			GamePlatformForm gamePlatformForm, Model model) {
+	public String create(@Validated GameForm gameForm, BindingResult bindingResult, GamePlatformForm gamePlatformForm,
+			Model model, RedirectAttributes redirectAttributes) {
 
+		List<Platform> platformList = gameService.getPlatform();
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("createFailed", "登録に失敗しました。");
+			model.addAttribute("platformList", platformList);
+			return "create";
 		} else {
 			gameService.createGame(gameForm, gamePlatformForm);
-			model.addAttribute("createSuccess", "登録に成功しました。");
+			redirectAttributes.addFlashAttribute("createSuccess", "登録に成功しました。");
 		}
-		List<Platform> platformList = gameService.getPlatform();
-		model.addAttribute("platformList", platformList);
-		return "create";
+		redirectAttributes.addFlashAttribute("platformList", platformList);
+		return "redirect:/create";
 	}
 
 	@PostMapping("/createPlatform")
-	public String createPlatform(@ModelAttribute @Validated PlatformForm platformForm, BindingResult bindingResult,
-			Model model) {
+	public String createPlatform(@Validated PlatformForm platformForm, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes) {
 
 		List<Platform> platformList = gameService.getPlatform();
-
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("createFailed", "登録に失敗しました。");
+			model.addAttribute("platformList", platformList);
+			return "createPlatform";
 		} else {
 			boolean check = true;
 			for (int i = 0; i < platformList.size(); i++) {
@@ -121,17 +125,16 @@ public class GameController {
 					check = false;
 					model.addAttribute("createFailed", "登録に失敗しました。");
 					model.addAttribute("duplicate", "プラットフォームが重複しています。");
-					break;
+					model.addAttribute("platformList", platformList);
+					return "createPlatform";
 				}
 			}
 			if (check) {
 				gameService.createPlatform(platformForm);
-				model.addAttribute("createSuccess", "登録に成功しました。");
+				redirectAttributes.addFlashAttribute("createSuccess", "登録に成功しました。");
 			}
 		}
-		platformList = gameService.getPlatform();
-		model.addAttribute("platformList", platformList);
-		return "createPlatform";
+		redirectAttributes.addFlashAttribute("platformList", platformList);
+		return "redirect:createPlatform";
 	}
-
 }
