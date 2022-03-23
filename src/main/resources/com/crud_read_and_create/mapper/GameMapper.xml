@@ -47,8 +47,9 @@
 
 	<select id="findById" resultMap="gameMap">
 		SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
-		FROM games_platforms
-		INNER JOIN games
+		FROM games
+		INNER JOIN
+		games_platforms
 		ON games_platforms.games_id = games.id
 		INNER JOIN platforms
 		ON games_platforms.platforms_id = platforms.id
