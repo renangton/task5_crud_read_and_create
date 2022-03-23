@@ -52,7 +52,7 @@ public class GameController {
 		return "create";
 	}
 
-	@GetMapping("/createPlatform")
+	@GetMapping("/create-platform")
 	public String getCreatePlatform(Model model) {
 		List<Platform> platformList = gameService.getPlatform();
 		model.addAttribute("platformList", platformList);
@@ -106,10 +106,10 @@ public class GameController {
 			redirectAttributes.addFlashAttribute("createSuccess", "登録に成功しました。");
 		}
 		redirectAttributes.addFlashAttribute("platformList", platformList);
-		return "redirect:/create";
+		return "redirect:create";
 	}
 
-	@PostMapping("/createPlatform")
+	@PostMapping("/create-platform")
 	public String createPlatform(@Validated PlatformForm platformForm, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
 
@@ -135,6 +135,6 @@ public class GameController {
 			}
 		}
 		redirectAttributes.addFlashAttribute("platformList", platformList);
-		return "redirect:createPlatform";
+		return "redirect:create-platform";
 	}
 }
