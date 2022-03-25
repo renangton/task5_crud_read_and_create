@@ -3,6 +3,7 @@ package com.crud_read_and_create.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.Platform;
@@ -23,7 +24,7 @@ public interface GameMapper {
 
 	public Integer createGame(GameForm gameForm);
 
-	public Integer createGamePlatform(GamePlatformForm gamePlatformForm);
+	public Integer createGamePlatform(@Param("gamePlatformList") List<GamePlatformForm> gamePlatformList);
 
 	public Integer createPlatform(PlatformForm platformForm);
 

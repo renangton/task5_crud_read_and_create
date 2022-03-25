@@ -1,5 +1,6 @@
 package com.crud_read_and_create.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -41,12 +42,14 @@ public class GameService {
 	@Transactional
 	public void createGame(GameForm gameForm, GamePlatformForm gamePlatformForm) {
 		gameMapper.createGame(gameForm);
-		gamePlatformForm.setGameId(gameForm.getId());
+
+		List<GamePlatformForm> gamePlatformList = new ArrayList<GamePlatformForm>();
 		String[] platforms = gameForm.getPlatformId();
 		for (String value : platforms) {
-			gamePlatformForm.setPlatformId(value);
-			gameMapper.createGamePlatform(gamePlatformForm);
+			GamePlatformForm gpList = new GamePlatformForm(gameForm.getId(), value);
+			gamePlatformList.add(gpList);
 		}
+		gameMapper.createGamePlatform(gamePlatformList);
 	}
 
 	public int createPlatform(PlatformForm platformForm) {

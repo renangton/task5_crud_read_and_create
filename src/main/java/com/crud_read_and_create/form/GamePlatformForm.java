@@ -5,6 +5,12 @@ public class GamePlatformForm {
 	private String gameId;
 	private String platformId;
 
+	public GamePlatformForm(String gameId, String platformId) {
+		super();
+		this.gameId = gameId;
+		this.platformId = platformId;
+	}
+
 	public String getId() {
 		return id;
 	}
