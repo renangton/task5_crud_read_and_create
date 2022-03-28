@@ -7,6 +7,16 @@
 - Spring Boot 2.6.3
 - Docker 20.10.12
 
+## 各レイヤの責務
+### Controller
+画面遷移の制御とServiceの呼び出しのみを担当する
+
+### Service
+業務処理の提供を担当する
+
+### Mapper
+CRUD処理を担当する
+
 ## Getting Started
 `$ git clone https://github.com/renangton/task5_crud_read_and_create.git`
 
