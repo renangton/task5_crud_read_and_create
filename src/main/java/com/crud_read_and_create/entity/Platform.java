@@ -21,6 +21,11 @@ public class Platform {
 		return platform;
 	}
 
+	@Override
+	public String toString() {
+		return "Platform [id=" + id + ", platform=" + platform + "]";
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}

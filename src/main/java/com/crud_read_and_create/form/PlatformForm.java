@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
-public class GameFormPlatform {
+public class PlatformForm {
 	private String id;
 
 	@Length(max = 20, message = "プラットフォームは20文字以内で入力して下さい。")

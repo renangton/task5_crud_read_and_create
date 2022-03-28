@@ -2,13 +2,13 @@ package com.crud_read_and_create.form;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 public class GameForm {
 	private String id;
-
 	private String order;
 
 	@Length(max = 20, message = "タイトルは20文字以内で入力して下さい。")
@@ -19,60 +19,59 @@ public class GameForm {
 	@NotBlank(message = "ジャンルが未入力です。")
 	private String genre;
 
-	@Length(max = 20, message = "プラットフォームは20文字以内で入力して下さい。")
-	@NotBlank(message = "プラットフォームが未入力です。")
-	private String platform;
-
 	@Range(min = 0, max = 100000, message = "価格は0~100000の範囲で入力してください。")
 	@NotNull(message = "価格が未入力です。")
 	private Integer price;
 
+	@Size(min = 1, message = "プラットフォームが未選択です。")
+	private String[] platformId;
+
 	public String getId() {
 		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
-
-	public String getPlatform() {
-		return platform;
-	}
-
-	public void setPlatform(String platform) {
-		this.platform = platform;
-	}
-
-	public Integer getPrice() {
-		return price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
 	}
 
 	public String getOrder() {
 		return order;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public String[] getPlatformId() {
+		return platformId;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public void setOrder(String order) {
 		this.order = order;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	public void setPlatformId(String[] platformId) {
+		this.platformId = platformId;
 	}
 
 }

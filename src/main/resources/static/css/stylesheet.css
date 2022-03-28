@@ -1,116 +1,126 @@
-body{
-    font-family :"Avenir Next";
-    margin : 0;
+body {
+  font-family: "Avenir Next";
+  margin: 0;
 }
 
-header{
-    background-color : #2498B3;
-    color : white;
-    height : 90px;
-    width : 110%;
-    position  : fixed;
-    top : 0;
+header {
+  background-color: #2498B3;
+  color: white;
+  height: 90px;
+  width: 110%;
+  position: fixed;
+  top: 0;
 }
 
-.header-logo{
-    float : left;
-    font-size : 32px;
-    padding : 20px 40px;
+.header-logo {
+  float: left;
+  font-size: 32px;
+  padding: 20px 40px;
 }
 
-ul{
-	list-style :none;
+ul {
+  list-style: none;
 }
 
-.header-list li{
-    float : left;
-    margin : 15px 10px;
+.header-list li {
+  float: left;
+  margin: 15px 10px;
 }
 
-.header-list li:hover{
-    opacity : 0.8;
+.header-list li:hover {
+  opacity: 0.8;
 }
 
-a{
-	color : black;
-	text-decoration : none;
-	padding : 10px 10px;
-	opacity : 1.0;
-    background-color : #a2d729;
-    border-radius : 10px;
-    font-size : 16px;
-    border: 1px solid #1a7940;
+a {
+  color: black;
+  text-decoration: none;
+  padding: 10px 10px;
+  opacity: 1.0;
+  background-color: #a2d729;
+  border-radius: 10px;
+  font-size: 16px;
+  border: 1px solid #1a7940;
 }
 
-a:visited{
-    color: black;
-    text-decoration: none;
+a:visited {
+  color: black;
+  text-decoration: none;
 }
 
-.main{
-    padding :100px 40px;
+.main {
+  padding: 100px 40px;
 }
 
-.main-logo{
-    color :navy;
-    font-size : 24px;
+.main-logo {
+  color: navy;
+  font-size: 24px;
 }
 
-.btn{
-    margin-top : 10px;
-    margin-bottom :10px;
-    padding : 6px 18px;
-    color : black;
-    font-size: 18px;
-    background-color : #a2d729;
-    cursor : pointer;
-    box-shadow: 0 5px #1a7940;
+.btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 6px 18px;
+  color: black;
+  font-size: 18px;
+  background-color: #a2d729;
+  cursor: pointer;
+  box-shadow: 0 5px #1a7940;
 }
 
-.btn:active{
-    position : relative;
-    top : 5px;
-    box-shadow: none;
+.btn:active {
+  position: relative;
+  top: 5px;
+  box-shadow: none;
 }
 
-input{
-    padding: 6px;
-    font-size : 8px;
+.searchId {
+  padding: 6px;
+  font-size: 12px;
 }
 
-table{
-	margin : 10px 0;
+.createGame {
+  padding: 10px 3px;
+  font-size: 15px;
+}
+
+.createPlatform {
+  padding: 0 30px 0 10px;
+  font-size: 15px;
+}
+
+table {
+  margin: 10px 0;
 }
 
 table th, table td {
-    border: 1px solid black;
-    padding: 6px;
+  border: 1px solid black;
+  padding: 6px;
 }
 
-.field{
-	background-color : #c0c0c0;
+.field {
+  background-color: #c0c0c0;
 }
 
-.success{
-	color : green;
-	 margin : 10px 0;
-	 font-size : 20px;
+.success {
+  color: green;
+  margin: 10px 0;
+  font-size: 20px;
 }
 
-.exception{
-	 color : red;
-	 margin : 10px 0;
-	 font-size : 20px;
+.exception {
+  color: red;
+  margin: 10px 0;
+  font-size: 20px;
 }
 
-.validation-error{
-	 color : red;
-	 margin-top :10px;
-	 font-size : 12px;
+.validation-error {
+  color: red;
+  margin-top: 10px;
+  font-size: 12px;
 }
 
-.duplicate-error{
-	 color : red;
-	 margin-top :10px;
-	 font-size : 12px;
+.duplicate-error {
+  color: red;
+  margin-top: 10px;
+  font-size: 12px;
 }

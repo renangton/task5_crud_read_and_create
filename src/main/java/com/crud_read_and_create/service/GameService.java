@@ -1,13 +1,16 @@
 package com.crud_read_and_create.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.form.GameForm;
-import com.crud_read_and_create.form.GameFormPlatform;
+import com.crud_read_and_create.form.GamePlatformForm;
+import com.crud_read_and_create.form.PlatformForm;
 import com.crud_read_and_create.mapper.GameMapper;
 
 @Service
@@ -36,11 +39,20 @@ public class GameService {
 		return gameMapper.findPlatform();
 	}
 
-	public int create(GameForm gameForm) {
-		return gameMapper.create(gameForm);
+	@Transactional
+	public void createGame(GameForm gameForm, GamePlatformForm gamePlatformForm) {
+		gameMapper.createGame(gameForm);
+
+		List<GamePlatformForm> gamePlatformList = new ArrayList<GamePlatformForm>();
+		String[] platforms = gameForm.getPlatformId();
+		for (String value : platforms) {
+			GamePlatformForm gpList = new GamePlatformForm(gameForm.getId(), value);
+			gamePlatformList.add(gpList);
+		}
+		gameMapper.createGamePlatform(gamePlatformList);
 	}
 
-	public int createPlatform(GameFormPlatform gameFormPlatform) {
-		return gameMapper.createPlatform(gameFormPlatform);
+	public int createPlatform(PlatformForm platformForm) {
+		return gameMapper.createPlatform(platformForm);
 	}
 }
