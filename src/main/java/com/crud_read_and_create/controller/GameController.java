@@ -16,6 +16,8 @@ import com.crud_read_and_create.form.GameForm;
 import com.crud_read_and_create.form.GamePlatformForm;
 import com.crud_read_and_create.form.PlatformForm;
 import com.crud_read_and_create.service.GameService;
+import com.crud_read_and_create.service.exception.NotFoundException;
+import com.crud_read_and_create.service.exception.PatternIntException;
 
 @Controller
 public class GameController {
@@ -56,7 +58,13 @@ public class GameController {
 
 	@PostMapping("/search/db")
 	public String search(GameForm gameForm, Model model) {
-		gameService.getGames(gameForm, model);
+		try {
+			model.addAttribute("gameList", gameService.getGames(gameForm));
+		} catch (NotFoundException e) {
+			model.addAttribute("notFound", "レコードは存在しませんでした。");
+		} catch (PatternIntException e) {
+			model.addAttribute("mojiretsu", "数字を入力して下さい。");
+		}
 		return "search/db";
 	}
 
