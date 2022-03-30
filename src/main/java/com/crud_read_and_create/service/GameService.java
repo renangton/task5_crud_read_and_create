@@ -16,6 +16,7 @@ import com.crud_read_and_create.form.GameForm;
 import com.crud_read_and_create.form.GamePlatformForm;
 import com.crud_read_and_create.form.PlatformForm;
 import com.crud_read_and_create.mapper.GameMapper;
+import com.crud_read_and_create.service.exception.DuplicateException;
 import com.crud_read_and_create.service.exception.NotFoundException;
 import com.crud_read_and_create.service.exception.PatternIntException;
 
@@ -70,7 +71,13 @@ public class GameService {
 		gameMapper.createGamePlatform(gamePlatformList);
 	}
 
-	public int createPlatform(PlatformForm platformForm) {
+	public int createPlatform(PlatformForm platformForm) throws DuplicateException {
+		List<Platform> platformList = gameMapper.findPlatform();
+		for (int i = 0; i < platformList.size(); i++) {
+			if (platformForm.getPlatform().equals(platformList.get(i).getPlatform())) {
+				throw new DuplicateException("プラットフォームが重複しています。");
+			}
+		}
 		return gameMapper.createPlatform(platformForm);
 	}
 }
