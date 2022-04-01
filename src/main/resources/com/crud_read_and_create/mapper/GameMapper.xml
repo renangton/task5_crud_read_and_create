@@ -21,7 +21,7 @@
 		<result property="platform" column="platform" />
 	</resultMap>
 
-	<select id="findAllAsc" resultMap="gameMap">
+	<select id="findAll" resultMap="gameMap">
 		SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
 		FROM games
 		INNER JOIN
@@ -29,20 +29,16 @@
 		ON games.id = games_platforms.games_id
 		INNER JOIN platforms
 		ON games_platforms.platforms_id = platforms.id
-		ORDER BY games_platforms.id
-		ASC;
-	</select>
-
-	<select id="findAllDesc" resultMap="gameMap">
-		SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
-		FROM games
-		INNER JOIN
-		games_platforms
-		ON games.id = games_platforms.games_id
-		INNER JOIN platforms
-		ON games_platforms.platforms_id = platforms.id
-		ORDER BY games_platforms.id
-		DESC;
+		<choose>
+			<when test="orderBy=orderBy.name() == 'DESC'">
+				ORDER BY games_platforms.id
+				DESC
+			</when>
+			<otherwise>
+				ORDER BY games_platforms.id
+				ASC
+			</otherwise>
+		</choose>
 	</select>
 
 	<select id="findById" resultMap="gameMap">
