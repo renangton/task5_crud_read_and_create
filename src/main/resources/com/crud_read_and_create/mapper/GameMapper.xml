@@ -29,16 +29,7 @@
 		ON games.id = games_platforms.games_id
 		INNER JOIN platforms
 		ON games_platforms.platforms_id = platforms.id
-		ORDER BY games_platforms.id
-		<choose>
-			<when test='orderBy.name().equals("ASC")'>
-				ASC
-			</when>
-			<when test='orderBy.name().equals("DESC")'>
-				DESC
-			</when>
-			<otherwise></otherwise>
-		</choose>
+		ORDER BY games_platforms.id ${orderBy}
 
 	</select>
 
