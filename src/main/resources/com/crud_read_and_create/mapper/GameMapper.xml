@@ -29,16 +29,7 @@
 		ON games.id = games_platforms.games_id
 		INNER JOIN platforms
 		ON games_platforms.platforms_id = platforms.id
-		<choose>
-			<when test="orderBy=orderBy.name() == 'DESC'">
-				ORDER BY games_platforms.id
-				DESC
-			</when>
-			<otherwise>
-				ORDER BY games_platforms.id
-				ASC
-			</otherwise>
-		</choose>
+		ORDER BY games_platforms.id ${orderBy}
 	</select>
 
 	<select id="findById" resultMap="gameMap">
