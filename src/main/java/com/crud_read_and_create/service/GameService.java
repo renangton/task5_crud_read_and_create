@@ -32,13 +32,7 @@ public class GameService {
 
 		List<GameView> gameView = new ArrayList<GameView>();
 		if (StringUtils.isEmpty(gameForm.getId())) {
-			OrderBy orderBy = null;
-			if (gameForm.getOrder().equals("asc")) {
-				orderBy = OrderBy.ASC;
-			} else if (gameForm.getOrder().equals("desc")) {
-				orderBy = OrderBy.DESC;
-			}
-			List<Game> gameList = gameMapper.findAll(orderBy);
+			List<Game> gameList = gameMapper.findAll(OrderBy.from(gameForm.getOrder()));
 			gameView = gameList.stream().map(GameView::new).collect(Collectors.toList());
 		} else {
 			if (NumberUtils.isNumber(gameForm.getId())) {
