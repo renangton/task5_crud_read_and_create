@@ -10,15 +10,14 @@ import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.form.GameForm;
 import com.crud_read_and_create.form.GamePlatformForm;
 import com.crud_read_and_create.form.PlatformForm;
+import com.crud_read_and_create.service.OrderBy;
 
 @Mapper
 public interface GameMapper {
 
-	public List<Game> findAllAsc();
+	public List<Game> findAll(@Param("orderBy") OrderBy orderBy);
 
-	public List<Game> findAllDesc();
-
-	public List<Game> findById(Game game);
+	public List<Game> findById(String id);
 
 	public List<Platform> findPlatform();
 

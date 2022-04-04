@@ -2,16 +2,23 @@ package com.crud_read_and_create.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.crud_read_and_create.controller.view.GameView;
 import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.form.GameForm;
 import com.crud_read_and_create.form.GamePlatformForm;
 import com.crud_read_and_create.form.PlatformForm;
 import com.crud_read_and_create.mapper.GameMapper;
+import com.crud_read_and_create.service.exception.DuplicateException;
+import com.crud_read_and_create.service.exception.NotFoundException;
+import com.crud_read_and_create.service.exception.PatternIntException;
 
 @Service
 public class GameService {
@@ -21,18 +28,25 @@ public class GameService {
 		this.gameMapper = gameMapper;
 	}
 
-	public List<Game> getGamesAsc() {
-		return gameMapper.findAllAsc();
-	}
+	public List<GameView> getGames(GameForm gameForm) throws NotFoundException, PatternIntException {
 
-	public List<Game> getGamesDesc() {
-		return gameMapper.findAllDesc();
-	}
-
-	public List<Game> getGamesId(String id) {
-		Game gameId = new Game();
-		gameId.setId(id);
-		return gameMapper.findById(gameId);
+		List<GameView> gameView = new ArrayList<GameView>();
+		if (StringUtils.isEmpty(gameForm.getId())) {
+			List<Game> gameList = gameMapper.findAll(OrderBy.from(gameForm.getOrder()));
+			gameView = gameList.stream().map(GameView::new).collect(Collectors.toList());
+		} else {
+			if (NumberUtils.isNumber(gameForm.getId())) {
+				List<Game> gameId = gameMapper.findById(gameForm.getId());
+				if (gameId.size() == 0) {
+					throw new NotFoundException("レコードは存在しませんでした。");
+				} else {
+					gameView = gameId.stream().map(GameView::new).collect(Collectors.toList());
+				}
+			} else {
+				throw new PatternIntException("数字を入力して下さい。");
+			}
+		}
+		return gameView;
 	}
 
 	public List<Platform> getPlatform() {
@@ -52,7 +66,13 @@ public class GameService {
 		gameMapper.createGamePlatform(gamePlatformList);
 	}
 
-	public int createPlatform(PlatformForm platformForm) {
+	public int createPlatform(PlatformForm platformForm) throws DuplicateException {
+		List<Platform> platformList = gameMapper.findPlatform();
+		for (int i = 0; i < platformList.size(); i++) {
+			if (platformForm.getPlatform().equals(platformList.get(i).getPlatform())) {
+				throw new DuplicateException("プラットフォームが重複しています。");
+			}
+		}
 		return gameMapper.createPlatform(platformForm);
 	}
 }
