@@ -26,15 +26,15 @@ public class GameService {
 		this.gameMapper = gameMapper;
 	}
 
-	public List<GameView> getGames(String Id, String order) throws NotFoundException, PatternIntException {
+	public List<GameView> getGames(String id, String order) throws NotFoundException, PatternIntException {
 
 		List<GameView> gameView = new ArrayList<GameView>();
-		if (StringUtils.isEmpty(Id)) {
+		if (StringUtils.isEmpty(id)) {
 			List<Game> gameList = gameMapper.findAll(OrderBy.from(order));
 			gameView = gameList.stream().map(GameView::new).collect(Collectors.toList());
 		} else {
-			if (NumberUtils.isNumber(Id)) {
-				List<Game> gameId = gameMapper.findById(Id);
+			if (NumberUtils.isNumber(id)) {
+				List<Game> gameId = gameMapper.findById(id);
 				if (gameId.size() == 0) {
 					throw new NotFoundException("レコードは存在しませんでした。");
 				} else {
@@ -52,7 +52,7 @@ public class GameService {
 	}
 
 	@Transactional
-	public void createGame(String id, String name, String genre, Integer price, String[] platformId) {
+	public void createGame(String id, String name, String genre, Integer price, String[] platformIds) {
 		// 登録するGameの各値を詰め込む（中間テーブルに登録するgameIdを取得するために使用）
 		Game game = new Game();
 		game.setId(id);
@@ -61,7 +61,7 @@ public class GameService {
 		game.setPrice(price);
 		gameMapper.createGame(game);
 		List<GamePlatform> gamePlatformList = new ArrayList<GamePlatform>();
-		for (String value : platformId) {
+		for (String value : platformIds) {
 			GamePlatform gpList = new GamePlatform(game.getId(), value);
 			gamePlatformList.add(gpList);
 		}
