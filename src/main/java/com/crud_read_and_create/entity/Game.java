@@ -17,6 +17,13 @@ public class Game {
 		this.platforms = platforms;
 	}
 
+	public Game(String id, String name, String genre, Integer price) {
+		this.id = id;
+		this.name = name;
+		this.genre = genre;
+		this.price = price;
+	}
+
 	public Game() {
 
 	}

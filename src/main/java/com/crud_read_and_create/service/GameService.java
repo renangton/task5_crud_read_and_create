@@ -53,12 +53,7 @@ public class GameService {
 
 	@Transactional
 	public void createGame(String id, String name, String genre, Integer price, String[] platformIds) {
-		// 登録するGameの各値を詰め込む（中間テーブルに登録するgameIdを取得するために使用）
-		Game game = new Game();
-		game.setId(id);
-		game.setName(name);
-		game.setGenre(genre);
-		game.setPrice(price);
+		Game game = new Game(id, name, genre, price);
 		gameMapper.createGame(game);
 		List<GamePlatform> gamePlatformList = new ArrayList<GamePlatform>();
 		for (String value : platformIds) {
