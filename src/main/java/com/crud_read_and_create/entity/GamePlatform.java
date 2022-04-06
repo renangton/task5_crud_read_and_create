@@ -1,12 +1,11 @@
-package com.crud_read_and_create.form;
+package com.crud_read_and_create.entity;
 
-public class GamePlatformForm {
+public class GamePlatform {
 	private String id;
 	private String gameId;
 	private String platformId;
 
-	public GamePlatformForm(String gameId, String platformId) {
-		super();
+	public GamePlatform(String gameId, String platformId) {
 		this.gameId = gameId;
 		this.platformId = platformId;
 	}

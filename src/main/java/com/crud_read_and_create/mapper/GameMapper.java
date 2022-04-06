@@ -6,10 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.crud_read_and_create.entity.Game;
+import com.crud_read_and_create.entity.GamePlatform;
 import com.crud_read_and_create.entity.Platform;
-import com.crud_read_and_create.form.GameForm;
-import com.crud_read_and_create.form.GamePlatformForm;
-import com.crud_read_and_create.form.PlatformForm;
 import com.crud_read_and_create.service.OrderBy;
 
 @Mapper
@@ -21,10 +19,10 @@ public interface GameMapper {
 
 	public List<Platform> findPlatform();
 
-	public Integer createGame(GameForm gameForm);
+	public Integer createGame(Game game);
 
-	public Integer createGamePlatform(@Param("gamePlatformList") List<GamePlatformForm> gamePlatformList);
+	public Integer createGamePlatform(@Param("gamePlatformList") List<GamePlatform> gamePlatformList);
 
-	public Integer createPlatform(PlatformForm platformForm);
+	public Integer createPlatform(@Param("id") String id, @Param("platform") String platform);
 
 }

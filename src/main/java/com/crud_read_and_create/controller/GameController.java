@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.form.GameForm;
-import com.crud_read_and_create.form.GamePlatformForm;
 import com.crud_read_and_create.form.PlatformForm;
 import com.crud_read_and_create.service.GameService;
 import com.crud_read_and_create.service.exception.DuplicateException;
@@ -60,7 +59,7 @@ public class GameController {
 	@PostMapping("/search/db")
 	public String search(GameForm gameForm, Model model) {
 		try {
-			model.addAttribute("gameList", gameService.getGames(gameForm));
+			model.addAttribute("gameList", gameService.getGames(gameForm.getId(), gameForm.getOrder()));
 		} catch (NotFoundException e) {
 			model.addAttribute("notFound", "レコードは存在しませんでした。");
 		} catch (PatternIntException e) {
@@ -70,8 +69,8 @@ public class GameController {
 	}
 
 	@PostMapping("/create")
-	public String create(@Validated GameForm gameForm, BindingResult bindingResult, GamePlatformForm gamePlatformForm,
-			Model model, RedirectAttributes redirectAttributes) {
+	public String create(@Validated GameForm gameForm, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes) {
 
 		List<Platform> platformList = gameService.getPlatform();
 		if (bindingResult.hasErrors()) {
@@ -79,7 +78,8 @@ public class GameController {
 			model.addAttribute("platformList", platformList);
 			return "create";
 		} else {
-			gameService.createGame(gameForm, gamePlatformForm);
+			gameService.createGame(gameForm.getId(), gameForm.getName(), gameForm.getGenre(), gameForm.getPrice(),
+					gameForm.getPlatformId());
 			redirectAttributes.addFlashAttribute("createSuccess", "登録に成功しました。");
 			redirectAttributes.addFlashAttribute("platformList", platformList);
 		}
@@ -97,7 +97,8 @@ public class GameController {
 		} else {
 			try {
 				redirectAttributes.addFlashAttribute("createSuccess", "登録に成功しました。");
-				redirectAttributes.addFlashAttribute("platformList", gameService.createPlatform(platformForm));
+				redirectAttributes.addFlashAttribute("platformList",
+						gameService.createPlatform(platformForm.getId(), platformForm.getPlatform()));
 			} catch (DuplicateException e) {
 				model.addAttribute("createFailed", "登録に失敗しました。");
 				model.addAttribute("duplicate", "プラットフォームが重複しています。");
