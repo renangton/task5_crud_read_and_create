@@ -1,6 +1,7 @@
 package com.crud_read_and_create.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,11 +56,8 @@ public class GameService {
 	public void createGame(String id, String name, String genre, Integer price, String[] platformIds) {
 		Game game = new Game(id, name, genre, price);
 		gameMapper.createGame(game);
-		List<GamePlatform> gamePlatformList = new ArrayList<GamePlatform>();
-		for (String value : platformIds) {
-			GamePlatform gpList = new GamePlatform(game.getId(), value);
-			gamePlatformList.add(gpList);
-		}
+		List<GamePlatform> gamePlatformList = Arrays.stream(platformIds)
+				.map(platformId -> new GamePlatform(game.getId(), platformId)).collect(Collectors.toList());
 		gameMapper.createGamePlatform(gamePlatformList);
 	}
 
