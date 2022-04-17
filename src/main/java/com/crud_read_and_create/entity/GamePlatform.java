@@ -2,10 +2,10 @@ package com.crud_read_and_create.entity;
 
 public class GamePlatform {
 	private String id;
-	private String gameId;
+	private Integer gameId;
 	private String platformId;
 
-	public GamePlatform(String gameId, String platformId) {
+	public GamePlatform(Integer gameId, String platformId) {
 		this.gameId = gameId;
 		this.platformId = platformId;
 	}
@@ -14,7 +14,7 @@ public class GamePlatform {
 		return id;
 	}
 
-	public String getGameId() {
+	public Integer getGameId() {
 		return gameId;
 	}
 
@@ -26,7 +26,7 @@ public class GamePlatform {
 		this.id = id;
 	}
 
-	public void setGameId(String gameId) {
+	public void setGameId(Integer gameId) {
 		this.gameId = gameId;
 	}
 

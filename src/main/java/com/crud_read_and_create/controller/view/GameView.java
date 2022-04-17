@@ -7,7 +7,7 @@ import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.Platform;
 
 public class GameView {
-	private String id;
+	private Integer id;
 	private String name;
 	private String genre;
 	private String platforms;
@@ -22,7 +22,7 @@ public class GameView {
 		this.price = String.format("%,d", game.getPrice());
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 

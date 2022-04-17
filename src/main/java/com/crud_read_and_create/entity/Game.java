@@ -3,13 +3,13 @@ package com.crud_read_and_create.entity;
 import java.util.List;
 
 public class Game {
-	private String id;
+	private Integer id;
 	private String name;
 	private String genre;
 	private Integer price;
 	private List<Platform> platforms;
 
-	public Game(String id, String name, String genre, Integer price, List<Platform> platforms) {
+	public Game(Integer id, String name, String genre, Integer price, List<Platform> platforms) {
 		this.id = id;
 		this.name = name;
 		this.genre = genre;
@@ -17,7 +17,7 @@ public class Game {
 		this.platforms = platforms;
 	}
 
-	public Game(String id, String name, String genre, Integer price) {
+	public Game(Integer id, String name, String genre, Integer price) {
 		this.id = id;
 		this.name = name;
 		this.genre = genre;
@@ -28,7 +28,7 @@ public class Game {
 
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -48,7 +48,7 @@ public class Game {
 		return platforms;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

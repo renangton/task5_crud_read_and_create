@@ -15,7 +15,7 @@ public interface GameMapper {
 
 	public List<Game> findAll(@Param("orderBy") OrderBy orderBy);
 
-	public List<Game> findById(String id);
+	public List<Game> findById(Integer id);
 
 	public List<Platform> findPlatform();
 
