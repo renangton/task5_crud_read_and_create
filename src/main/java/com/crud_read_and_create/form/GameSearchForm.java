@@ -1,5 +1,7 @@
 package com.crud_read_and_create.form;
 
+import java.util.Objects;
+
 import javax.validation.constraints.Pattern;
 
 public class GameSearchForm {
@@ -10,7 +12,7 @@ public class GameSearchForm {
 	private String order;
 
 	public Integer getId() {
-		Integer id = this.id.isEmpty() ? null : Integer.parseInt(this.id);
+		Integer id = Objects.nonNull(this.id) && !this.id.isEmpty() ? Integer.parseInt(this.id) : null;
 		return id;
 	}
 
