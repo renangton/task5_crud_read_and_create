@@ -30,13 +30,13 @@ CRUD処理を担当する
 
 ![task5_gradlew](https://user-images.githubusercontent.com/97335620/154414840-af43072c-09a6-4d1a-8c6f-4c170b4a6836.png)
 
-`http://loccalhost:8080/search`にアクセスすると検索画面が表示される
+`http://localhost:8080/search` にアクセスすると検索画面が表示される
 
 **検索画面**
 
 ![検索画面](https://user-images.githubusercontent.com/97335620/158062540-e48bf687-e93f-4670-a517-d20f383dd0a3.png)
 
-- 検索条件のIDがnullの場合、全件検索
+- 検索条件のIDを指定しない場合、全件検索
   - 昇順か降順を選択し、選択に応じ表示する
 - 検索条件のIDが入力されている場合、IDで1件検索
   - レコードが存在しない時、文字列で検索した時はエラー内容を表示する
