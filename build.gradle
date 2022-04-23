@@ -20,7 +20,7 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
 	implementation 'org.modelmapper:modelmapper:2.3.0'	
 }
 
