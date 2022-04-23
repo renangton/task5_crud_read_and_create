@@ -1,7 +1,6 @@
 package com.crud_read_and_create.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

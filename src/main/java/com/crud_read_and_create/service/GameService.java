@@ -3,6 +3,7 @@ package com.crud_read_and_create.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -32,8 +33,8 @@ public class GameService {
 			gameView = gameList.stream().map(GameView::new).collect(Collectors.toList());
 		} else {
 			if (id != null) {
-				List<Game> gameId = gameMapper.findById(id);
-				if (gameId.size() == 0) {
+				Optional<Game> gameId = gameMapper.findById(id);
+				if (gameId.isEmpty()) {
 					throw new NotFoundException("レコードは存在しませんでした。");
 				} else {
 					gameView = gameId.stream().map(GameView::new).collect(Collectors.toList());
