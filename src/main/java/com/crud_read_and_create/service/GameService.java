@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import com.crud_read_and_create.entity.GamePlatform;
 import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.mapper.GameMapper;
 import com.crud_read_and_create.service.exception.DuplicateException;
+import com.crud_read_and_create.service.exception.NoneMatchException;
 import com.crud_read_and_create.service.exception.NotFoundException;
 
 @Service
@@ -49,7 +51,14 @@ public class GameService {
 	}
 
 	@Transactional
-	public void createGame(Integer id, String name, String genre, Integer price, String[] platformIds) {
+	public void createGame(Integer id, String name, String genre, Integer price, String[] platformIds)
+			throws NoneMatchException {
+		List<Platform> platformList = gameMapper.findPlatform();
+		Stream<String> platformIdStream = Stream.of(platformIds);
+		if (!platformIdStream.anyMatch(inputPlatfrom -> platformList.stream()
+				.anyMatch(registeredPlatform -> registeredPlatform.getId().startsWith(inputPlatfrom)))) {
+			throw new NoneMatchException("存在しないプラットフォームが選択されています。");
+		}
 		Game game = new Game(id, name, genre, price);
 		gameMapper.createGame(game);
 		List<GamePlatform> gamePlatformList = Arrays.stream(platformIds)

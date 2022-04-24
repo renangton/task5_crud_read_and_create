@@ -37,12 +37,13 @@
             <input class="btn" type="submit" value="登録">
             <div class="success" th:text="${createSuccess}"></div>
             <div class="exception" th:text="${createFailed}"></div>
-            <div class="validation-error">          
+            <div class="none-match-platform" th:text="${noneMatchPlatform}"></div>
+            <div class="validation-error">
                 <p th:errors="*{name}"></p>
                 <p th:errors="*{genre}"></p>
                 <p th:errors="*{platformId}"></p>
                 <p th:errors="*{price}"></p>
-            </div>    
+            </div>
         </form>
     </div>
 </body>
