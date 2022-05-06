@@ -34,4 +34,17 @@ public class Platform {
 		this.platform = platform;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj instanceof Platform) {
+			Platform otherPlatform = (Platform) obj;
+			if (this.id.equals(otherPlatform.id) && this.platform.equals(otherPlatform.platform)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -68,4 +68,18 @@ public class Game {
 		this.platforms = platforms;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj instanceof Game) {
+			Game otherGame = (Game) obj;
+			if (this.id == otherGame.id && this.name.equals(otherGame.name) && this.genre.equals(otherGame.genre)
+					&& this.price == otherGame.price) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

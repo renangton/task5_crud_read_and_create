@@ -34,4 +34,18 @@ public class GamePlatform {
 		this.platformId = platformId;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj instanceof GamePlatform) {
+			GamePlatform otherGamePlatform = (GamePlatform) obj;
+			if (this.gameId == otherGamePlatform.gameId && this.platformId.equals(otherGamePlatform.platformId)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

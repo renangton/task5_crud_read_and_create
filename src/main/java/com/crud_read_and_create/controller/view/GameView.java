@@ -42,4 +42,19 @@ public class GameView {
 		return price;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj instanceof GameView) {
+			GameView otherGameView = (GameView) obj;
+			if (this.id == otherGameView.id && this.name.equals(otherGameView.name)
+					&& this.genre.equals(otherGameView.genre) && this.platforms.equals(otherGameView.platforms)
+					&& this.price.equals(otherGameView.price)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
