@@ -30,8 +30,8 @@ class GameMapperTest {
 	@Test
 	@DataSet(value = "games.yml")
 	void ゲームを全件取得できること() {
-		List<Platform> platformList1 = Arrays.asList(new Platform("1", "PS5"));
-		List<Platform> platformList2 = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Steam"));
+		List<Platform> platformList1 = Arrays.asList(new Platform(1, "PS5"));
+		List<Platform> platformList2 = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Steam"));
 		List<Game> games = gameMapper.findAll(OrderBy.from("ASC"));
 		assertThat(games).hasSize(2).contains(new Game(1, "ELDENRING", "ARPG", 9000, platformList1),
 				new Game(2, "Apex", "FPS", 0, platformList2));
@@ -40,7 +40,7 @@ class GameMapperTest {
 	@Test
 	@DataSet(value = "games.yml")
 	void 引数のidに対応したゲームを取得できること() {
-		List<Platform> platformList = Arrays.asList(new Platform("1", "PS5"));
+		List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"));
 		Optional<Game> game = gameMapper.findById(1);
 		assertThat(game).contains(new Game(1, "ELDENRING", "ARPG", 9000, platformList));
 	}
@@ -49,7 +49,7 @@ class GameMapperTest {
 	@DataSet(value = "games.yml")
 	void プラットフォームを全件取得できること() {
 		List<Platform> platformList = gameMapper.findPlatform();
-		assertThat(platformList).hasSize(2).contains(new Platform("1", "PS5"), new Platform("2", "Steam"));
+		assertThat(platformList).hasSize(2).contains(new Platform(1, "PS5"), new Platform(2, "Steam"));
 	}
 
 	@Test
@@ -79,6 +79,6 @@ class GameMapperTest {
 	@DataSet(value = "empty.yml")
 	@ExpectedDataSet(value = "expectedAfterInsertPlatforms.yml", ignoreCols = "id")
 	void プラットフォームを登録できること() {
-		gameMapper.createPlatform(null, "PS5");
+		gameMapper.createPlatform(new Platform(1, "PS5"));
 	}
 }

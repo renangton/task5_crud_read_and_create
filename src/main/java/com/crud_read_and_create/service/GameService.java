@@ -57,11 +57,12 @@ public class GameService {
 		gameMapper.createGamePlatform(gamePlatformList);
 	}
 
-	public int createPlatform(String id, String platform) throws DuplicateException {
+	public int createPlatform(Integer id, String platform) throws DuplicateException {
 		List<Platform> platformList = gameMapper.findPlatform();
 		if (platformList.stream().anyMatch(registeredPlatform -> registeredPlatform.getPlatform().equals(platform))) {
 			throw new DuplicateException("プラットフォームが重複しています。");
 		}
-		return gameMapper.createPlatform(id, platform);
+		Platform platformData = new Platform(id, platform);
+		return gameMapper.createPlatform(platformData);
 	}
 }

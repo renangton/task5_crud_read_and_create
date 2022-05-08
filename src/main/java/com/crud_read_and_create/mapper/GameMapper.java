@@ -24,6 +24,6 @@ public interface GameMapper {
 
 	public Integer createGamePlatform(@Param("gamePlatformList") List<GamePlatform> gamePlatformList);
 
-	public Integer createPlatform(@Param("id") String id, @Param("platform") String platform);
+	public Integer createPlatform(Platform platformData);
 
 }

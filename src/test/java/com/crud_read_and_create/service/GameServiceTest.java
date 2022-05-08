@@ -37,7 +37,7 @@ class GameServiceTest {
 
 	@Test
 	void idがnullの時_ゲームを全件取得できること() throws NotFoundException {
-		List<Platform> platformList = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
+		List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
 		List<Game> gameList = Arrays.asList(new Game(1, "R6E", "FPS", 6600, platformList),
 				new Game(2, "BIOHAZARD8", "Horror", 7200, platformList),
 				new Game(3, "DARKSOULS", "ARPG", 4200, platformList));
@@ -57,7 +57,7 @@ class GameServiceTest {
 
 	@Test
 	void idに数字が入力されていてレコードが存在する時_対象のゲームを取得できること() throws NotFoundException {
-		List<Platform> platformList = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
+		List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
 		Optional<Game> gameId = Optional.of(new Game(1, "R6E", "FPS", 6600, platformList));
 		doReturn(gameId).when(gameMapper).findById(1);
 		List<GameView> gameViewList = gameId.stream().map(GameView::new).collect(Collectors.toList());
@@ -68,7 +68,7 @@ class GameServiceTest {
 
 	@Test
 	void プラットフォームを全件取得できること() {
-		List<Platform> platformList = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
+		List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
 		doReturn(platformList).when(gameMapper).findPlatform();
 
 		List<Platform> actualPlatformList = gameService.getPlatform();
@@ -113,24 +113,23 @@ class GameServiceTest {
 
 	@Test
 	void 入力したプラットフォームがすでに登録されている時_DuplicateExceptionが発生すること() throws DuplicateException {
-		List<Platform> platforms = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
-		doReturn(platforms).when(gameMapper).findPlatform();
-		assertThrows(DuplicateException.class, () -> gameService.createPlatform("1", "PS5"));
+		List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
+		doReturn(platformList).when(gameMapper).findPlatform();
+		assertThrows(DuplicateException.class, () -> gameService.createPlatform(1, "PS5"));
 	}
+
+	@Captor
+	ArgumentCaptor<Platform> platformCapture;
 
 	@Test
 	void 入力したプラットフォームが未登録の時_platformが設定されたplatformListが返却されること() throws DuplicateException {
-		ArgumentCaptor<String> idCapture = ArgumentCaptor.forClass(String.class);
-		ArgumentCaptor<String> platformCapture = ArgumentCaptor.forClass(String.class);
-		List<Platform> platforms = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
-		doReturn(platforms).when(gameMapper).findPlatform();
-		String id = "3";
-		String platform = "Steam";
-		gameService.createPlatform(id, platform);
-		verify(gameMapper, times(1)).createPlatform(idCapture.capture(), platformCapture.capture());
-		String actualId = idCapture.getValue();
-		String actualPlatform = platformCapture.getValue();
-		assertThat(actualId).isEqualTo(id);
-		assertThat(actualPlatform).isEqualTo(platform);
+		List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
+		doReturn(platformList).when(gameMapper).findPlatform();
+		Platform platformData = new Platform(3, "Steam");
+
+		gameService.createPlatform(platformData.getId(), platformData.getPlatform());
+		verify(gameMapper, times(1)).createPlatform(platformCapture.capture());
+		Platform actualPlatform = platformCapture.getValue();
+		assertThat(actualPlatform).isEqualTo(platformData);
 	}
 }

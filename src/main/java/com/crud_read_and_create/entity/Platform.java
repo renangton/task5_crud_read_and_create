@@ -1,10 +1,10 @@
 package com.crud_read_and_create.entity;
 
 public class Platform {
-	private String id;
+	private Integer id;
 	private String platform;
 
-	public Platform(String id, String platform) {
+	public Platform(Integer id, String platform) {
 		this.id = id;
 		this.platform = platform;
 	}
@@ -13,7 +13,7 @@ public class Platform {
 
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -26,7 +26,7 @@ public class Platform {
 		return "Platform [id=" + id + ", platform=" + platform + "]";
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
