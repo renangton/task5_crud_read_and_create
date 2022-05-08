@@ -1,0 +1,10 @@
+cacheConnection: false
+cacheTableNames: false
+properties:
+  schema: game_list
+caseInsensitiveStrategy: LOWERCASE
+connectionConfig:
+  url: "jdbc:mysql://localhost:3307/game_list"
+  user: "user"
+  password: "example"
+  

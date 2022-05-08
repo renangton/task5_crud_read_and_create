@@ -37,15 +37,15 @@ class GameServiceTest {
 
 	@Test
 	void idがnullの時_ゲームを全件取得できること() throws NotFoundException {
-		List<Platform> platforms = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
-		List<Game> gameList = Arrays.asList(new Game(1, "R6E", "FPS", 6600, platforms),
-				new Game(2, "BIOHAZARD8", "Horror", 7200, platforms),
-				new Game(3, "DARKSOULS", "ARPG", 4200, platforms));
+		List<Platform> platformList = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
+		List<Game> gameList = Arrays.asList(new Game(1, "R6E", "FPS", 6600, platformList),
+				new Game(2, "BIOHAZARD8", "Horror", 7200, platformList),
+				new Game(3, "DARKSOULS", "ARPG", 4200, platformList));
 		doReturn(gameList).when(gameMapper).findAll(OrderBy.from("ASC"));
-		List<GameView> gameView = gameList.stream().map(GameView::new).collect(Collectors.toList());
+		List<GameView> gameViewList = gameList.stream().map(GameView::new).collect(Collectors.toList());
 
-		List<GameView> actualGames = gameService.getGames(null, "asc");
-		assertThat(actualGames).hasSize(3).isEqualTo(gameView);
+		List<GameView> actualGameList = gameService.getGames(null, "asc");
+		assertThat(actualGameList).hasSize(3).isEqualTo(gameViewList);
 	}
 
 	@Test
@@ -57,22 +57,22 @@ class GameServiceTest {
 
 	@Test
 	void idに数字が入力されていてレコードが存在する時_対象のゲームを取得できること() throws NotFoundException {
-		List<Platform> platforms = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
-		Optional<Game> gameId = Optional.of(new Game(1, "R6E", "FPS", 6600, platforms));
+		List<Platform> platformList = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
+		Optional<Game> gameId = Optional.of(new Game(1, "R6E", "FPS", 6600, platformList));
 		doReturn(gameId).when(gameMapper).findById(1);
-		List<GameView> gameView = gameId.stream().map(GameView::new).collect(Collectors.toList());
+		List<GameView> gameViewList = gameId.stream().map(GameView::new).collect(Collectors.toList());
 
-		List<GameView> actualGame = gameService.getGames(1, "asc");
-		assertThat(actualGame).isEqualTo(gameView);
+		List<GameView> actualGameList = gameService.getGames(1, "asc");
+		assertThat(actualGameList).isEqualTo(gameViewList);
 	}
 
 	@Test
 	void プラットフォームを全件取得できること() {
-		List<Platform> platforms = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
-		doReturn(platforms).when(gameMapper).findPlatform();
+		List<Platform> platformList = Arrays.asList(new Platform("1", "PS5"), new Platform("2", "Switch"));
+		doReturn(platformList).when(gameMapper).findPlatform();
 
-		List<Platform> actualPlatforms = gameService.getPlatform();
-		assertThat(actualPlatforms).hasSize(2).isEqualTo(platforms);
+		List<Platform> actualPlatformList = gameService.getPlatform();
+		assertThat(actualPlatformList).hasSize(2).isEqualTo(platformList);
 	}
 
 	@Captor

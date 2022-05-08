@@ -17,7 +17,7 @@
 	</resultMap>
 
 	<resultMap type="com.crud_read_and_create.entity.Platform" id="platformMap">
-		<id property="id" column="platform_id" />
+		<result property="id" column="platform_id" />
 		<result property="platform" column="platform" />
 	</resultMap>
 
