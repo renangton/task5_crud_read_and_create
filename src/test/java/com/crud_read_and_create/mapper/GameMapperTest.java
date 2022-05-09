@@ -29,12 +29,24 @@ class GameMapperTest {
 
 	@Test
 	@DataSet(value = "games.yml")
-	void ゲームを全件取得できること() {
+	void 昇順が選択されている時_ゲームを昇順で全件取得できること() {
 		List<Platform> platformList1 = Arrays.asList(new Platform(1, "PS5"));
 		List<Platform> platformList2 = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Steam"));
-		List<Game> games = gameMapper.findAll(OrderBy.from("ASC"));
-		assertThat(games).hasSize(2).contains(new Game(1, "ELDENRING", "ARPG", 9000, platformList1),
+		List<Game> expectedGameList = Arrays.asList(new Game(1, "ELDENRING", "ARPG", 9000, platformList1),
 				new Game(2, "Apex", "FPS", 0, platformList2));
+		List<Game> games = gameMapper.findAll(OrderBy.from("asc"));
+		assertThat(games).hasSize(2).isEqualTo(expectedGameList);
+	}
+
+	@Test
+	@DataSet(value = "games.yml")
+	void 降順が選択されている時_ゲームを降順で全件取得できること() {
+		List<Platform> platformList1 = Arrays.asList(new Platform(1, "PS5"));
+		List<Platform> platformList2 = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Steam"));
+		List<Game> expectedGameList = Arrays.asList(new Game(2, "Apex", "FPS", 0, platformList2),
+				new Game(1, "ELDENRING", "ARPG", 9000, platformList1));
+		List<Game> games = gameMapper.findAll(OrderBy.from("desc"));
+		assertThat(games).hasSize(2).isEqualTo(expectedGameList);
 	}
 
 	@Test
