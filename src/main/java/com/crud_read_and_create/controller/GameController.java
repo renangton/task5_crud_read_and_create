@@ -86,7 +86,7 @@ public class GameController {
 			redirectAttributes.addFlashAttribute("createSuccess", "登録に成功しました。");
 			redirectAttributes.addFlashAttribute("platformList", platformList);
 		}
-		return "redirect:create";
+		return "redirect:/create";
 	}
 
 	@PostMapping("/create-platform")
@@ -109,7 +109,7 @@ public class GameController {
 				return "createPlatform";
 			}
 		}
-		return "redirect:create-platform";
+		return "redirect:/create-platform";
 	}
 
 }
