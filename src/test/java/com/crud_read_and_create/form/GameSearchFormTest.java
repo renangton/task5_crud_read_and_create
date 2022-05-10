@@ -20,6 +20,13 @@ class GameSearchFormTest {
 	private BindingResult bindingResult = new BindException(gameSearchForm, "gameSearchForm");
 
 	@Test
+	void 正常系_Pattern_empty() {
+		gameSearchForm = new GameSearchForm("", "asc");
+		validator.validate(gameSearchForm, bindingResult);
+		assertNull(bindingResult.getFieldError());
+	}
+
+	@Test
 	void 正常系_Pattern_整数_1() {
 		gameSearchForm = new GameSearchForm("1", "asc");
 		validator.validate(gameSearchForm, bindingResult);
