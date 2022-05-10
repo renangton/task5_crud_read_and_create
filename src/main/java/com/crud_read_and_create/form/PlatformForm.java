@@ -11,6 +11,15 @@ public class PlatformForm {
 	@NotBlank(message = "プラットフォームが未入力です。")
 	private String platform;
 
+	public PlatformForm(Integer id,
+			@Length(max = 20, message = "プラットフォームは20文字以内で入力して下さい。") @NotBlank(message = "プラットフォームが未入力です。") String platform) {
+		this.id = id;
+		this.platform = platform;
+	}
+
+	public PlatformForm() {
+	}
+
 	public Integer getId() {
 		return id;
 	}

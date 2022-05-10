@@ -26,6 +26,21 @@ public class GameForm {
 	@Size(min = 1, message = "プラットフォームが未選択です。")
 	private String[] platformId;
 
+	public GameForm(Integer id,
+			@Length(max = 20, message = "タイトルは20文字以内で入力して下さい。") @NotBlank(message = "タイトルが未入力です。") String name,
+			@Length(max = 20, message = "ジャンルは20文字以内で入力して下さい。") @NotBlank(message = "ジャンルが未入力です。") String genre,
+			@Range(min = 0, max = 100000, message = "価格は0~100000の範囲で入力して下さい。") @NotNull(message = "価格が未入力です。") Integer price,
+			@Size(min = 1, message = "プラットフォームが未選択です。") String[] platformId) {
+		this.id = id;
+		this.name = name;
+		this.genre = genre;
+		this.price = price;
+		this.platformId = platformId;
+	}
+
+	public GameForm() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
