@@ -11,9 +11,7 @@ public class GameSearchForm {
 
 	private String order;
 
-	public GameSearchForm(
-			@Pattern(regexp = "|[1-9]|[1-9][0-9]{0,2}0?", message = "IDは1～1000の範囲の整数で入力してください。") String id,
-			String order) {
+	public GameSearchForm(String id, String order) {
 		this.id = id;
 		this.order = order;
 	}
@@ -28,13 +26,5 @@ public class GameSearchForm {
 
 	public String getOrder() {
 		return order;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public void setOrder(String order) {
-		this.order = order;
 	}
 }
