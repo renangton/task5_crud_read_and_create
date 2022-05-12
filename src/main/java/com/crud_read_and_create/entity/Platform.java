@@ -26,10 +26,6 @@ public class Platform {
 		return "Platform [id=" + id + ", platform=" + platform + "]";
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public void setPlatform(String platform) {
 		this.platform = platform;
 	}

@@ -28,10 +28,6 @@ public class GamePlatform {
 		return platformId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public void setGameId(Integer gameId) {
 		this.gameId = gameId;
 	}
