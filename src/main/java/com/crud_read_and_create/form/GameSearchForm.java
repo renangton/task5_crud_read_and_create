@@ -27,4 +27,12 @@ public class GameSearchForm {
 	public String getOrder() {
 		return order;
 	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
 }
