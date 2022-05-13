@@ -20,35 +20,35 @@ class PlatformFormTest {
 	private BindingResult bindingResult = new BindException(platformForm, "platformForm");
 
 	@Test
-	void 正常系_NotBlank() {
+	void 正しい値を渡した時_バリデーションエラーとならないこと() {
 		platformForm = new PlatformForm(1, "platform");
 		validator.validate(platformForm, bindingResult);
 		assertNull(bindingResult.getFieldError());
 	}
 
 	@Test
-	void 異常系_NotBlank_empty() {
+	void 必須項目に空文字を渡した時_バリデーションエラーとなること() {
 		platformForm = new PlatformForm(1, "");
 		validator.validate(platformForm, bindingResult);
 		assertThat(bindingResult.getFieldErrorCount()).isEqualTo(1);
 	}
 
 	@Test
-	void 異常系_NotBlank_null() {
+	void 必須項目にnullを渡した時_バリデーションエラーとなること() {
 		platformForm = new PlatformForm(1, null);
 		validator.validate(platformForm, bindingResult);
 		assertThat(bindingResult.getFieldErrorCount()).isEqualTo(1);
 	}
 
 	@Test
-	void 正常系_Length_max() {
+	void platformに20文字以内の値を渡した時_バリデーションエラーとならないこと() {
 		platformForm = new PlatformForm(1, "abcdefghijklmnopqrst");
 		validator.validate(platformForm, bindingResult);
 		assertNull(bindingResult.getFieldError());
 	}
 
 	@Test
-	void 異常系_Length_max() {
+	void platformに20文字を超える値を渡した時_バリデーションエラーとなること() {
 		platformForm = new PlatformForm(1, "abcdefghijklmnopqrstu");
 		validator.validate(platformForm, bindingResult);
 		assertThat(bindingResult.getFieldErrorCount()).isEqualTo(1);

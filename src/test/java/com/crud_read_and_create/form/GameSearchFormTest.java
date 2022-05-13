@@ -20,49 +20,49 @@ class GameSearchFormTest {
 	private BindingResult bindingResult = new BindException(gameSearchForm, "gameSearchForm");
 
 	@Test
-	void 正常系_Pattern_empty() {
+	void 正しい値を渡した時_バリデーションエラーとならないこと() {
 		gameSearchForm = new GameSearchForm("", "asc");
 		validator.validate(gameSearchForm, bindingResult);
 		assertNull(bindingResult.getFieldError());
 	}
 
 	@Test
-	void 正常系_Pattern_整数_1() {
+	void idに1を渡した時_バリデーションエラーとならないこと() {
 		gameSearchForm = new GameSearchForm("1", "asc");
 		validator.validate(gameSearchForm, bindingResult);
 		assertNull(bindingResult.getFieldError());
 	}
 
 	@Test
-	void 正常系_Pattern_整数_555() {
+	void idに555を渡した時_バリデーションエラーとならないこと() {
 		gameSearchForm = new GameSearchForm("555", "asc");
 		validator.validate(gameSearchForm, bindingResult);
 		assertNull(bindingResult.getFieldError());
 	}
 
 	@Test
-	void 正常系_Pattern_整数_1000() {
+	void idに1000を渡した時_バリデーションエラーとならないこ() {
 		gameSearchForm = new GameSearchForm("1000", "asc");
 		validator.validate(gameSearchForm, bindingResult);
 		assertNull(bindingResult.getFieldError());
 	}
 
 	@Test
-	void 異常系_Pattern_整数_0() {
+	void idに0を渡した時_バリデーションエラーとなること() {
 		gameSearchForm = new GameSearchForm("0", "asc");
 		validator.validate(gameSearchForm, bindingResult);
 		assertThat(bindingResult.getFieldErrorCount()).isEqualTo(1);
 	}
 
 	@Test
-	void 異常系_Pattern_整数_1001() {
+	void idに1001を渡した時_バリデーションエラーとなること() {
 		gameSearchForm = new GameSearchForm("1001", "asc");
 		validator.validate(gameSearchForm, bindingResult);
 		assertThat(bindingResult.getFieldErrorCount()).isEqualTo(1);
 	}
 
 	@Test
-	void 異常系_Pattern_文字() {
+	void idに文字列を渡した時_バリデーションエラーとなること() {
 		gameSearchForm = new GameSearchForm("ID", "asc");
 		validator.validate(gameSearchForm, bindingResult);
 		assertThat(bindingResult.getFieldErrorCount()).isEqualTo(1);
