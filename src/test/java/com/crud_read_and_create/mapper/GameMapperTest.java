@@ -1,16 +1,5 @@
 package com.crud_read_and_create.mapper;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.jupiter.api.Test;
-import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-
 import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.GamePlatform;
 import com.crud_read_and_create.entity.Platform;
@@ -18,6 +7,16 @@ import com.crud_read_and_create.service.OrderBy;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
+import org.junit.jupiter.api.Test;
+import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DBRider
 @MybatisTest
@@ -55,6 +54,13 @@ class GameMapperTest {
 		List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"));
 		Optional<Game> game = gameMapper.findById(1);
 		assertThat(game).contains(new Game(1, "ELDENRING", "ARPG", 9000, platformList));
+	}
+
+	@Test
+	@DataSet(value = "games.yml")
+	void 引数のidに対応したゲームが存在しない時_空のOptionalを取得すること() {
+		Optional<Game> emptyGame = gameMapper.findById(3);
+		assertThat(emptyGame).isEqualTo(Optional.empty());
 	}
 
 	@Test
