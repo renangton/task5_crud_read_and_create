@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -47,9 +48,12 @@ class GameServiceTest {
 
     @Test
     void idに数字が入力されていてレコードが存在しない時_NotFoundExceptionが発生すること() {
-        Optional<Game> emptyGame = Optional.empty();
-        doReturn(emptyGame).when(gameMapper).findById(1);
+        doReturn(Optional.empty()).when(gameMapper).findById(1);
         assertThrows(NotFoundException.class, () -> gameService.getGames(1, "asc"));
+        assertThatThrownBy(() -> {
+            throw new NotFoundException("レコードは存在しませんでした。");
+        })
+                .hasMessage("レコードは存在しませんでした。");
     }
 
     @Test
@@ -99,6 +103,7 @@ class GameServiceTest {
         String[] platformIds = {"1", "2"};
         List<GamePlatform> gamePlatformList = Arrays.asList(new GamePlatform(game.getId(), platformIds[0]),
                 new GamePlatform(game.getId(), platformIds[1]));
+        
         gameService.createGame(game.getId(), game.getName(), game.getGenre(), game.getPrice(), platformIds);
         verify(gameMapper, times(1)).createGame(gameCapture.capture());
         verify(gameMapper, times(1)).createGamePlatform(gamePlatformCapture.capture());
@@ -113,6 +118,10 @@ class GameServiceTest {
         List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
         doReturn(platformList).when(gameMapper).findPlatform();
         assertThrows(DuplicateException.class, () -> gameService.createPlatform(1, "PS5"));
+        assertThatThrownBy(() -> {
+            throw new DuplicateException("プラットフォームが重複しています。");
+        })
+                .hasMessage("プラットフォームが重複しています。");
     }
 
     @Captor
