@@ -2,6 +2,7 @@ package com.crud_read_and_create.form;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -12,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 import static org.junit.Assert.assertNull;
 
-@SpringBootTest
+@SpringBootTest(classes = {ValidationAutoConfiguration.class})
 class GameSearchFormTest {
 
     @Autowired
