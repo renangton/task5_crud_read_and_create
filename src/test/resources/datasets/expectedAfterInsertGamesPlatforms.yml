@@ -2,3 +2,4 @@ games_platforms:
   - id: 1
     games_id: 1
     platforms_id: 1
+    
