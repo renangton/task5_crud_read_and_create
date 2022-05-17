@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"></meta>
-<link th:href="@{/css/stylesheet.css}" rel="stylesheet">
-<title>GameSearch</title>
+    <meta charset="UTF-8"></meta>
+    <link th:href="@{/css/stylesheet.css}" rel="stylesheet">
+    <title>GameSearch</title>
 </head>
 <body>
-    <header>
-        <div class="header-logo">GAMEの検索と登録</div>
-        <div class="header-list">
-            <ul>
-                <li><a th:href="@{/search}">検索条件</a></li>
-                <li><a th:href="@{/create}">GAME登録</a></li>
-                <li><a th:href="@{/create-platform}">PLATFORM登録</a></li>
-            </ul>
-        </div>
-    </header>
-    <div class="main">
-        <h1>システムエラーが発生しました。</h1>
-        詳細：<p th:text="${detail_message}"></p>
+<header>
+    <div class="header-logo">GAMEの検索と登録</div>
+    <div class="header-list">
+        <ul>
+            <li><a th:href="@{/search}">検索条件</a></li>
+            <li><a th:href="@{/create}">GAME登録</a></li>
+            <li><a th:href="@{/create-platform}">PLATFORM登録</a></li>
+        </ul>
     </div>
+</header>
+<div class="main">
+    <h1>システムエラーが発生しました。</h1>
+    <a th:href="@{/search}">TOP画面に戻る</a>
+</div>
 </body>
 </html>
