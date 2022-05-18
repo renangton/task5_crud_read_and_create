@@ -1,5 +1,6 @@
 package com.crud_read_and_create.form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
@@ -76,14 +77,14 @@ class GameFormTest {
 
     @Test
     void nameとgenreに20文字以内の値を渡した時_バリデーションエラーとならないこと() {
-        gameForm = new GameForm(1, "abcdefghijklmnopqrst", "abcdefghijklmnopqrst", 100, platforms);
+        gameForm = new GameForm(1, StringUtils.repeat("n", 20), StringUtils.repeat("g", 20), 100, platforms);
         validator.validate(gameForm, bindingResult);
         assertNull(bindingResult.getFieldError());
     }
 
     @Test
     void nameとgenreに20文字を超える値を渡した時_バリデーションエラーとなること() {
-        gameForm = new GameForm(1, "abcdefghijklmnopqrstu", "abcdefghijklmnopqrstu", 100, platforms);
+        gameForm = new GameForm(1, StringUtils.repeat("a", 21), StringUtils.repeat("b", 21), 100, platforms);
         validator.validate(gameForm, bindingResult);
         assertThat(bindingResult.getFieldErrors()).extracting(
                 FieldError::getField,

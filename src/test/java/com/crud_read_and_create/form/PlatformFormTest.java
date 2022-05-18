@@ -1,5 +1,6 @@
 package com.crud_read_and_create.form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
@@ -55,14 +56,14 @@ class PlatformFormTest {
 
     @Test
     void platformに20文字以内の値を渡した時_バリデーションエラーとならないこと() {
-        platformForm = new PlatformForm(1, "abcdefghijklmnopqrst");
+        platformForm = new PlatformForm(1, StringUtils.repeat("p", 20));
         validator.validate(platformForm, bindingResult);
         assertNull(bindingResult.getFieldError());
     }
 
     @Test
     void platformに20文字を超える値を渡した時_バリデーションエラーとなること() {
-        platformForm = new PlatformForm(1, "abcdefghijklmnopqrstu");
+        platformForm = new PlatformForm(1, StringUtils.repeat("p", 21));
         validator.validate(platformForm, bindingResult);
         assertThat(bindingResult.getFieldErrors()).extracting(
                 FieldError::getField,
