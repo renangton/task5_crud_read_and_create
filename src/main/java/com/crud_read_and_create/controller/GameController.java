@@ -13,11 +13,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.form.GameForm;
+import com.crud_read_and_create.form.GameSearchForm;
 import com.crud_read_and_create.form.PlatformForm;
 import com.crud_read_and_create.service.GameService;
 import com.crud_read_and_create.service.exception.DuplicateException;
 import com.crud_read_and_create.service.exception.NotFoundException;
-import com.crud_read_and_create.service.exception.PatternIntException;
 
 @Controller
 public class GameController {
@@ -57,13 +57,16 @@ public class GameController {
 	}
 
 	@PostMapping("/search/db")
-	public String search(GameForm gameForm, Model model) {
-		try {
-			model.addAttribute("gameList", gameService.getGames(gameForm.getId(), gameForm.getOrder()));
-		} catch (NotFoundException e) {
-			model.addAttribute("notFound", "レコードは存在しませんでした。");
-		} catch (PatternIntException e) {
-			model.addAttribute("mojiretsu", "数字を入力して下さい。");
+	public String search(@Validated GameSearchForm gameSearchForm, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("validationError", bindingResult.getFieldError().getDefaultMessage());
+			return "search";
+		} else {
+			try {
+				model.addAttribute("gameList", gameService.getGames(gameSearchForm.getId(), gameSearchForm.getOrder()));
+			} catch (NotFoundException e) {
+				model.addAttribute("notFound", "レコードは存在しませんでした。");
+			}
 		}
 		return "search/db";
 	}
@@ -83,7 +86,7 @@ public class GameController {
 			redirectAttributes.addFlashAttribute("createSuccess", "登録に成功しました。");
 			redirectAttributes.addFlashAttribute("platformList", platformList);
 		}
-		return "redirect:create";
+		return "redirect:/create";
 	}
 
 	@PostMapping("/create-platform")
@@ -106,6 +109,7 @@ public class GameController {
 				return "createPlatform";
 			}
 		}
-		return "redirect:create-platform";
+		return "redirect:/create-platform";
 	}
+
 }

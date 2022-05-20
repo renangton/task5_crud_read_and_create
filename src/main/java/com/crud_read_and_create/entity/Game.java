@@ -3,13 +3,13 @@ package com.crud_read_and_create.entity;
 import java.util.List;
 
 public class Game {
-	private String id;
+	private Integer id;
 	private String name;
 	private String genre;
 	private Integer price;
 	private List<Platform> platforms;
 
-	public Game(String id, String name, String genre, Integer price, List<Platform> platforms) {
+	public Game(Integer id, String name, String genre, Integer price, List<Platform> platforms) {
 		this.id = id;
 		this.name = name;
 		this.genre = genre;
@@ -17,7 +17,7 @@ public class Game {
 		this.platforms = platforms;
 	}
 
-	public Game(String id, String name, String genre, Integer price) {
+	public Game(Integer id, String name, String genre, Integer price) {
 		this.id = id;
 		this.name = name;
 		this.genre = genre;
@@ -28,7 +28,7 @@ public class Game {
 
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -48,10 +48,6 @@ public class Game {
 		return platforms;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -68,4 +64,23 @@ public class Game {
 		this.platforms = platforms;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj instanceof Game) {
+			Game otherGame = (Game) obj;
+			if (this.id == otherGame.id && this.name.equals(otherGame.name) && this.genre.equals(otherGame.genre)
+					&& this.price.equals(otherGame.price)) {
+				if (!(this.platforms == null)) {
+					if (this.platforms.equals(otherGame.platforms)) {
+						return true;
+					}
+				}
+				return true;
+			}
+		}
+		return false;
+	}
 }

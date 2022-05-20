@@ -16,7 +16,7 @@
         </div>
     </header>
     <div class="main">
-        <form method="post" th:action="@{/search/db}">
+        <form method="post" th:action="@{/search/db}" th:object="${gameForm}">
             <div class="main-logo">検索条件</div>
             <table>
                 <tr>
@@ -24,6 +24,9 @@
                     <th><input class="searchId" type="text" name="id" th:value="${id_value}"></th>
                 </tr>
             </table>
+            <div class="validation-error">
+                <p th:text="${validationError}"></p>
+            </div>
             <div>
                 <input type="radio" id="asc" name="order" value="asc" checked> <label for="asc">昇順</label> <input type="radio" id="desc" name="order" value="desc"> <label for="desc">降順</label>
             </div>

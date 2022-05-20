@@ -124,3 +124,9 @@ table th, table td {
   margin-top: 10px;
   font-size: 12px;
 }
+
+.none-match-platform {
+  color: red;
+  margin-top: 10px;
+  font-size: 12px;
+}

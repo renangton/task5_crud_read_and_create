@@ -1,0 +1,14 @@
+games:
+  - id: 1
+    name: "ELDENRING"
+    genre: "ARPG"
+    price: 9000
+    
+games_platforms:
+
+platforms:
+  - id: 1
+    platform: "PS5"
+  - id: 2
+    platform: "Steam"
+    

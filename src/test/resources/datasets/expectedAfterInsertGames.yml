@@ -1,0 +1,6 @@
+games:
+  - id: 1
+    name: "ELDENRING"
+    genre: "ARPG"
+    price: 9000
+    
