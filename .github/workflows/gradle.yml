@@ -28,5 +28,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      - name: Docker Run
+        run: docker compose up -d
       - name: Test with Gradle
         run: ./gradlew test
