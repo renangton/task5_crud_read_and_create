@@ -30,4 +30,3 @@ jobs:
           distribution: 'temurin'
       - name: Test with Gradle
         run: ./gradlew test
-      
