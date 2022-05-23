@@ -7,7 +7,7 @@ games:
     name: "Apex"
     genre: "FPS"
     price: 0
-    
+
 games_platforms:
   - id: 1
     games_id: 1
@@ -18,7 +18,7 @@ games_platforms:
   - id: 3
     games_id: 2
     platforms_id: 2
-    
+
 platforms:
   - id: 1
     platform: "PS5"
