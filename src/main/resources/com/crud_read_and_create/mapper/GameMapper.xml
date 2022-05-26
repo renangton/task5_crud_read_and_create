@@ -24,20 +24,16 @@
     <select id="findAll" resultMap="gameMap">
         SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
         FROM games
-                 INNER JOIN games_platforms
-                            ON games.id = games_platforms.games_id
-                 INNER JOIN platforms
-                            ON games_platforms.platforms_id = platforms.id
+                 INNER JOIN games_platforms ON games.id = games_platforms.games_id
+                 INNER JOIN platforms ON games_platforms.platforms_id = platforms.id
         ORDER BY games_platforms.id ${orderBy}
     </select>
 
     <select id="findById" resultMap="gameMap">
         SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
         FROM games
-                 INNER JOIN games_platforms
-                            ON games_platforms.games_id = games.id
-                 INNER JOIN platforms
-                            ON games_platforms.platforms_id = platforms.id
+                 INNER JOIN games_platforms ON games_platforms.games_id = games.id
+                 INNER JOIN platforms ON games_platforms.platforms_id = platforms.id
         WHERE games_id = #{id}
     </select>
 
@@ -57,8 +53,7 @@
     </insert>
 
     <insert id="createGamePlatform">
-        INSERT INTO games_platforms (games_id, platforms_id)
-        VALUES
+        INSERT INTO games_platforms (games_id, platforms_id) VALUES
         <foreach collection="gamePlatformList" item="list" separator=",">
             (#{list.gameId}, #{list.platformId})
         </foreach>
@@ -66,19 +61,18 @@
 
     <update id="updateGame">
         UPDATE games
-        SET game  = #{game},
+        SET name  = #{name},
             genre = #{genre},
             price = #{price}
         WHERE id = #{id}
     </update>
 
     <update id="updateGamePlatform">
-        UPDATE games_platforms
-        SET
+        UPDATE games_platforms SET
         <foreach collection="gamePlatformList" item="list" separator=",">
             (games_id = #{list.gameId}, platforms_id = #{list.platformId})
         </foreach>
-        WHERE games_id = #{id}
+        WHERE games_id = #{gameId}
     </update>
 
     <update id="updatePlatform">
@@ -87,16 +81,40 @@
         WHERE id = #{id}
     </update>
 
+    <delete id="deleteGameAndGamePlatform">
+        DELETE
+        games_platforms, games
+        FROM games_platforms INNER JOIN games
+        ON games_platforms.games_id = games.id
+        WHERE games.id =
+        #{id}
+    </delete>
+
     <delete id="deleteGame">
         DELETE
         FROM games
         WHERE id = #{id}
     </delete>
 
-    <delete id="deleteGamePlatform">
+    <delete id="deleteGamePlatformGameId">
         DELETE
         FROM games_platforms
         WHERE games_id = #{id}
+    </delete>
+
+    <delete id="deleteGamePlatformPlatformId">
+        DELETE
+        FROM games_platforms
+        WHERE platforms_id = #{id}
+    </delete>
+
+    <delete id="deletePlatformAndGamePlatform">
+        DELETE
+        games_platforms, platforms
+        FROM games_platforms INNER JOIN platforms
+        ON games_platforms.platforms_id = platforms.id
+        WHERE platforms.id =
+        #{id}
     </delete>
 
     <delete id="deletePlatform">

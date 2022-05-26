@@ -1,0 +1,23 @@
+games:
+  - id: 1
+    name: "ELDENRING"
+    genre: "ARPG"
+    price: 9000
+  - id: 2
+    name: "Apex"
+    genre: "FPS"
+    price: 0
+
+games_platforms:
+  - id: 1
+    games_id: 1
+    platforms_id: 1
+  - id: 2
+    games_id: 2
+    platforms_id: 1
+
+platforms:
+  - id: 1
+    platform: "PS5"
+  - id: 2
+    platform: "Steam"

@@ -19,21 +19,27 @@ public interface GameMapper {
 
     public List<Platform> findPlatform();
 
-    public Integer createGame(Game game);
+    public void createGame(Game game);
 
-    public Integer createGamePlatform(@Param("gamePlatformList") List<GamePlatform> gamePlatformList);
+    public void createGamePlatform(@Param("gamePlatformList") List<GamePlatform> gamePlatformList);
 
     public Integer createPlatform(Platform platformData);
 
-    public Integer updateGame(Game game);
+    public void updateGame(Game game);
 
-    public Integer updateGamePlatform(@Param("gamePlatformList") List<GamePlatform> gamePlatformList);
+    public void updateGamePlatform(@Param("gamePlatformList") List<GamePlatform> gamePlatformList);
 
-    public Integer updatePlatform(Platform platformData);
+    public void updatePlatform(Platform platformData);
 
-    public Integer deleteGame(Integer id);
+    public void deleteGameAndGamePlatform(Integer id);
 
-    public Integer deleteGamePlatform(Integer id);
+    public void deleteGame(Integer id);
 
-    public Integer daletePlatform(Integer id);
+    public void deleteGamePlatformGameId(Integer id);
+
+    public void deleteGamePlatformPlatformId(Integer id);
+
+    public void deletePlatformAndGamePlatform(Integer id);
+
+    public void deletePlatform(Integer id);
 }
