@@ -23,7 +23,7 @@ public interface GameMapper {
 
     public void createGamePlatform(@Param("gamePlatformList") List<GamePlatform> gamePlatformList);
 
-    public Integer createPlatform(Platform platformData);
+    public void createPlatform(Platform platformData);
 
     public void updateGame(Game game);
 
