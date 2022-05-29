@@ -66,15 +66,7 @@
             price = #{price}
         WHERE id = #{id}
     </update>
-
-    <update id="updateGamePlatform">
-        UPDATE games_platforms SET
-        <foreach collection="gamePlatformList" item="list" separator=",">
-            (games_id = #{list.gameId}, platforms_id = #{list.platformId})
-        </foreach>
-        WHERE games_id = #{gameId}
-    </update>
-
+    
     <update id="updatePlatform">
         UPDATE platforms
         SET platform = #{platform}
