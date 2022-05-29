@@ -145,7 +145,7 @@ class GameMapperTest {
     @Test
     @DataSet(value = "common/games.yml")
     @ExpectedDataSet(value = "common/games.yml")
-    void 存在しないゲームのIDで中間テーブルを削除しようとする時_中間テーブルを削除されないこと() {
+    void 存在しないゲームのIDで中間テーブルを削除しようとする時_中間テーブルが削除されないこと() {
         gameMapper.deleteGamePlatformGameId(3);
     }
 
@@ -180,7 +180,7 @@ class GameMapperTest {
     @Test
     @DataSet(value = "common/platformOnly.yml")
     @ExpectedDataSet(value = "common/platformOnly.yml")
-    void 存在しないプラットフォームのIDで削除しようとした時_プラットフォームが削除されないこと() {
+    void 存在しないプラットフォームのIDでプラットフォームを削除しようとした時_プラットフォームが削除されないこと() {
         gameMapper.deletePlatform(3);
     }
 }
