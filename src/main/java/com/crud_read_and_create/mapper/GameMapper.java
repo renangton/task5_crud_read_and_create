@@ -27,8 +27,6 @@ public interface GameMapper {
 
     public void updateGame(Game game);
 
-    public void updateGamePlatform(@Param("gamePlatformList") List<GamePlatform> gamePlatformList);
-
     public void updatePlatform(Platform platformData);
 
     public void deleteGameAndGamePlatform(Integer id);
