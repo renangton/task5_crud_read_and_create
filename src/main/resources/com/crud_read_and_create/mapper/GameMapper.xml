@@ -15,12 +15,7 @@
             <result property="platform" column="platform"/>
         </collection>
     </resultMap>
-
-    <resultMap type="com.crud_read_and_create.entity.Platform" id="platformMap">
-        <result property="id" column="platform_id"/>
-        <result property="platform" column="platform"/>
-    </resultMap>
-
+    
     <select id="findAll" resultMap="gameMap">
         SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
         FROM games
@@ -37,19 +32,9 @@
         WHERE games_id = #{id}
     </select>
 
-    <select id="findPlatform" resultMap="platformMap">
-        SELECT platforms.id as platform_id, platform
-        FROM platforms
-    </select>
-
     <insert id="createGame" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO games (name, genre, price)
         VALUES (#{name}, #{genre}, #{price})
-    </insert>
-
-    <insert id="createPlatform" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO platforms (platform)
-        VALUES (#{platform})
     </insert>
 
     <insert id="createGamePlatform">
@@ -64,12 +49,6 @@
         SET name  = #{name},
             genre = #{genre},
             price = #{price}
-        WHERE id = #{id}
-    </update>
-    
-    <update id="updatePlatform">
-        UPDATE platforms
-        SET platform = #{platform}
         WHERE id = #{id}
     </update>
 
@@ -92,26 +71,5 @@
         DELETE
         FROM games_platforms
         WHERE games_id = #{id}
-    </delete>
-
-    <delete id="deleteGamePlatformPlatformId">
-        DELETE
-        FROM games_platforms
-        WHERE platforms_id = #{id}
-    </delete>
-
-    <delete id="deletePlatformAndGamePlatform">
-        DELETE
-        games_platforms, platforms
-        FROM games_platforms INNER JOIN platforms
-        ON games_platforms.platforms_id = platforms.id
-        WHERE platforms.id =
-        #{id}
-    </delete>
-
-    <delete id="deletePlatform">
-        DELETE
-        FROM platforms
-        WHERE id = #{id}
     </delete>
 </mapper>

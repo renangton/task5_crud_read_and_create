@@ -64,13 +64,6 @@ class GameMapperTest {
     }
 
     @Test
-    @DataSet(value = "common/games.yml")
-    void プラットフォームを全件取得できること() {
-        List<Platform> platformList = gameMapper.findPlatform();
-        assertThat(platformList).hasSize(2).contains(new Platform(1, "PS5"), new Platform(2, "Steam"));
-    }
-
-    @Test
     @DataSet(value = "common/empty.yml")
     @ExpectedDataSet(value = "insert/expectedAfterInsertGames.yml", ignoreCols = "id")
     void ゲームを登録できること() {
@@ -94,24 +87,10 @@ class GameMapperTest {
     }
 
     @Test
-    @DataSet(value = "common/empty.yml")
-    @ExpectedDataSet(value = "insert/expectedAfterInsertPlatforms.yml", ignoreCols = "id")
-    void プラットフォームを登録できること() {
-        gameMapper.createPlatform(new Platform(1, "PS5"));
-    }
-
-    @Test
     @DataSet(value = "common/games.yml")
     @ExpectedDataSet(value = "update/expectedAfterUpdateGames.yml")
     void ゲームを更新できること() {
         gameMapper.updateGame(new Game(1, "Pokemon", "RPG", 8000));
-    }
-
-    @Test
-    @DataSet(value = "common/games.yml")
-    @ExpectedDataSet(value = "update/expectedAfterUpdatePlatforms.yml")
-    void プラットフォームを更新できること() {
-        gameMapper.updatePlatform(new Platform(1, "PS4"));
     }
 
     @Test
@@ -147,40 +126,5 @@ class GameMapperTest {
     @ExpectedDataSet(value = "common/games.yml")
     void 存在しないゲームのIDで中間テーブルを削除しようとする時_中間テーブルが削除されないこと() {
         gameMapper.deleteGamePlatformGameId(3);
-    }
-
-    @Test
-    @DataSet(value = "common/games.yml")
-    @ExpectedDataSet(value = "delete/expectedAfterDeleteGamesPlatformsPlatformId.yml")
-    void プラットフォームのIDが一致する中間テーブルを削除できること() {
-        gameMapper.deleteGamePlatformPlatformId(2);
-    }
-
-    @Test
-    @DataSet(value = "common/games.yml")
-    @ExpectedDataSet(value = "delete/expectedAfterDeleteGamesPlatformsPlatformId.yml")
-    void 存在しないプラットフォームのIDで中間テーブルを削除しようとした時_中間テーブルが削除されないこと() {
-        gameMapper.deleteGamePlatformPlatformId(2);
-    }
-
-    @Test
-    @DataSet(value = "common/games.yml")
-    @ExpectedDataSet(value = "delete/expectedAfterDeletePlatforms.yml")
-    void プラットフォームとプラットフォームのIDに紐づく中間テーブルを削除できること() {
-        gameMapper.deletePlatformAndGamePlatform(2);
-    }
-
-    @Test
-    @DataSet(value = "common/platformOnly.yml")
-    @ExpectedDataSet(value = "delete/expectedAfterDeletePlatformOnly.yml")
-    void プラットフォームと紐づく中間テーブルがない時_プラットフォームを削除できること() {
-        gameMapper.deletePlatform(2);
-    }
-
-    @Test
-    @DataSet(value = "common/platformOnly.yml")
-    @ExpectedDataSet(value = "common/platformOnly.yml")
-    void 存在しないプラットフォームのIDでプラットフォームを削除しようとした時_プラットフォームが削除されないこと() {
-        gameMapper.deletePlatform(3);
     }
 }
