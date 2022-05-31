@@ -32,3 +32,9 @@ jobs:
         run: docker compose up -d
       - name: Test with Gradle
         run: ./gradlew test
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: test results
+          path: build/reports/tests/test
