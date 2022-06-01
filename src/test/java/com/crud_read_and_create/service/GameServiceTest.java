@@ -103,7 +103,7 @@ class GameServiceTest {
         String[] platformIds = {"1", "2"};
         List<GamePlatform> gamePlatformList = Arrays.asList(new GamePlatform(game.getId(), platformIds[0]),
                 new GamePlatform(game.getId(), platformIds[1]));
-        
+
         gameService.createGame(game.getId(), game.getName(), game.getGenre(), game.getPrice(), platformIds);
         verify(gameMapper, times(1)).createGame(gameCapture.capture());
         verify(gameMapper, times(1)).createGamePlatform(gamePlatformCapture.capture());
@@ -137,5 +137,10 @@ class GameServiceTest {
         verify(gameMapper, times(1)).createPlatform(platformCapture.capture());
         Platform actualPlatform = platformCapture.getValue();
         assertThat(actualPlatform).isEqualTo(platformData);
+    }
+
+    @Test
+    void テスト失敗サンプル() {
+        assertThat("a").isEqualTo("b");
     }
 }
