@@ -21,7 +21,7 @@ env:
 
 jobs:
   test:
-    
+  slackNotification:
     runs-on: ubuntu-latest
     
     steps:
@@ -41,16 +41,15 @@ jobs:
         with:
           name: test results
           path: build/reports/tests/test
-      slackNotification:
-        - name: Slack Notification on Success
-          if: success()
-          uses: rtCamp/action-slack-notify@v2
-          env:
-            SLACK_TITLE: Test Success
-            SLACK_COLOR: good
-        - name: Slack Notification on Failure
-          uses: rtCamp/action-slack-notify@v2
-          if: failure()
-          env:
-            SLACK_TITLE: Test Failure
-            SLACK_COLOR: danger
+      - name: Slack Notification on Success
+        if: success()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_TITLE: Test Success
+          SLACK_COLOR: good
+      - name: Slack Notification on Failure
+        uses: rtCamp/action-slack-notify@v2
+        if: failure()
+        env:
+          SLACK_TITLE: Test Failure
+          SLACK_COLOR: danger
