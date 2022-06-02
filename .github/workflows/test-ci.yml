@@ -43,13 +43,17 @@ jobs:
           path: build/reports/tests/test
       - name: Slack Notification on Success
         if: success()
-        uses: rtCamp/action-slack-notify@v2.0.2
+        uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_TITLE: Test Success
           SLACK_COLOR: good
       - name: Slack Notification on Failure
-        uses: rtCamp/action-slack-notify@v2.0.2
+        uses: rtCamp/action-slack-notify@v2
         if: failure()
         env:
           SLACK_TITLE: Test Failure
           SLACK_COLOR: danger
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
