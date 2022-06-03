@@ -138,9 +138,4 @@ class GameServiceTest {
         Platform actualPlatform = platformCapture.getValue();
         assertThat(actualPlatform).isEqualTo(platformData);
     }
-
-    @Test
-    void テスト失敗サンプル() {
-        assertThat("a").isEqualTo("b");
-    }
 }
