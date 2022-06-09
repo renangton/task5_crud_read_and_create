@@ -43,8 +43,7 @@
         games_platforms, platforms
         FROM games_platforms INNER JOIN platforms
         ON games_platforms.platforms_id = platforms.id
-        WHERE platforms.id =
-        #{id}
+        WHERE platforms.id = #{id}
     </delete>
 
     <delete id="deletePlatform">
