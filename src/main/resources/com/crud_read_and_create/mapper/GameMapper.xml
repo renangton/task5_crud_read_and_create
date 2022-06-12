@@ -15,7 +15,7 @@
             <result property="platform" column="platform"/>
         </collection>
     </resultMap>
-    
+
     <select id="findAll" resultMap="gameMap">
         SELECT games.id as game_id, name, genre, price, platforms.id as platform_id, platform
         FROM games
@@ -57,8 +57,7 @@
         games_platforms, games
         FROM games_platforms INNER JOIN games
         ON games_platforms.games_id = games.id
-        WHERE games.id =
-        #{id}
+        WHERE games.id = #{id}
     </delete>
 
     <delete id="deleteGame">
