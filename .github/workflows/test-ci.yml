@@ -39,12 +39,6 @@ jobs:
         if: always() # always run even if the previous step fails
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
-      - name: Upload Test Report
-        uses: actions/upload-artifact@v1
-        if: always()
-        with:
-          name: test results
-          path: build/reports/tests/test
       - name: Slack Notification on Success
         if: success()
         uses: rtCamp/action-slack-notify@v2
