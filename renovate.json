@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "config:base",
+    ":timezone(Asia/Tokyo)",
+    ":prHourlyLimitNone",
+    ":automergePatch"
+  ],
+  "schedule": ["after 5pm and before 0am every weekday", "every weekend"],
+  "dependencyDashboard": true,
+  "ignorePaths": [
+    "docker-compose.yaml"
+  ]
+}
