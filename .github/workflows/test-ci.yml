@@ -14,7 +14,7 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: read
+  contents: write
 
 env:
   SLACK_WEBHOOK: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
