@@ -143,4 +143,9 @@ class GameServiceTest {
     void 失敗するテスト() {
         assertThat(1).isEqualTo(2);
     }
+
+    @Test
+    void 失敗するテスト2() {
+        assertThat(2).isEqualTo(3);
+    }
 }
