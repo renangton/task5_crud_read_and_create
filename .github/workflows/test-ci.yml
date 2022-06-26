@@ -13,9 +13,6 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  SLACK_WEBHOOK: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -38,13 +35,19 @@ jobs:
           report_paths: '**/build/test-results/test/TEST-*.xml'
       - name: Slack Notification on Success
         if: success()
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_TITLE: Test Success
-          SLACK_COLOR: good
+        run: |
+          curl -X POST 'Content-Type: application/json' \
+          -d '{
+            "text": "Test Success",
+            "text": "${{ github.event.pull_request.title }}",
+            "url": "${{ github.event.pull_request.html_url }}"
+          }' ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
       - name: Slack Notification on Failure
-        uses: rtCamp/action-slack-notify@v2
         if: failure()
-        env:
-          SLACK_TITLE: Test Failure
-          SLACK_COLOR: danger
+        run: |
+          curl -X POST 'Content-Type: application/json' \
+          -d '{
+            "text": "Test failure",
+            "text": "${{ github.event.pull_request.title }}",
+            "url": "${{ github.event.pull_request.html_url }}"
+          }' ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
