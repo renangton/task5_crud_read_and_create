@@ -33,21 +33,48 @@ jobs:
         if: always() # always run even if the previous step fails
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
-      - name: Slack Notification on Success
-        if: success()
+      - name: Slack Notification
+        if: always()
         run: |
-          curl -X POST 'Content-Type: application/json' \
-          -d '{
-            "text": "Test Success",
-            "text": "${{ github.event.pull_request.title }}",
-            "url": "${{ github.event.pull_request.html_url }}"
-          }' ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
-      - name: Slack Notification on Failure
-        if: failure()
-        run: |
-          curl -X POST 'Content-Type: application/json' \
-          -d '{
-            "text": "Test failure",
-            "text": "${{ github.event.pull_request.title }}",
-            "url": "${{ github.event.pull_request.html_url }}"
-          }' ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+          if [ '${{ job.status }}' = 'success'　]; then
+            COLOR="good"
+          else
+            COLOR="danger"
+          fi
+        
+          jq -n --arg jobLink '<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} | ${{ github.workflow }}>' \
+          --arg commit '<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} | ${{ github.sha }}>' '{
+            attachments: [
+              {
+                pretext: ":github: Test ${{ job.status }} :tekkun_move:",
+                color: "'"$COLOR"'",
+                fields: [
+                  {
+                    title: "Actor",
+                    value: "'"$GITHUB_ACTOR"'",
+                    short: true
+                  },
+                  {
+                    title: "Ref",
+                    value: "'"$GITHUB_REF"'",
+                    short: true
+                  },
+                  {
+                    title: "Event Name",
+                    value: "'"$GITHUB_EVENT_NAME"'",
+                    short: true
+                  },
+                  {
+                    title: "Actions URL",
+                    value: $jobLink,
+                    short: true
+                  },
+                  {
+                    title: "Commit",
+                    value: $commit,
+                    short: false
+                  }
+                ]
+              }
+            ]
+          }' | curl ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }} -X POST -H 'Content-Type: application/json' -d @-
