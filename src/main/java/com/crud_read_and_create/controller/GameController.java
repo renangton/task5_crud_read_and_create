@@ -7,6 +7,7 @@ import com.crud_read_and_create.form.PlatformForm;
 import com.crud_read_and_create.service.GameService;
 import com.crud_read_and_create.service.exception.DuplicateException;
 import com.crud_read_and_create.service.exception.NotFoundException;
+import com.crud_read_and_create.service.exception.PlatformService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,9 +22,11 @@ import java.util.List;
 @Controller
 public class GameController {
     private final GameService gameService;
+    private final PlatformService platformService;
 
-    public GameController(GameService gameService) {
+    public GameController(GameService gameService, PlatformService platformService) {
         this.gameService = gameService;
+        this.platformService = platformService;
     }
 
     @ModelAttribute
@@ -43,14 +46,14 @@ public class GameController {
 
     @GetMapping("/create")
     public String getCreate(Model model) {
-        List<Platform> platformList = gameService.getPlatform();
+        List<Platform> platformList = platformService.getPlatform();
         model.addAttribute("platformList", platformList);
         return "create";
     }
 
     @GetMapping("/create-platform")
     public String getCreatePlatform(Model model) {
-        List<Platform> platformList = gameService.getPlatform();
+        List<Platform> platformList = platformService.getPlatform();
         model.addAttribute("platformList", platformList);
         return "createPlatform";
     }
@@ -74,7 +77,7 @@ public class GameController {
     public String create(@Validated GameForm gameForm, BindingResult bindingResult, Model model,
                          RedirectAttributes redirectAttributes) {
 
-        List<Platform> platformList = gameService.getPlatform();
+        List<Platform> platformList = platformService.getPlatform();
         if (bindingResult.hasErrors()) {
             model.addAttribute("createFailed", "登録に失敗しました。");
             model.addAttribute("platformList", platformList);
@@ -91,16 +94,16 @@ public class GameController {
     @PostMapping("/create-platform")
     public String createPlatform(@Validated PlatformForm platformForm, BindingResult bindingResult, Model model,
                                  RedirectAttributes redirectAttributes) {
-        List<Platform> platformList = gameService.getPlatform();
+        List<Platform> platformList = platformService.getPlatform();
         if (bindingResult.hasErrors()) {
             model.addAttribute("createFailed", "登録に失敗しました。");
             model.addAttribute("platformList", platformList);
             return "createPlatform";
         } else {
             try {
-                gameService.createPlatform(platformForm.getId(), platformForm.getPlatform());
+                platformService.createPlatform(platformForm.getId(), platformForm.getPlatform());
                 redirectAttributes.addFlashAttribute("createSuccess", "登録に成功しました。");
-                redirectAttributes.addFlashAttribute("platformList", gameService.getPlatform());
+                redirectAttributes.addFlashAttribute("platformList", platformService.getPlatform());
             } catch (DuplicateException e) {
                 model.addAttribute("createFailed", "登録に失敗しました。");
                 model.addAttribute("duplicate", "プラットフォームが重複しています。");

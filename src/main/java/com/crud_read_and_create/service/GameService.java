@@ -3,10 +3,8 @@ package com.crud_read_and_create.service;
 import com.crud_read_and_create.controller.view.GameView;
 import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.GamePlatform;
-import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.mapper.GameMapper;
 import com.crud_read_and_create.mapper.PlatformMapper;
-import com.crud_read_and_create.service.exception.DuplicateException;
 import com.crud_read_and_create.service.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,10 +44,6 @@ public class GameService {
         return gameView;
     }
 
-    public List<Platform> getPlatform() {
-        return platformMapper.findPlatform();
-    }
-
     @Transactional
     public void createGame(Integer id, String name, String genre, Integer price, String[] platformIds) {
         Game game = new Game(id, name, genre, price);
@@ -57,14 +51,5 @@ public class GameService {
         List<GamePlatform> gamePlatformList = Arrays.stream(platformIds)
                 .map(platformId -> new GamePlatform(game.getId(), platformId)).collect(Collectors.toList());
         gameMapper.createGamePlatform(gamePlatformList);
-    }
-
-    public void createPlatform(Integer id, String platform) throws DuplicateException {
-        List<Platform> platformList = platformMapper.findPlatform();
-        if (platformList.stream().anyMatch(registeredPlatform -> registeredPlatform.getPlatform().equals(platform))) {
-            throw new DuplicateException("プラットフォームが重複しています。");
-        }
-        Platform platformData = new Platform(id, platform);
-        platformMapper.createPlatform(platformData);
     }
 }

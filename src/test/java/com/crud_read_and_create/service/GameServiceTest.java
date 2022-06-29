@@ -6,7 +6,6 @@ import com.crud_read_and_create.entity.GamePlatform;
 import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.mapper.GameMapper;
 import com.crud_read_and_create.mapper.PlatformMapper;
-import com.crud_read_and_create.service.exception.DuplicateException;
 import com.crud_read_and_create.service.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -71,14 +70,6 @@ class GameServiceTest {
         assertThat(actualGameList).isEqualTo(gameViewList);
     }
 
-    @Test
-    void プラットフォームを全件取得できること() {
-        List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
-        doReturn(platformList).when(platformMapper).findPlatform();
-
-        List<Platform> actualPlatformList = gameService.getPlatform();
-        assertThat(actualPlatformList).hasSize(2).isEqualTo(platformList);
-    }
 
     @Captor
     ArgumentCaptor<Game> gameCapture;
@@ -117,29 +108,5 @@ class GameServiceTest {
         assertThat(actualGamePlatformList).isEqualTo(gamePlatformList);
     }
 
-    @Test
-    void 入力したプラットフォームがすでに登録されている時_DuplicateExceptionが発生すること() {
-        List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
-        doReturn(platformList).when(platformMapper).findPlatform();
-        assertThrows(DuplicateException.class, () -> gameService.createPlatform(1, "PS5"));
-        assertThatThrownBy(() -> {
-            throw new DuplicateException("プラットフォームが重複しています。");
-        })
-                .hasMessage("プラットフォームが重複しています。");
-    }
 
-    @Captor
-    ArgumentCaptor<Platform> platformCapture;
-
-    @Test
-    void 入力したプラットフォームが未登録の時_引数にしていたPlatformが正常に登録処理が実行されること() throws DuplicateException {
-        List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
-        doReturn(platformList).when(platformMapper).findPlatform();
-        Platform platformData = new Platform(3, "Steam");
-
-        gameService.createPlatform(platformData.getId(), platformData.getPlatform());
-        verify(platformMapper, times(1)).createPlatform(platformCapture.capture());
-        Platform actualPlatform = platformCapture.getValue();
-        assertThat(actualPlatform).isEqualTo(platformData);
-    }
 }
