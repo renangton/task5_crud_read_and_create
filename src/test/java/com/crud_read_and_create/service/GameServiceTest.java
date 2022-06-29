@@ -5,7 +5,6 @@ import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.GamePlatform;
 import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.mapper.GameMapper;
-import com.crud_read_and_create.mapper.PlatformMapper;
 import com.crud_read_and_create.service.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -29,9 +28,6 @@ class GameServiceTest {
 
     @MockBean(name = "gameMapper")
     private GameMapper gameMapper;
-
-    @MockBean(name = "platformMapper")
-    private PlatformMapper platformMapper;
 
     @Autowired
     private GameService gameService;

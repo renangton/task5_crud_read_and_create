@@ -4,7 +4,6 @@ import com.crud_read_and_create.controller.view.GameView;
 import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.GamePlatform;
 import com.crud_read_and_create.mapper.GameMapper;
-import com.crud_read_and_create.mapper.PlatformMapper;
 import com.crud_read_and_create.service.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +17,9 @@ import java.util.stream.Collectors;
 @Service
 public class GameService {
     private final GameMapper gameMapper;
-    private final PlatformMapper platformMapper;
 
-    public GameService(GameMapper gameMapper, PlatformMapper platformMapper) {
+    public GameService(GameMapper gameMapper) {
         this.gameMapper = gameMapper;
-        this.platformMapper = platformMapper;
     }
 
     public List<GameView> getGames(Integer id, String order) throws NotFoundException {
