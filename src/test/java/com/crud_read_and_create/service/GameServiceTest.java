@@ -141,6 +141,6 @@ class GameServiceTest {
 
     @Test
     void 失敗するテスト() {
-        assertThat(1).isEqualTo(2);
+        assertThat(1).isEqualTo(3);
     }
 }
