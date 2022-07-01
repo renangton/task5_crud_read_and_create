@@ -132,9 +132,4 @@ class GameFormTest {
                 tuple("price", "価格は0~100000の範囲で入力して下さい。")
         );
     }
-
-    @Test
-    void 失敗するテスト() {
-        assertThat(1).isEqualTo(2);
-    }
 }

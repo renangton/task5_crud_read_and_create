@@ -63,6 +63,7 @@ class GameMapperTest {
         assertThat(emptyGame).isEqualTo(Optional.empty());
     }
 
+    @Test
     @DataSet(value = "common/empty.yml")
     @ExpectedDataSet(value = "insert/expectedAfterInsertGames.yml", ignoreCols = "id")
     void ゲームを登録できること() {
@@ -85,6 +86,7 @@ class GameMapperTest {
         gameMapper.createGamePlatform(gamePlatformList);
     }
 
+    @Test
     @DataSet(value = "common/games.yml")
     @ExpectedDataSet(value = "update/expectedAfterUpdateGames.yml")
     void ゲームを更新できること() {
@@ -124,10 +126,5 @@ class GameMapperTest {
     @ExpectedDataSet(value = "common/games.yml")
     void 存在しないゲームのIDで中間テーブルを削除しようとする時_中間テーブルが削除されないこと() {
         gameMapper.deleteGamePlatformGameId(3);
-    }
-
-    @Test
-    void 失敗するテスト() {
-        assertThat(1).isEqualTo(2);
     }
 }

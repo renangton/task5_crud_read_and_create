@@ -6,7 +6,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -31,10 +30,5 @@ class GameControllerTest {
     @Test
     void GETでcreate_platformにアクセスする() throws Exception {
         mockMvc.perform(get("/create-platform")).andExpect(status().isOk()).andExpect(view().name("createPlatform"));
-    }
-
-    @Test
-    void 失敗するテスト() {
-        assertThat(1).isEqualTo(2);
     }
 }

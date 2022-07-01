@@ -21,9 +21,4 @@ class OrderByTest {
     void ascとdesc以外の値を渡した時_RuntimeExceptionが発生すること() {
         assertThrows(RuntimeException.class, () -> OrderBy.from("exception"));
     }
-
-    @Test
-    void 失敗するテスト() {
-        assertThat(1).isEqualTo(2);
-    }
 }
