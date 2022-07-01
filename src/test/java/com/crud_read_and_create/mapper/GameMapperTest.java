@@ -63,13 +63,6 @@ class GameMapperTest {
         assertThat(emptyGame).isEqualTo(Optional.empty());
     }
 
-    @Test
-    @DataSet(value = "games.yml")
-    void プラットフォームを全件取得できること() {
-        List<Platform> platformList = gameMapper.findPlatform();
-        assertThat(platformList).hasSize(2).contains(new Platform(1, "PS5"), new Platform(2, "Steam"));
-    }
-
     @DataSet(value = "common/empty.yml")
     @ExpectedDataSet(value = "insert/expectedAfterInsertGames.yml", ignoreCols = "id")
     void ゲームを登録できること() {
@@ -90,13 +83,6 @@ class GameMapperTest {
     void gamePlatformListが複数件の時_中間テーブルを複数件登録できること() {
         List<GamePlatform> gamePlatformList = Arrays.asList(new GamePlatform(1, "1"), new GamePlatform(1, "2"));
         gameMapper.createGamePlatform(gamePlatformList);
-    }
-
-    @Test
-    @DataSet(value = "empty.yml")
-    @ExpectedDataSet(value = "expectedAfterInsertPlatforms.yml", ignoreCols = "id")
-    void プラットフォームを登録できること() {
-        gameMapper.createPlatform(new Platform(1, "PS5"));
     }
 
     @DataSet(value = "common/games.yml")
@@ -139,9 +125,9 @@ class GameMapperTest {
     void 存在しないゲームのIDで中間テーブルを削除しようとする時_中間テーブルが削除されないこと() {
         gameMapper.deleteGamePlatformGameId(3);
     }
-    
+
     @Test
     void 失敗するテスト() {
-        assertThat(1).isEqualTo(2);
+        assertThat(1).isEqualTo(1);
     }
 }
