@@ -128,6 +128,6 @@ class GameMapperTest {
 
     @Test
     void 失敗するテスト() {
-        assertThat(1).isEqualTo(1);
+        assertThat(1).isEqualTo(2);
     }
 }
