@@ -5,6 +5,6 @@ properties:
 caseInsensitiveStrategy: LOWERCASE
 connectionConfig:
   url: "jdbc:mysql://localhost:3307/game_list"
-  user: "user"
+  user: "root"
   password: "example"
   

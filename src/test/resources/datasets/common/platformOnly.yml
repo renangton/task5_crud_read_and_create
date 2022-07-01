@@ -1,0 +1,10 @@
+games:
+
+games_platforms:
+
+platforms:
+  - id: 1
+    platform: "PS5"
+  - id: 2
+    platform: "Steam"
+    

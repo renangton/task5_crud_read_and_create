@@ -1,0 +1,8 @@
+games:
+
+games_platforms:
+
+platforms:
+  - id: 1
+    platform: "PS5"
+    
