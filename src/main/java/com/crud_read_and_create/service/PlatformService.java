@@ -1,7 +1,8 @@
-package com.crud_read_and_create.service.exception;
+package com.crud_read_and_create.service;
 
 import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.mapper.PlatformMapper;
+import com.crud_read_and_create.service.exception.DuplicateException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

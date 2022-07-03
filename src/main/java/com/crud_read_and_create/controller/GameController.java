@@ -5,9 +5,9 @@ import com.crud_read_and_create.form.GameForm;
 import com.crud_read_and_create.form.GameSearchForm;
 import com.crud_read_and_create.form.PlatformForm;
 import com.crud_read_and_create.service.GameService;
+import com.crud_read_and_create.service.PlatformService;
 import com.crud_read_and_create.service.exception.DuplicateException;
 import com.crud_read_and_create.service.exception.NotFoundException;
-import com.crud_read_and_create.service.exception.PlatformService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -113,5 +113,4 @@ public class GameController {
         }
         return "redirect:/create-platform";
     }
-
 }
