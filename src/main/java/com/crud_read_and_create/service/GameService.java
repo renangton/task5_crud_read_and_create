@@ -3,10 +3,7 @@ package com.crud_read_and_create.service;
 import com.crud_read_and_create.controller.view.GameView;
 import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.GamePlatform;
-import com.crud_read_and_create.entity.Platform;
 import com.crud_read_and_create.mapper.GameMapper;
-import com.crud_read_and_create.mapper.PlatformMapper;
-import com.crud_read_and_create.service.exception.DuplicateException;
 import com.crud_read_and_create.service.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +17,9 @@ import java.util.stream.Collectors;
 @Service
 public class GameService {
     private final GameMapper gameMapper;
-    private final PlatformMapper platformMapper;
 
-    public GameService(GameMapper gameMapper, PlatformMapper platformMapper) {
+    public GameService(GameMapper gameMapper) {
         this.gameMapper = gameMapper;
-        this.platformMapper = platformMapper;
     }
 
     public List<GameView> getGames(Integer id, String order) throws NotFoundException {
@@ -46,10 +41,6 @@ public class GameService {
         return gameView;
     }
 
-    public List<Platform> getPlatform() {
-        return platformMapper.findPlatform();
-    }
-
     @Transactional
     public void createGame(Integer id, String name, String genre, Integer price, String[] platformIds) {
         Game game = new Game(id, name, genre, price);
@@ -59,12 +50,20 @@ public class GameService {
         gameMapper.createGamePlatform(gamePlatformList);
     }
 
-    public void createPlatform(Integer id, String platform) throws DuplicateException {
-        List<Platform> platformList = platformMapper.findPlatform();
-        if (platformList.stream().anyMatch(registeredPlatform -> registeredPlatform.getPlatform().equals(platform))) {
-            throw new DuplicateException("プラットフォームが重複しています。");
-        }
-        Platform platformData = new Platform(id, platform);
-        platformMapper.createPlatform(platformData);
+    public void updateGame(Integer id, String name, String genre, Integer price) {
+        Game game = new Game(id, name, genre, price);
+        gameMapper.updateGame(game);
+    }
+
+    public void deleteGameAndGamePlatform(Integer id) {
+        gameMapper.deleteGameAndGamePlatform(id);
+    }
+
+    public void deleteGame(Integer id) {
+        gameMapper.deleteGame(id);
+    }
+
+    public void deleteGamePlatformGameId(Integer id) {
+        gameMapper.deleteGamePlatformGameId(id);
     }
 }
