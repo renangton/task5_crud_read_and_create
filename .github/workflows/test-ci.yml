@@ -46,7 +46,7 @@ jobs:
         
           jq -n --arg color "${COLOR}" \
           --arg jobLink '<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} | ${{ github.workflow }}>' \
-          --arg commit '<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} | ${{ github.event.sha }}>' '{
+          --arg commit '<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.head.sha }} | ${{ github.head.sha }}>' '{
             attachments: [
               {
                 pretext: ":github: Test ${{ job.status }} :tekkun_move:",
