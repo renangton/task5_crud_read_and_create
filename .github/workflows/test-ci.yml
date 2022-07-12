@@ -59,7 +59,7 @@ jobs:
                   },
                   {
                     title: "Ref",
-                    value: "'"$GITHUB_HEAD_REF"'",
+                    value: "'"$GITHUB_REF"'",
                     short: true
                   },
                   {
@@ -75,11 +75,6 @@ jobs:
                   {
                     title: "Commit",
                     value: $commit,
-                    short: false
-                  },
-                  {
-                    title: "Message",
-                    value: "'"$GITHUB_EVENT_INPUTS_SHA"'",
                     short: false
                   }
                 ]
