@@ -59,7 +59,7 @@ jobs:
                   },
                   {
                     title: "Ref",
-                    value: "'"$GITHUB_EVENT_REF"'",
+                    value: "'"$GITHUB_HEAD_REF"'",
                     short: true
                   },
                   {
