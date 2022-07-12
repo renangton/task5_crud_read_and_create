@@ -79,7 +79,7 @@ jobs:
                   },
                   {
                     title: "Message",
-                    value: "'"$GITHUB_EVENT_INPUTS_SHA"'"
+                    value: "'"$GITHUB_EVENT_INPUTS_SHA"'",
                     short: false
                   }
                 ]
