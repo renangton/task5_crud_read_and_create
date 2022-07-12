@@ -27,4 +27,25 @@ public class PlatformService {
         Platform platformData = new Platform(id, platform);
         platformMapper.createPlatform(platformData);
     }
+
+    public void updatePlatform(Integer id, String platform) throws DuplicateException {
+        List<Platform> platformList = platformMapper.findPlatform();
+        if (platformList.stream().anyMatch(registeredPlatform -> registeredPlatform.getPlatform().equals(platform))) {
+            throw new DuplicateException("プラットフォームが重複しています。");
+        }
+        Platform platformData = new Platform();
+        platformMapper.updatePlatform(platformData);
+    }
+
+    public void deleteGamePlatformPlatformId(Integer id) {
+        platformMapper.deleteGamePlatformPlatformId(id);
+    }
+
+    public void deletePlatformAndGamePlatform(Integer id) {
+        platformMapper.deletePlatformAndGamePlatform(id);
+    }
+
+    public void deletePlatform(Integer id) {
+        platformMapper.deletePlatform(id);
+    }
 }

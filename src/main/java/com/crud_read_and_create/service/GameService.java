@@ -49,4 +49,21 @@ public class GameService {
                 .map(platformId -> new GamePlatform(game.getId(), platformId)).collect(Collectors.toList());
         gameMapper.createGamePlatform(gamePlatformList);
     }
+
+    public void updateGame(Integer id, String name, String genre, Integer price) {
+        Game game = new Game(id, name, genre, price);
+        gameMapper.updateGame(game);
+    }
+
+    public void deleteGameAndGamePlatform(Integer id) {
+        gameMapper.deleteGameAndGamePlatform(id);
+    }
+
+    public void deleteGame(Integer id) {
+        gameMapper.deleteGame(id);
+    }
+
+    public void deleteGamePlatformGameId(Integer id) {
+        gameMapper.deleteGamePlatformGameId(id);
+    }
 }
