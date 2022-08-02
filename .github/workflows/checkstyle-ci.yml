@@ -20,10 +20,16 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
       - name: Checkstyle with Gradle
-        run: ./gradlew check
+        run: ./gradlew checkstyleMain
       - name: Upload Report
         uses: actions/upload-artifact@v1
         if: always()
         with:
           name: test results
-          path: build/reports/checkstyle
+          path: build/reports/checkstyle/main.html
+      - name: Run check style
+        uses: nikitasavinov/checkstyle-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: 'github-pr-check'
+          tool_name: 'testtool'
