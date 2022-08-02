@@ -38,25 +38,25 @@ class GameFormTest {
     gameForm = new GameForm(1, "", "", 100, platforms);
     validator.validate(gameForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("name", "タイトルが未入力です。"),
-      tuple("genre", "ジャンルが未入力です。")
+        tuple("name", "タイトルが未入力です。"),
+        tuple("genre", "ジャンルが未入力です。")
     );
   }
-
+  
   @Test
   void 必須項目にnullを渡した時_バリデーションエラーとなること() {
     gameForm = new GameForm(1, null, null, null, platforms);
     validator.validate(gameForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("name", "タイトルが未入力です。"),
-      tuple("genre", "ジャンルが未入力です。"),
-      tuple("price", "価格が未入力です。")
+        tuple("name", "タイトルが未入力です。"),
+        tuple("genre", "ジャンルが未入力です。"),
+        tuple("price", "価格が未入力です。")
     );
   }
 
@@ -66,10 +66,10 @@ class GameFormTest {
     gameForm = new GameForm(1, "name", "genre", 100, emptyPlatform);
     validator.validate(gameForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("platformId", "プラットフォームが未選択です。")
+        tuple("platformId", "プラットフォームが未選択です。")
     );
   }
 
@@ -85,11 +85,11 @@ class GameFormTest {
     gameForm = new GameForm(1, StringUtils.repeat("a", 21), StringUtils.repeat("b", 21), 100, platforms);
     validator.validate(gameForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("name", "タイトルは20文字以内で入力して下さい。"),
-      tuple("genre", "ジャンルは20文字以内で入力して下さい。")
+        tuple("name", "タイトルは20文字以内で入力して下さい。"),
+        tuple("genre", "ジャンルは20文字以内で入力して下さい。")
     );
   }
 
@@ -105,10 +105,10 @@ class GameFormTest {
     gameForm = new GameForm(1, "name", "genre", -1, platforms);
     validator.validate(gameForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("price", "価格は0~100000の範囲で入力して下さい。")
+        tuple("price", "価格は0~100000の範囲で入力して下さい。")
     );
   }
 
@@ -124,10 +124,10 @@ class GameFormTest {
     gameForm = new GameForm(1, "name", "genre", 100001, platforms);
     validator.validate(gameForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("price", "価格は0~100000の範囲で入力して下さい。")
+        tuple("price", "価格は0~100000の範囲で入力して下さい。")
     );
   }
 }
