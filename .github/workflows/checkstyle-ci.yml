@@ -27,9 +27,3 @@ jobs:
         with:
           name: test results
           path: build/reports/checkstyle/main.html
-      - name: Run check style
-        uses: nikitasavinov/checkstyle-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: 'github-pr-check'
-          tool_name: 'testtool'
