@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.1'
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id 'java'
+    id 'checkstyle'
 }
 
 group = 'com.crud_read_and_create'
@@ -26,4 +27,9 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+checkstyle {
+    toolVersion = '10.2'
+    ignoreFailures = false
+    maxWarnings = 0
 }
