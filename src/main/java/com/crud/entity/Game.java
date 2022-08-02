@@ -72,7 +72,7 @@ public class Game {
     if (obj instanceof Game) {
       Game otherGame = (Game) obj;
       if (this.id == otherGame.id && this.name.equals(otherGame.name) && this.genre.equals(otherGame.genre)
-        && this.price.equals(otherGame.price)) {
+          && this.price.equals(otherGame.price)) {
         if (!(this.platforms == null)) {
           if (this.platforms.equals(otherGame.platforms)) {
             return true;

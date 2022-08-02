@@ -79,8 +79,7 @@ public class GameController {
       model.addAttribute("platformList", platformList);
       return "create";
     } else {
-      gameService.createGame(gameForm.getId(), gameForm.getName(), gameForm.getGenre(), gameForm.getPrice(),
-        gameForm.getPlatformId());
+      gameService.createGame(gameForm.getId(), gameForm.getName(), gameForm.getGenre(), gameForm.getPrice(), gameForm.getPlatformId());
       redirectAttributes.addFlashAttribute("createSuccess", "登録に成功しました。");
       redirectAttributes.addFlashAttribute("platformList", platformList);
     }

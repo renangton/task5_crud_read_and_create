@@ -17,7 +17,7 @@ public class GameView {
     this.name = game.getName();
     this.genre = game.getGenre();
     this.platforms = game.getPlatforms().stream().sorted(Comparator.comparing(Platform::getPlatform))
-      .map(Platform::getPlatform).collect(Collectors.joining("/"));
+        .map(Platform::getPlatform).collect(Collectors.joining("/"));
     this.price = String.format("%,d", game.getPrice());
   }
 
@@ -49,8 +49,8 @@ public class GameView {
     if (obj instanceof GameView) {
       GameView otherGameView = (GameView) obj;
       if (this.id == otherGameView.id && this.name.equals(otherGameView.name)
-        && this.genre.equals(otherGameView.genre) && this.platforms.equals(otherGameView.platforms)
-        && this.price.equals(otherGameView.price)) {
+          && this.genre.equals(otherGameView.genre) && this.platforms.equals(otherGameView.platforms)
+          && this.price.equals(otherGameView.price)) {
         return true;
       }
     }
