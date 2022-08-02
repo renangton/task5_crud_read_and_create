@@ -1,8 +1,7 @@
 package com.crud_read_and_create.form;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 public class PlatformForm {
   private Integer id;
@@ -18,7 +17,7 @@ public class PlatformForm {
 
   public PlatformForm() {
   }
-  
+
   public Integer getId() {
     return id;
   }

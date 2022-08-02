@@ -1,11 +1,10 @@
 package com.crud_read_and_create.form;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 public class GameForm {
 
@@ -14,7 +13,7 @@ public class GameForm {
   @Length(max = 20, message = "タイトルは20文字以内で入力して下さい。")
   @NotBlank(message = "タイトルが未入力です。")
   private String name;
-	
+
   @Length(max = 20, message = "ジャンルは20文字以内で入力して下さい。")
   @NotBlank(message = "ジャンルが未入力です。")
   private String genre;

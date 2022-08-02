@@ -1,7 +1,7 @@
 package com.crud_read_and_create.form;
 
-import javax.validation.constraints.Pattern;
 import java.util.Objects;
+import javax.validation.constraints.Pattern;
 
 public class GameSearchForm {
 
@@ -14,7 +14,7 @@ public class GameSearchForm {
     this.id = id;
     this.order = order;
   }
-  
+
   public GameSearchForm() {
   }
 

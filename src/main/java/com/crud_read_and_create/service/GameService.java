@@ -8,14 +8,13 @@ import com.crud_read_and_create.mapper.GameMapper;
 import com.crud_read_and_create.mapper.PlatformMapper;
 import com.crud_read_and_create.service.exception.DuplicateException;
 import com.crud_read_and_create.service.exception.NotFoundException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GameService {
@@ -26,7 +25,7 @@ public class GameService {
     this.gameMapper = gameMapper;
     this.platformMapper = platformMapper;
   }
-  
+
   public List<GameView> getGames(Integer id, String order) throws NotFoundException {
 
     List<GameView> gameView = new ArrayList<GameView>();
