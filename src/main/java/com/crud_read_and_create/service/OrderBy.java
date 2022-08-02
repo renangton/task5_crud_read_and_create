@@ -7,7 +7,8 @@ public enum OrderBy {
   ASC, DESC;
 
   public static OrderBy from(String input) {
-    return Arrays.stream(values()).filter(v -> v.name().equals(StringUtils.upperCase(input))).findFirst()
+    return Arrays.stream(values()).filter(v -> v.name().equals(StringUtils.upperCase(input)))
+      .findFirst()
       .orElseThrow(RuntimeException::new);
   }
 }

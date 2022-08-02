@@ -12,7 +12,7 @@ public class Platform {
   public Platform() {
 
   }
-	
+
   public Integer getId() {
     return id;
   }

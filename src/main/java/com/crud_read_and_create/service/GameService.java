@@ -54,7 +54,8 @@ public class GameService {
     Game game = new Game(id, name, genre, price);
     gameMapper.createGame(game);
     List<GamePlatform> gamePlatformList = Arrays.stream(platformIds)
-      .map(platformId -> new GamePlatform(game.getId(), platformId)).collect(Collectors.toList());
+      .map(platformId -> new GamePlatform(game.getId(), platformId))
+      .collect(Collectors.toList());
     gameMapper.createGamePlatform(gamePlatformList);
   }
 
