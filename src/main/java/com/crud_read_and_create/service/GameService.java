@@ -19,52 +19,52 @@ import java.util.stream.Collectors;
 
 @Service
 public class GameService {
-    private final GameMapper gameMapper;
-    private final PlatformMapper platformMapper;
+  private final GameMapper gameMapper;
+  private final PlatformMapper platformMapper;
 
-    public GameService(GameMapper gameMapper, PlatformMapper platformMapper) {
-        this.gameMapper = gameMapper;
-        this.platformMapper = platformMapper;
-    }
+  public GameService(GameMapper gameMapper, PlatformMapper platformMapper) {
+    this.gameMapper = gameMapper;
+    this.platformMapper = platformMapper;
+  }
+  
+  public List<GameView> getGames(Integer id, String order) throws NotFoundException {
 
-    public List<GameView> getGames(Integer id, String order) throws NotFoundException {
-
-        List<GameView> gameView = new ArrayList<GameView>();
-        if (id == null) {
-            List<Game> gameList = gameMapper.findAll(OrderBy.from(order));
-            gameView = gameList.stream().map(GameView::new).collect(Collectors.toList());
+    List<GameView> gameView = new ArrayList<GameView>();
+    if (id == null) {
+      List<Game> gameList = gameMapper.findAll(OrderBy.from(order));
+      gameView = gameList.stream().map(GameView::new).collect(Collectors.toList());
+    } else {
+      if (id != null) {
+        Optional<Game> gameId = gameMapper.findById(id);
+        if (gameId.isEmpty()) {
+          throw new NotFoundException("レコードは存在しませんでした。");
         } else {
-            if (id != null) {
-                Optional<Game> gameId = gameMapper.findById(id);
-                if (gameId.isEmpty()) {
-                    throw new NotFoundException("レコードは存在しませんでした。");
-                } else {
-                    gameView = gameId.stream().map(GameView::new).collect(Collectors.toList());
-                }
-            }
+          gameView = gameId.stream().map(GameView::new).collect(Collectors.toList());
         }
-        return gameView;
+      }
     }
+    return gameView;
+  }
 
-    public List<Platform> getPlatform() {
-        return platformMapper.findPlatform();
-    }
+  public List<Platform> getPlatform() {
+    return platformMapper.findPlatform();
+  }
 
-    @Transactional
-    public void createGame(Integer id, String name, String genre, Integer price, String[] platformIds) {
-        Game game = new Game(id, name, genre, price);
-        gameMapper.createGame(game);
-        List<GamePlatform> gamePlatformList = Arrays.stream(platformIds)
-                .map(platformId -> new GamePlatform(game.getId(), platformId)).collect(Collectors.toList());
-        gameMapper.createGamePlatform(gamePlatformList);
-    }
+  @Transactional
+  public void createGame(Integer id, String name, String genre, Integer price, String[] platformIds) {
+    Game game = new Game(id, name, genre, price);
+    gameMapper.createGame(game);
+    List<GamePlatform> gamePlatformList = Arrays.stream(platformIds)
+      .map(platformId -> new GamePlatform(game.getId(), platformId)).collect(Collectors.toList());
+    gameMapper.createGamePlatform(gamePlatformList);
+  }
 
-    public void createPlatform(Integer id, String platform) throws DuplicateException {
-        List<Platform> platformList = platformMapper.findPlatform();
-        if (platformList.stream().anyMatch(registeredPlatform -> registeredPlatform.getPlatform().equals(platform))) {
-            throw new DuplicateException("プラットフォームが重複しています。");
-        }
-        Platform platformData = new Platform(id, platform);
-        platformMapper.createPlatform(platformData);
+  public void createPlatform(Integer id, String platform) throws DuplicateException {
+    List<Platform> platformList = platformMapper.findPlatform();
+    if (platformList.stream().anyMatch(registeredPlatform -> registeredPlatform.getPlatform().equals(platform))) {
+      throw new DuplicateException("プラットフォームが重複しています。");
     }
+    Platform platformData = new Platform(id, platform);
+    platformMapper.createPlatform(platformData);
+  }
 }

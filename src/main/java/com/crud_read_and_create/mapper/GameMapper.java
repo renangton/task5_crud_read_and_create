@@ -11,20 +11,20 @@ import java.util.Optional;
 
 @Mapper
 public interface GameMapper {
+    
+  public List<Game> findAll(@Param("orderBy") OrderBy orderBy);
 
-    public List<Game> findAll(@Param("orderBy") OrderBy orderBy);
+  public Optional<Game> findById(Integer id);
 
-    public Optional<Game> findById(Integer id);
+  public void createGame(Game game);
 
-    public void createGame(Game game);
+  public void createGamePlatform(@Param("gamePlatformList") List<GamePlatform> gamePlatformList);
 
-    public void createGamePlatform(@Param("gamePlatformList") List<GamePlatform> gamePlatformList);
+  public void updateGame(Game game);
 
-    public void updateGame(Game game);
+  public void deleteGameAndGamePlatform(Integer id);
 
-    public void deleteGameAndGamePlatform(Integer id);
+  public void deleteGame(Integer id);
 
-    public void deleteGame(Integer id);
-
-    public void deleteGamePlatformGameId(Integer id);
+  public void deleteGamePlatformGameId(Integer id);
 }

@@ -1,10 +1,10 @@
 package com.crud_read_and_create.controller.view;
 
-import java.util.Comparator;
-import java.util.stream.Collectors;
-
 import com.crud_read_and_create.entity.Game;
 import com.crud_read_and_create.entity.Platform;
+
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class GameView {
 	private Integer id;
@@ -18,7 +18,7 @@ public class GameView {
 		this.name = game.getName();
 		this.genre = game.getGenre();
 		this.platforms = game.getPlatforms().stream().sorted(Comparator.comparing(Platform::getPlatform))
-				.map(Platform::getPlatform).collect(Collectors.joining("/"));
+			.map(Platform::getPlatform).collect(Collectors.joining("/"));
 		this.price = String.format("%,d", game.getPrice());
 	}
 
@@ -50,8 +50,8 @@ public class GameView {
 		if (obj instanceof GameView) {
 			GameView otherGameView = (GameView) obj;
 			if (this.id == otherGameView.id && this.name.equals(otherGameView.name)
-					&& this.genre.equals(otherGameView.genre) && this.platforms.equals(otherGameView.platforms)
-					&& this.price.equals(otherGameView.price)) {
+				&& this.genre.equals(otherGameView.genre) && this.platforms.equals(otherGameView.platforms)
+				&& this.price.equals(otherGameView.price)) {
 				return true;
 			}
 		}
