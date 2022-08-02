@@ -1,4 +1,4 @@
-name: Checkstyle CI
+name: Checkstyle nikita CI
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  checkstyle_job:
     runs-on: ubuntu-latest
     
     steps:
@@ -19,11 +19,9 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: 'gradle'
-      - name: Checkstyle with Gradle
-        run: ./gradlew check
-      - name: Upload Report
-        uses: actions/upload-artifact@v1
-        if: always()
+      - name: Run check style
+        uses: nikitasavinov/checkstyle-action@master
         with:
-          name: test results
-          path: build/reports/checkstyle
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: 'github-pr-check'
+          tool_name: 'testtool'
