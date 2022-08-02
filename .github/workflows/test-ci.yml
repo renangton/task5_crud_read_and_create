@@ -26,6 +26,12 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: 'gradle'
+      - name: Run check style
+        uses: nikitasavinov/checkstyle-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: 'github-pr-check'
+          tool_name: 'testtool'
       - name: Docker Run
         run: docker compose up -d
       - name: Test with Gradle
