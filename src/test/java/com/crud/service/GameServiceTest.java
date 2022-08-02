@@ -39,15 +39,15 @@ class GameServiceTest {
   void idがnullの時_ゲームを全件取得できること() throws NotFoundException {
     List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
     List<Game> gameList = Arrays.asList(new Game(1, "R6E", "FPS", 6600, platformList),
-      new Game(2, "BIOHAZARD8", "Horror", 7200, platformList),
-      new Game(3, "DARKSOULS", "ARPG", 4200, platformList));
+        new Game(2, "BIOHAZARD8", "Horror", 7200, platformList),
+        new Game(3, "DARKSOULS", "ARPG", 4200, platformList));
     doReturn(gameList).when(gameMapper).findAll(OrderBy.from("ASC"));
     List<GameView> gameViewList = gameList.stream().map(GameView::new).collect(Collectors.toList());
 
     List<GameView> actualGameList = gameService.getGames(null, "asc");
     assertThat(actualGameList).hasSize(3).isEqualTo(gameViewList);
   }
-
+  
   @Test
   void idに数字が入力されていてレコードが存在しない時_NotFoundExceptionが発生すること() {
     doReturn(Optional.empty()).when(gameMapper).findById(1);
@@ -55,7 +55,7 @@ class GameServiceTest {
     assertThatThrownBy(() -> {
       throw new NotFoundException("レコードは存在しませんでした。");
     })
-      .hasMessage("レコードは存在しませんでした。");
+        .hasMessage("レコードは存在しませんでした。");
   }
 
   @Test
@@ -104,7 +104,7 @@ class GameServiceTest {
     Game game = new Game(1, "ELDENRING", "ARPG", 9000);
     String[] platformIds = {"1", "2"};
     List<GamePlatform> gamePlatformList = Arrays.asList(new GamePlatform(game.getId(), platformIds[0]),
-      new GamePlatform(game.getId(), platformIds[1]));
+        new GamePlatform(game.getId(), platformIds[1]));
 
     gameService.createGame(game.getId(), game.getName(), game.getGenre(), game.getPrice(), platformIds);
     verify(gameMapper, times(1)).createGame(gameCapture.capture());
@@ -123,7 +123,7 @@ class GameServiceTest {
     assertThatThrownBy(() -> {
       throw new DuplicateException("プラットフォームが重複しています。");
     })
-      .hasMessage("プラットフォームが重複しています。");
+        .hasMessage("プラットフォームが重複しています。");
   }
 
   @Captor

@@ -39,7 +39,7 @@ class PlatformMapperTest {
   void プラットフォームを更新できること() {
     platformMapper.updatePlatform(new Platform(1, "PS4"));
   }
-
+  
   @Test
   @DataSet(value = "common/games.yml")
   @ExpectedDataSet(value = "delete/expectedAfterDeleteGamesPlatformsPlatformId.yml")

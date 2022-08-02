@@ -28,16 +28,16 @@ class PlatformFormTest {
     validator.validate(platformForm, bindingResult);
     assertNull(bindingResult.getFieldError());
   }
-
+  
   @Test
   void 必須項目に空文字を渡した時_バリデーションエラーとなること() {
     platformForm = new PlatformForm(1, "");
     validator.validate(platformForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("platform", "プラットフォームが未入力です。")
+        tuple("platform", "プラットフォームが未入力です。")
     );
   }
 
@@ -46,10 +46,10 @@ class PlatformFormTest {
     platformForm = new PlatformForm(1, null);
     validator.validate(platformForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("platform", "プラットフォームが未入力です。")
+        tuple("platform", "プラットフォームが未入力です。")
     );
   }
 
@@ -65,10 +65,10 @@ class PlatformFormTest {
     platformForm = new PlatformForm(1, StringUtils.repeat("p", 21));
     validator.validate(platformForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("platform", "プラットフォームは20文字以内で入力して下さい。")
+        tuple("platform", "プラットフォームは20文字以内で入力して下さい。")
     );
   }
 }

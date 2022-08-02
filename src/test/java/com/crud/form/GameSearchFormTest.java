@@ -20,7 +20,7 @@ class GameSearchFormTest {
 
   private GameSearchForm gameSearchForm = new GameSearchForm();
   private BindingResult bindingResult = new BindException(gameSearchForm, "gameSearchForm");
-
+  
   @Test
   void 正しい値を渡した時_バリデーションエラーとならないこと() {
     gameSearchForm = new GameSearchForm("", "asc");
@@ -54,10 +54,10 @@ class GameSearchFormTest {
     gameSearchForm = new GameSearchForm("0", "asc");
     validator.validate(gameSearchForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("id", "IDは1～1000の範囲の整数で入力してください。")
+        tuple("id", "IDは1～1000の範囲の整数で入力してください。")
     );
   }
 
@@ -66,10 +66,10 @@ class GameSearchFormTest {
     gameSearchForm = new GameSearchForm("1001", "asc");
     validator.validate(gameSearchForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("id", "IDは1～1000の範囲の整数で入力してください。")
+        tuple("id", "IDは1～1000の範囲の整数で入力してください。")
     );
   }
 
@@ -78,10 +78,10 @@ class GameSearchFormTest {
     gameSearchForm = new GameSearchForm("ID", "asc");
     validator.validate(gameSearchForm, bindingResult);
     assertThat(bindingResult.getFieldErrors()).extracting(
-      FieldError::getField,
-      FieldError::getDefaultMessage
+        FieldError::getField,
+        FieldError::getDefaultMessage
     ).containsExactlyInAnyOrder(
-      tuple("id", "IDは1～1000の範囲の整数で入力してください。")
+        tuple("id", "IDは1～1000の範囲の整数で入力してください。")
     );
   }
 }
