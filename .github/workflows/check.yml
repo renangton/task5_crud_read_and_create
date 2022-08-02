@@ -19,6 +19,8 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: 'gradle'
+      - name: Checkstyle with Gradle
+        run: ./gradlew check
       - name: Run check style
         uses: nikitasavinov/checkstyle-action@master
         with:
