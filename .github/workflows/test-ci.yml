@@ -39,8 +39,10 @@ jobs:
         uses: nikitasavinov/checkstyle-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          checkstyle_config: 'config/checkstyle/checkstyle.xml'
+          level: 'error'
           reporter: 'github-pr-check'
-          tool_name: 'testtool'
+          tool_name: 'Checkstyle'
       - name: Slack Notification
         if: always()
         run: |
