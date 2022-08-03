@@ -40,8 +40,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           checkstyle_config: 'config/checkstyle/checkstyle.xml'
-          level: 'error'
+          level: 'info'
           reporter: 'github-pr-check'
+          workdir: 'src/main'
           tool_name: 'Checkstyle'
       - name: Slack Notification
         if: always()
