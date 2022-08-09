@@ -44,6 +44,8 @@ jobs:
           reporter: 'github-pr-check'
           workdir: 'src/main'
           tool_name: 'Checkstyle'
+      - name: Run SpotBugs
+        run: ./gradlew spotbugsMain
       - name: Slack Notification
         if: always()
         run: |
