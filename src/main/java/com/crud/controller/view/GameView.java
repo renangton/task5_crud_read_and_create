@@ -48,12 +48,23 @@ public class GameView {
     }
     if (obj instanceof GameView) {
       GameView otherGameView = (GameView) obj;
-      if (this.id == otherGameView.id && this.name.equals(otherGameView.name)
+      if (this.id.equals(otherGameView.id) && this.name.equals(otherGameView.name)
           && this.genre.equals(otherGameView.genre) && this.platforms.equals(otherGameView.platforms)
           && this.price.equals(otherGameView.price)) {
         return true;
       }
     }
     return false;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = 7;
+    result = 31 * result + id;
+    result = 31 * result + ((name == null) ? 0 : name.hashCode());
+    result = 31 * result + ((genre == null) ? 0 : genre.hashCode());
+    result = 31 * result + ((platforms == null) ? 0 : platforms.hashCode());
+    result = 31 * result + ((price == null) ? 0 : price.hashCode());
+    return result;
   }
 }
