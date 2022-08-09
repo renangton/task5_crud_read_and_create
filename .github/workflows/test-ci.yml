@@ -46,6 +46,12 @@ jobs:
           tool_name: 'Checkstyle'
       - name: Run SpotBugs
         run: ./gradlew spotbugsMain
+      - name: Upload SpotBugs Report
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: test results
+          path: build/reports/spotbugs/main.html
       - name: Slack Notification
         if: always()
         run: |
