@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crud.mapper.PlatformMapper">
+
+    <resultMap type="com.crud.entity.Platform" id="platformMap">
+        <result property="id" column="platform_id"/>
+        <result property="platform" column="platform"/>
+    </resultMap>
+
+    <select id="findPlatform" resultMap="platformMap">
+        SELECT platforms.id as platform_id, platform
+        FROM platforms
+    </select>
+
+    <insert id="createPlatform" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO platforms (platform)
+        VALUES (#{platform})
+    </insert>
+
+    <insert id="createGamePlatform">
+        INSERT INTO games_platforms (games_id, platforms_id) VALUES
+        <foreach collection="gamePlatformList" item="list" separator=",">
+            (#{list.gameId}, #{list.platformId})
+        </foreach>
+    </insert>
+
+    <update id="updatePlatform">
+        UPDATE platforms
+        SET platform = #{platform}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteGamePlatformPlatformId">
+        DELETE
+        FROM games_platforms
+        WHERE platforms_id = #{id}
+    </delete>
+
+    <delete id="deletePlatformAndGamePlatform">
+        DELETE
+        games_platforms, platforms
+        FROM games_platforms INNER JOIN platforms
+        ON games_platforms.platforms_id = platforms.id
+        WHERE platforms.id =
+        #{id}
+    </delete>
+
+    <delete id="deletePlatform">
+        DELETE
+        FROM platforms
+        WHERE id = #{id}
+    </delete>
+</mapper>
