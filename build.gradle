@@ -33,7 +33,7 @@ tasks.named('test') {
 
 spotbugs {
     spotbugsTest.enabled = false
-    excludeFilter = file("spotbugs-exclude.xml")
+    excludeFilter = file("config/spotbugs/exclude.xml")
 }
 spotbugsMain {
     reports {
