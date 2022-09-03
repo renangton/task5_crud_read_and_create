@@ -32,9 +32,8 @@ tasks.named('test') {
 }
 
 spotbugs {
-    toolVersion = "5.0.6"
     spotbugsTest.enabled = false
-    excludeFilter.set(file("spotbugs-exclude.xml"))
+    excludeFilter = file("spotbugs-exclude.xml")
 }
 spotbugsMain {
     reports {
