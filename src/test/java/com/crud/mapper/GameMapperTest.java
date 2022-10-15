@@ -7,14 +7,16 @@ import com.crud.service.OrderBy;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DBRider
 @MybatisTest
@@ -34,7 +36,7 @@ class GameMapperTest {
     List<Game> games = gameMapper.findAll(OrderBy.from("asc"));
     assertThat(games).hasSize(2).isEqualTo(expectedGameList);
   }
-  
+
   @Test
   @DataSet(value = "common/games.yml")
   void 降順が選択されている時_ゲームを降順で全件取得できること() {
@@ -44,6 +46,14 @@ class GameMapperTest {
         new Game(1, "ELDENRING", "ARPG", 9000, platformList1));
     List<Game> games = gameMapper.findAll(OrderBy.from("desc"));
     assertThat(games).hasSize(2).isEqualTo(expectedGameList);
+  }
+
+  @Test
+  @DataSet(value = "common/empty.yml")
+  void テーブルにデータが存在しないときに空のListが返されること() {
+    List<Game> games = gameMapper.findAll(OrderBy.from("desc"));
+    assertThat(games).isEmpty();
+    assertThat(games.isEmpty()).isTrue();
   }
 
   @Test
