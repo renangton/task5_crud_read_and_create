@@ -64,7 +64,6 @@ public class GameView {
     result = 31 * result + ((name == null) ? 0 : name.hashCode());
     result = 31 * result + ((genre == null) ? 0 : genre.hashCode());
     result = 31 * result + ((platforms == null) ? 0 : platforms.hashCode());
-    result = 31 * result + ((price == null) ? 0 : price.hashCode());
-    return result;
+    return 31 * result + ((price == null) ? 0 : price.hashCode());
   }
 }

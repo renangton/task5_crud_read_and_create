@@ -44,7 +44,6 @@ public class Platform {
   public int hashCode() {
     int result = 7;
     result = 31 * result + id;
-    result = 31 * result + ((platform == null) ? 0 : platform.hashCode());
-    return result;
+    return 31 * result + ((platform == null) ? 0 : platform.hashCode());
   }
 }

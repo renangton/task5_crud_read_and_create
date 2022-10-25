@@ -19,8 +19,7 @@ public class GameSearchForm {
   }
 
   public Integer getId() {
-    Integer id = Objects.nonNull(this.id) && !this.id.isEmpty() ? Integer.valueOf(this.id) : null;
-    return id;
+    return Objects.nonNull(this.id) && !this.id.isEmpty() ? Integer.valueOf(this.id) : null;
   }
 
   public String getOrder() {

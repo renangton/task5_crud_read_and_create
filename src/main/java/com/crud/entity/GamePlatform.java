@@ -47,7 +47,6 @@ public class GamePlatform {
     int result = 7;
     result = 31 * result + id;
     result = 31 * result + gameId;
-    result = 31 * result + ((platformId == null) ? 0 : platformId.hashCode());
-    return result;
+    return 31 * result + ((platformId == null) ? 0 : platformId.hashCode());
   }
 }
