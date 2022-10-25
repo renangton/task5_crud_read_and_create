@@ -28,13 +28,11 @@ public class GameService {
       List<Game> gameList = gameMapper.findAll(OrderBy.from(order));
       gameView = gameList.stream().map(GameView::new).collect(Collectors.toList());
     } else {
-      if (id != null) {
-        Optional<Game> gameId = gameMapper.findById(id);
-        if (gameId.isEmpty()) {
-          throw new NotFoundException("レコードは存在しませんでした。");
-        } else {
-          gameView = gameId.stream().map(GameView::new).collect(Collectors.toList());
-        }
+      Optional<Game> gameId = gameMapper.findById(id);
+      if (gameId.isEmpty()) {
+        throw new NotFoundException("レコードは存在しませんでした。");
+      } else {
+        gameView = gameId.stream().map(GameView::new).collect(Collectors.toList());
       }
     }
     return gameView;
