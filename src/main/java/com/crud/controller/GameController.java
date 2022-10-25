@@ -8,6 +8,7 @@ import com.crud.service.GameService;
 import com.crud.service.exception.DuplicateException;
 import com.crud.service.exception.NotFoundException;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,9 +56,9 @@ public class GameController {
   }
 
   @PostMapping("/search/db")
-  public String search(@Validated GameSearchForm gameSearchForm, BindingResult bindingResult, Model model) {
-    if (bindingResult.hasErrors()) {
-      model.addAttribute("validationError", bindingResult.getFieldError().getDefaultMessage());
+  public String search(@Validated GameSearchForm gameSearchForm, Optional<BindingResult> bindingResult, Model model) {
+    if (bindingResult.get().hasErrors()) {
+      model.addAttribute("validationError", bindingResult.get().getFieldError().getDefaultMessage());
       return "search";
     } else {
       try {
@@ -86,7 +87,7 @@ public class GameController {
     }
     return "redirect:/create";
   }
-  
+
   @PostMapping("/create-platform")
   public String createPlatform(@Validated PlatformForm platformForm, BindingResult bindingResult, Model model,
                                RedirectAttributes redirectAttributes) {
