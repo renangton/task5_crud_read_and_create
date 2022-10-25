@@ -8,7 +8,6 @@ import com.crud.mapper.GameMapper;
 import com.crud.mapper.PlatformMapper;
 import com.crud.service.exception.DuplicateException;
 import com.crud.service.exception.NotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -27,19 +26,16 @@ public class GameService {
   }
 
   public List<GameView> getGames(Integer id, String order) throws NotFoundException {
-
-    List<GameView> gameView = new ArrayList<GameView>();
+    List<GameView> gameView;
     if (id == null) {
       List<Game> gameList = gameMapper.findAll(OrderBy.from(order));
       gameView = gameList.stream().map(GameView::new).collect(Collectors.toList());
     } else {
-      if (id != null) {
-        Optional<Game> gameId = gameMapper.findById(id);
-        if (gameId.isEmpty()) {
-          throw new NotFoundException("レコードは存在しませんでした。");
-        } else {
-          gameView = gameId.stream().map(GameView::new).collect(Collectors.toList());
-        }
+      Optional<Game> gameId = gameMapper.findById(id);
+      if (gameId.isEmpty()) {
+        throw new NotFoundException("レコードは存在しませんでした。");
+      } else {
+        gameView = gameId.stream().map(GameView::new).collect(Collectors.toList());
       }
     }
     return gameView;

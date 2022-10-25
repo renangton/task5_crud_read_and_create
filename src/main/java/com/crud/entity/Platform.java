@@ -26,10 +26,6 @@ public class Platform {
     return "Platform [id=" + id + ", platform=" + platform + "]";
   }
 
-  public void setPlatform(String platform) {
-    this.platform = platform;
-  }
-
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
@@ -42,5 +38,12 @@ public class Platform {
       }
     }
     return false;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = 7;
+    result = 31 * result + id;
+    return 31 * result + ((platform == null) ? 0 : platform.hashCode());
   }
 }

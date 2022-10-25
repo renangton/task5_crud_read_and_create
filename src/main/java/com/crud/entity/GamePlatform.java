@@ -28,14 +28,6 @@ public class GamePlatform {
     return platformId;
   }
 
-  public void setGameId(Integer gameId) {
-    this.gameId = gameId;
-  }
-
-  public void setPlatformId(String platformId) {
-    this.platformId = platformId;
-  }
-
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
@@ -43,11 +35,18 @@ public class GamePlatform {
     }
     if (obj instanceof GamePlatform) {
       GamePlatform otherGamePlatform = (GamePlatform) obj;
-      if (this.gameId == otherGamePlatform.gameId && this.platformId.equals(otherGamePlatform.platformId)) {
+      if (this.gameId.equals(otherGamePlatform.gameId) && this.platformId.equals(otherGamePlatform.platformId)) {
         return true;
       }
     }
     return false;
   }
 
+  @Override
+  public int hashCode() {
+    int result = 7;
+    result = 31 * result + id;
+    result = 31 * result + gameId;
+    return 31 * result + ((platformId == null) ? 0 : platformId.hashCode());
+  }
 }
