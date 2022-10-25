@@ -5,7 +5,6 @@ import com.crud.entity.Game;
 import com.crud.entity.GamePlatform;
 import com.crud.mapper.GameMapper;
 import com.crud.service.exception.NotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +22,7 @@ public class GameService {
 
   public List<GameView> getGames(Integer id, String order) throws NotFoundException {
 
-    List<GameView> gameView = new ArrayList<GameView>();
+    List<GameView> gameView;
     if (id == null) {
       List<Game> gameList = gameMapper.findAll(OrderBy.from(order));
       gameView = gameList.stream().map(GameView::new).collect(Collectors.toList());
