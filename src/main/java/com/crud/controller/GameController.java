@@ -57,9 +57,7 @@ public class GameController {
   @PostMapping("/search/db")
   public String search(@Validated GameSearchForm gameSearchForm, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
-      String errorMessage = (bindingResult.getFieldError().getDefaultMessage() == null)
-          ? "" : bindingResult.getFieldError().getDefaultMessage();
-      model.addAttribute("validationError", errorMessage);
+      model.addAttribute("validationError", bindingResult.getFieldError().getDefaultMessage());
       return "search";
     } else {
       try {
