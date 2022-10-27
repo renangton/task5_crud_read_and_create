@@ -32,7 +32,7 @@ public class PlatformService {
     if (platformList.stream().anyMatch(registeredPlatform -> registeredPlatform.getPlatform().equals(platform))) {
       throw new DuplicateException("プラットフォームが重複しています。");
     }
-    Platform platformData = new Platform();
+    Platform platformData = new Platform(id, platform);
     platformMapper.updatePlatform(platformData);
   }
 

@@ -100,4 +100,47 @@ class GameServiceTest {
     assertThat(actualGame).isEqualTo(game);
     assertThat(actualGamePlatformList).isEqualTo(gamePlatformList);
   }
+
+  @Test
+  void ゲームを更新できること() {
+    Game game = new Game(1, "ELDENRING", "ARPG", 9000);
+
+    gameService.updateGame(game.getId(), game.getName(), game.getGenre(), game.getPrice());
+    verify(gameMapper, times(1)).updateGame(gameCapture.capture());
+    Game actualGame = gameCapture.getValue();
+    assertThat(actualGame).isEqualTo(game);
+  }
+
+  @Captor
+  ArgumentCaptor<Integer> idCapture;
+
+  @Test
+  void ゲームとゲームのIDに紐づく中間テーブルを削除できること() {
+    Integer id = 1;
+
+    gameService.deleteGameAndGamePlatform(id);
+    verify(gameMapper, times(1)).deleteGameAndGamePlatform(idCapture.capture());
+    Integer actualId = idCapture.getValue();
+    assertThat(actualId).isEqualTo(id);
+  }
+
+  @Test
+  void プラットフォームと紐づく中間テーブルがない時_プラットフォームを削除できること() {
+    Integer id = 1;
+
+    gameService.deleteGame(id);
+    verify(gameMapper, times(1)).deleteGame(idCapture.capture());
+    Integer actualId = idCapture.getValue();
+    assertThat(actualId).isEqualTo(id);
+  }
+
+  @Test
+  void ゲームのIDが一致する中間テーブルを削除できること() {
+    Integer id = 1;
+
+    gameService.deleteGamePlatformGameId(id);
+    verify(gameMapper, times(1)).deleteGamePlatformGameId(idCapture.capture());
+    Integer actualId = idCapture.getValue();
+    assertThat(actualId).isEqualTo(id);
+  }
 }

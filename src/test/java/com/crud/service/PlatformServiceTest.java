@@ -59,4 +59,60 @@ class PlatformServiceTest {
     Platform actualPlatform = platformCapture.getValue();
     assertThat(actualPlatform).isEqualTo(platformData);
   }
+
+  @Test
+  void プラットフォームを更新できること() throws DuplicateException {
+    List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
+    doReturn(platformList).when(platformMapper).findPlatform();
+    Platform platformData = new Platform(1, "Steam");
+
+    platformService.updatePlatform(platformData.getId(), platformData.getPlatform());
+    verify(platformMapper, times(1)).updatePlatform(platformCapture.capture());
+    Platform actualPlatform = platformCapture.getValue();
+    assertThat(actualPlatform).isEqualTo(platformData);
+  }
+
+  @Test
+  void 更新したプラットフォームがすでに登録されている時_DuplicateExceptionが発生すること() {
+    List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
+    doReturn(platformList).when(platformMapper).findPlatform();
+    assertThrows(DuplicateException.class, () -> platformService.updatePlatform(1, "PS5"));
+    assertThatThrownBy(() -> {
+      throw new DuplicateException("プラットフォームが重複しています。");
+    })
+        .hasMessage("プラットフォームが重複しています。");
+  }
+
+  @Captor
+  ArgumentCaptor<Integer> idCapture;
+
+  @Test
+  void プラットフォームのIDが一致する中間テーブルを削除できること() {
+    Integer id = 1;
+
+    platformService.deleteGamePlatformPlatformId(id);
+    verify(platformMapper, times(1)).deleteGamePlatformPlatformId(idCapture.capture());
+    Integer actualId = idCapture.getValue();
+    assertThat(actualId).isEqualTo(id);
+  }
+
+  @Test
+  void プラットフォームとプラットフォームのIDに紐づく中間テーブルを削除できること() {
+    Integer id = 1;
+
+    platformService.deletePlatformAndGamePlatform(id);
+    verify(platformMapper, times(1)).deletePlatformAndGamePlatform(idCapture.capture());
+    Integer actualId = idCapture.getValue();
+    assertThat(actualId).isEqualTo(id);
+  }
+
+  @Test
+  void プラットフォームと紐づく中間テーブルがない時_プラットフォームを削除できること() {
+    Integer id = 1;
+
+    platformService.deletePlatform(id);
+    verify(platformMapper, times(1)).deletePlatform(idCapture.capture());
+    Integer actualId = idCapture.getValue();
+    assertThat(actualId).isEqualTo(id);
+  }
 }
