@@ -1,45 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"></meta>
-<link th:href="@{/css/stylesheet.css}" rel="stylesheet">
-<title>GameSearch</title>
+    <meta charset="UTF-8"></meta>
+    <link th:href="@{/css/stylesheet.css}" rel="stylesheet">
+    <title>GameSearch</title>
 </head>
 <body>
-    <header>
-        <div class="header-logo">GAMEの検索と登録</div>
-        <div class="header-list">
-            <ul>
-                <li><a th:href="@{/search}">検索条件</a></li>
-                <li><a th:href="@{/create}">GAME登録</a></li>
-                <li><a th:href="@{/create-platform}">PLATFORM登録</a></li>
-            </ul>
-        </div>
-    </header>
-    <div class=main>
-        <div class="main-logo">検索結果</div>
-        <div th:if="${gameList} != null">
-            <table>
-                <tr class="field">
-                    <th>ID</th>
-                    <th>タイトル</th>
-                    <th>ジャンル</th>
-                    <th>プラットフォーム</th>
-                    <th>価格</th>
-                </tr>
-                <tr th:each="game:${gameList}" th:object="${game}">
+<header>
+    <div class="header-logo">GAMEの管理</div>
+    <div class="header-list">
+        <ul>
+            <li><a th:href="@{/search}">検索条件</a></li>
+            <li><a th:href="@{/create}">GAME登録</a></li>
+            <li><a th:href="@{/create-platform}">PLATFORM登録</a></li>
+        </ul>
+    </div>
+</header>
+<div class=main>
+    <div class="main-logo">検索結果</div>
+    <div class="success" th:text="${deleteSuccess}"></div>
+    <div class="exception" th:text="${deleteFailed}"></div>
+    <div th:if="${gameList} != null">
+        <table>
+            <tr class="field">
+                <th>ID</th>
+                <th>タイトル</th>
+                <th>ジャンル</th>
+                <th>プラットフォーム</th>
+                <th>価格</th>
+                <th>オプション</th>
+            </tr>
+            <form method="post" th:action="@{/search/db}" th:each="game:${gameList}" th:object="${game}">
+                <tr>
                     <td th:text="*{id}">ID</td>
                     <td th:text="*{name}">タイトル</td>
                     <td th:text="*{genre}">ジャンル</td>
                     <td th:text="*{platforms}">プラットフォーム</td>
                     <td th:text="*{price}">価格</td>
+                    <td>
+                        <button class="btn" id="update" type="submit" name="update">変更</button>
+                        <button class="btn" id="delete" type="submit" name="delete" th:value="${game.id}">削除</button>
+                    </td>
                 </tr>
-            </table>
-        </div>
-        <div class=exception>
-            <div th:text="${notFound}"></div>
-            <div th:text="${mojiretsu}"></div>
-        </div>
+            </form>
+        </table>
     </div>
+    <div class=exception>
+        <div th:text="${notFound}"></div>
+        <div th:text="${mojiretsu}"></div>
+    </div>
+</div>
 </body>
 </html>

@@ -118,28 +118,9 @@ class GameServiceTest {
   void ゲームとゲームのIDに紐づく中間テーブルを削除できること() {
     Integer id = 1;
 
-    gameService.deleteGameAndGamePlatform(id);
-    verify(gameMapper, times(1)).deleteGameAndGamePlatform(idCapture.capture());
-    Integer actualId = idCapture.getValue();
-    assertThat(actualId).isEqualTo(id);
-  }
-
-  @Test
-  void プラットフォームと紐づく中間テーブルがない時_プラットフォームを削除できること() {
-    Integer id = 1;
-
     gameService.deleteGame(id);
-    verify(gameMapper, times(1)).deleteGame(idCapture.capture());
-    Integer actualId = idCapture.getValue();
-    assertThat(actualId).isEqualTo(id);
-  }
-
-  @Test
-  void ゲームのIDが一致する中間テーブルを削除できること() {
-    Integer id = 1;
-
-    gameService.deleteGamePlatformGameId(id);
     verify(gameMapper, times(1)).deleteGamePlatformGameId(idCapture.capture());
+    verify(gameMapper, times(1)).deleteGame(idCapture.capture());
     Integer actualId = idCapture.getValue();
     assertThat(actualId).isEqualTo(id);
   }

@@ -51,15 +51,9 @@ public class GameService {
     gameMapper.updateGame(game);
   }
 
-  public void deleteGameAndGamePlatform(Integer id) {
-    gameMapper.deleteGameAndGamePlatform(id);
-  }
-
+  @Transactional
   public void deleteGame(Integer id) {
-    gameMapper.deleteGame(id);
-  }
-
-  public void deleteGamePlatformGameId(Integer id) {
     gameMapper.deleteGamePlatformGameId(id);
+    gameMapper.deleteGame(id);
   }
 }

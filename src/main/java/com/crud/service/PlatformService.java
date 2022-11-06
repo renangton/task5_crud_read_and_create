@@ -5,6 +5,7 @@ import com.crud.mapper.PlatformMapper;
 import com.crud.service.exception.DuplicateException;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PlatformService {
@@ -36,15 +37,9 @@ public class PlatformService {
     platformMapper.updatePlatform(platformData);
   }
 
-  public void deleteGamePlatformPlatformId(Integer id) {
-    platformMapper.deleteGamePlatformPlatformId(id);
-  }
-
-  public void deletePlatformAndGamePlatform(Integer id) {
-    platformMapper.deletePlatformAndGamePlatform(id);
-  }
-
+  @Transactional
   public void deletePlatform(Integer id) {
+    platformMapper.deleteGamePlatformPlatformId(id);
     platformMapper.deletePlatform(id);
   }
 }

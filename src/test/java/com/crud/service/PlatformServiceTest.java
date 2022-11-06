@@ -87,30 +87,11 @@ class PlatformServiceTest {
   ArgumentCaptor<Integer> idCapture;
 
   @Test
-  void プラットフォームのIDが一致する中間テーブルを削除できること() {
-    Integer id = 1;
-
-    platformService.deleteGamePlatformPlatformId(id);
-    verify(platformMapper, times(1)).deleteGamePlatformPlatformId(idCapture.capture());
-    Integer actualId = idCapture.getValue();
-    assertThat(actualId).isEqualTo(id);
-  }
-
-  @Test
   void プラットフォームとプラットフォームのIDに紐づく中間テーブルを削除できること() {
     Integer id = 1;
 
-    platformService.deletePlatformAndGamePlatform(id);
-    verify(platformMapper, times(1)).deletePlatformAndGamePlatform(idCapture.capture());
-    Integer actualId = idCapture.getValue();
-    assertThat(actualId).isEqualTo(id);
-  }
-
-  @Test
-  void プラットフォームと紐づく中間テーブルがない時_プラットフォームを削除できること() {
-    Integer id = 1;
-
     platformService.deletePlatform(id);
+    verify(platformMapper, times(1)).deleteGamePlatformPlatformId(idCapture.capture());
     verify(platformMapper, times(1)).deletePlatform(idCapture.capture());
     Integer actualId = idCapture.getValue();
     assertThat(actualId).isEqualTo(id);
