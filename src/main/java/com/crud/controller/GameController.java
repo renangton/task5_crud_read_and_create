@@ -85,7 +85,7 @@ public class GameController {
 
   @PostMapping(value = "/search/db", params = "delete")
   public String deleteGame(@RequestParam("delete") String strGameId, Model model) {
-    Integer gameId = Integer.parseInt(strGameId);
+    Integer gameId = Integer.valueOf(strGameId);
     try {
       gameService.deleteGame(gameId);
       model.addAttribute("deleteSuccess", "削除に成功しました。");
@@ -94,7 +94,6 @@ public class GameController {
     }
     try {
       model.addAttribute("gameList", gameService.getGames(null, "asc"));
-
     } catch (NotFoundException e) {
       model.addAttribute("notFound", "レコードは存在しませんでした。");
     }

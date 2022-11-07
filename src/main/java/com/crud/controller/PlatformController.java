@@ -60,7 +60,7 @@ public class PlatformController {
 
   @PostMapping(value = "/create-platform", params = "delete")
   public String deletePlatform(@RequestParam("delete") String strPlatformId, RedirectAttributes redirectAttributes) {
-    Integer platformId = Integer.parseInt(strPlatformId);
+    Integer platformId = Integer.valueOf(strPlatformId);
     try {
       platformService.deletePlatform(platformId);
       redirectAttributes.addFlashAttribute("deleteSuccess", "削除に成功しました。");
