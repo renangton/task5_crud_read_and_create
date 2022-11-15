@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"></meta>
-  <link th:href="@{/css/stylesheet.css}" rel="stylesheet">
-  <title>GameSearch</title>
+    <meta charset="UTF-8"></meta>
+    <link th:href="@{/css/stylesheet.css}" rel="stylesheet">
+    <title>GameSearch</title>
 </head>
 <body>
 <header>
-  <div class="header-logo">GAMEの管理</div>
-  <div class="header-list">
-    <ul>
-      <li><a th:href="@{/search}">検索条件</a></li>
-      <li><a th:href="@{/create-platform}">PLATFORM登録</a></li>
-    </ul>
-  </div>
+    <div class="header-logo">GAMEの管理</div>
+    <div class="header-list">
+        <ul>
+            <li><a th:href="@{/search}">検索条件</a></li>
+            <li><a th:href="@{/create-platform}">PLATFORM登録</a></li>
+        </ul>
+    </div>
 </header>
 <div class="main">
-  <div class="main-logo">GAME新規登録</div>
-  <form method="post" th:action="@{/create}" th:object="${gameForm}">
-    <table>
-      <tr class="field">
-        <th>タイトル</th>
-        <th>ジャンル</th>
-        <th>プラットフォーム</th>
-        <th>価格</th>
-      </tr>
-      <tr>
-        <td><input class="createGame" type="text" name="name" th:value="${name_value}"></td>
-        <td><input class="createGame" type="text" name="genre" th:value="${genre_value}"></td>
-        <td><select th:field="*{platformId}" id="multiSelect" name="platformId" multiple size=4>
-          <option class="createPlatform" th:each="platform:${platformList}" th:value="${platform.id}"
-                  th:text="${platform.platform}"></option>
-        </select></td>
-        <td><input class="createGame" type="number" name="price" th:value="${price_value}"></td>
-      </tr>
-    </table>
-    <input class="btn" type="submit" value="登録">
-    <div class="success" th:text="${createSuccess}"></div>
-    <div class="exception" th:text="${createFailed}"></div>
-    <div class="none-match-platform" th:text="${noneMatchPlatform}"></div>
-    <div class="validation-error">
-      <p th:errors="*{name}"></p>
-      <p th:errors="*{genre}"></p>
-      <p th:errors="*{platformId}"></p>
-      <p th:errors="*{price}"></p>
-    </div>
-  </form>
+    <div class="main-logo">GAME新規登録</div>
+    <form method="post" th:action="@{/create}" th:object="${gameForm}">
+        <table>
+            <tr class="field">
+                <th>タイトル</th>
+                <th>ジャンル</th>
+                <th>プラットフォーム</th>
+                <th>価格</th>
+            </tr>
+            <tr>
+                <td><input class="createGame" type="text" name="name" th:value="${name_value}"></td>
+                <td><input class="createGame" type="text" name="genre" th:value="${genre_value}"></td>
+                <td><select th:field="*{platformId}" id="multiSelect" name="platformId" multiple size=4>
+                    <option class="createPlatform" th:each="platform:${platformList}" th:value="${platform.id}" th:text="${platform.platform}"></option>
+                </select></td>
+                <td><input class="createGame" type="number" name="price" th:value="${price_value}"></td>
+            </tr>
+        </table>
+        <input class="btn" type="submit" value="登録">
+        <div class="success" th:text="${createSuccess}"></div>
+        <div class="exception" th:text="${createFailed}"></div>
+        <div class="none-match-platform" th:text="${noneMatchPlatform}"></div>
+        <div class="validation-error">
+            <p th:errors="*{name}"></p>
+            <p th:errors="*{genre}"></p>
+            <p th:errors="*{platformId}"></p>
+            <p th:errors="*{price}"></p>
+        </div>
+    </form>
 </div>
 </body>
 </html>

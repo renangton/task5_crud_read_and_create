@@ -58,10 +58,32 @@ public class PlatformController {
     return "redirect:/create-platform";
   }
 
-  @PostMapping(value = "/update-platform", params = "update")
-  public String renderUpdatePlatform(@RequestParam("update") String strPlatformId, Model model) {
+  @PostMapping(value = "/update-platform", params = "toUpdatePage")
+  public String toUpdatePlatform(@RequestParam("toUpdatePage") String strPlatformId, Model model) {
     Integer platformId = Integer.valueOf(strPlatformId);
-    model.addAttribute("platformList", platformService.getByIdPlatform(platformId));
+    model.addAttribute("platform", platformService.getByIdPlatform(platformId));
+    return "updatePlatform";
+  }
+
+  @PostMapping(value = "/update-platform", params = "update")
+  public String updatePlatform(@RequestParam("update") String strPlatformId, @Validated PlatformForm platformForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    Integer platformId = Integer.valueOf(strPlatformId);
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("platform", platformService.getByIdPlatform(platformId));
+      model.addAttribute("updateFailed", "更新に失敗しました。");
+      return "updatePlatform";
+    } else {
+      try {
+        platformService.updatePlatform(platformId, platformForm.getPlatform());
+        model.addAttribute("platform", platformService.getByIdPlatform(platformId));
+        model.addAttribute("updateSuccess", "更新に成功しました。");
+      } catch (DuplicateException e) {
+        model.addAttribute("platform", platformService.getByIdPlatform(platformId));
+        model.addAttribute("updateFailed", "更新に失敗しました。");
+        model.addAttribute("duplicate", "プラットフォームが重複しています。");
+        return "updatePlatform";
+      }
+    }
     return "updatePlatform";
   }
 

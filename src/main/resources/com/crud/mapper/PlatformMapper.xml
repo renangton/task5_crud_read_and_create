@@ -17,7 +17,7 @@
     <select id="findByIdPlatform" resultMap="platformMap">
         SELECT platforms.id as platform_id, platform
         FROM platforms
-        WHERE platform_id = #{id}
+        WHERE id = #{id}
     </select>
 
     <insert id="createPlatform" useGeneratedKeys="true" keyProperty="id">

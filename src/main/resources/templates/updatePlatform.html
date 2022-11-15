@@ -1,44 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"></meta>
-  <link th:href="@{/css/stylesheet.css}" rel="stylesheet">
-  <title>GameSearch</title>
+    <meta charset="UTF-8"></meta>
+    <link th:href="@{/css/stylesheet.css}" rel="stylesheet">
+    <title>GameSearch</title>
 </head>
 <body>
 <header>
-  <div class="header-logo">GAMEの管理</div>
-  <div class="header-list">
-    <ul>
-      <li><a th:href="@{/search}">検索条件</a></li>
-      <li><a th:href="@{/create}">GAME登録</a></li>
-    </ul>
-  </div>
+    <div class="header-logo">GAMEの管理</div>
+    <div class="header-list">
+        <ul>
+            <li><a th:href="@{/search}">検索条件</a></li>
+            <li><a th:href="@{/create}">GAME登録</a></li>
+            <li><a th:href="@{/create-platform}">PLATFORM登録</a></li>
+        </ul>
+    </div>
 </header>
 <div class="main">
-  <div class="main-logo">PLATFORM変更</div>
-  <div class="success" th:text="${deleteSuccess}"></div>
-  <div class="exception" th:text="${deleteFailed}"></div>
-  <form method="post" th:action="@{/create-platform}" th:object="${platformForm}">
-    <table>
-      <tr class="field">
-        <th>ID</th>
-        <th>プラットフォーム</th>
-      </tr>
-      <tr th:each="platformCheck:${platformList}" th:object="${platformCheck}">
-        <td th:text="*{id}">ID</td>
-        <td><input class="createGame" type="text" name="platform" value="*{platform}"
-                   th:value="${platform_value}"></td>
-      </tr>
-    </table>
-    <input class="btn" type="submit" value="登録">
-    <div class="success" th:text="${updateSuccess}"></div>
-    <div class="exception" th:text="${updateFailed}"></div>
-    <div class="duplicate-error" th:text="${duplicate}"></div>
-    <div class="validation-error">
-      <p th:errors="*{platform}"></p>
-    </div>
-  </form>
+    <div class="main-logo">PLATFORM変更</div>
+    <form method="post" th:action="@{/update-platform}" th:object="${platformForm}">
+        <table>
+            <tr class="field">
+                <th>ID</th>
+                <th>プラットフォーム</th>
+            </tr>
+            <tr>
+                <td th:text="${platform.id}"></td>
+                <td><input class="updatePlatform" type="text" name="platform" th:value="${platform.platform}"></td>
+            </tr>
+        </table>
+        <button class="btn" type="submit" name="update" th:value="${platform.id}">更新</button>
+        <div class="success" th:text="${updateSuccess}"></div>
+        <div class="exception" th:text="${updateFailed}"></div>
+        <div class="duplicate-error" th:text="${duplicate}"></div>
+        <div class="validation-error">
+            <p th:errors="*{platform}"></p>
+        </div>
+    </form>
 </div>
 </body>
 </html>
