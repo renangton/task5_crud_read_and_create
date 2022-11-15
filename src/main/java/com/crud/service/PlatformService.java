@@ -4,6 +4,7 @@ import com.crud.entity.Platform;
 import com.crud.mapper.PlatformMapper;
 import com.crud.service.exception.DuplicateException;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,10 @@ public class PlatformService {
 
   public List<Platform> getPlatform() {
     return platformMapper.findPlatform();
+  }
+
+  public Optional<Platform> getByIdPlatform(Integer id) {
+    return platformMapper.findByIdPlatform(id);
   }
 
   public void createPlatform(Integer id, String platform) throws DuplicateException {

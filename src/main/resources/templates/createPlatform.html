@@ -16,7 +16,7 @@
     </div>
 </header>
 <div class="main">
-    <div class="main-logo">新規登録</div>
+    <div class="main-logo">PLATFORM新規登録</div>
     <div class="success" th:text="${deleteSuccess}"></div>
     <div class="exception" th:text="${deleteFailed}"></div>
     <form method="post" th:action="@{/create-platform}" th:object="${platformForm}">
@@ -43,15 +43,14 @@
                 <th>プラットフォーム</th>
                 <th>オプション</th>
             </tr>
-            <form method="post" th:action="@{/create-platform}" th:each="platformCheck:${platformList}"
-                  th:object="${platformCheck}">
-                <tr>
+                <tr th:each="platformCheck:${platformList}" th:object="${platformCheck}">
                     <td th:text="*{id}">ID</td>
                     <td th:text="*{platform}">プラットフォーム</td>
                     <td>
-                        <button class="btn" id="update" type="submit" name="update">変更</button>
-                        <button class="btn" id="delete" type="submit" name="delete" th:value="${platformCheck.id}">削除
-                        </button>
+                        <button class="btn" id="update" type="submit" name="update" th:value="${platformCheck.id}" form="updateForm">変更</button>
+                        <button class="btn" id="delete" type="submit" name="delete" th:value="${platformCheck.id}" form="deleteForm">削除</button>
+                        <form id="updateForm" method="post" th:action="@{/update-platform}"></form>
+                        <form id="deleteForm" method="post" th:action="@{/create-platform}"></form>
                     </td>
                 </tr>
             </form>

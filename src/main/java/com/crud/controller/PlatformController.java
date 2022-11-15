@@ -58,6 +58,13 @@ public class PlatformController {
     return "redirect:/create-platform";
   }
 
+  @PostMapping(value = "/update-platform", params = "update")
+  public String renderUpdatePlatform(@RequestParam("update") String strPlatformId, Model model) {
+    Integer platformId = Integer.valueOf(strPlatformId);
+    model.addAttribute("platformList", platformService.getByIdPlatform(platformId));
+    return "updatePlatform";
+  }
+
   @PostMapping(value = "/create-platform", params = "delete")
   public String deletePlatform(@RequestParam("delete") String strPlatformId, RedirectAttributes redirectAttributes) {
     Integer platformId = Integer.valueOf(strPlatformId);
