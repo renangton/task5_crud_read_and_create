@@ -45,6 +45,15 @@ class PlatformServiceTest {
         .hasMessage("プラットフォームが重複しています。");
   }
 
+  @Test
+  void Idに紐づくプラットフォームを1件取得できること() {
+    Platform platform = new Platform(1, "PS5");
+    doReturn(platform).when(platformMapper).findByIdPlatform(1);
+
+    Platform actualPlatform = platformService.getByIdPlatform(1);
+    assertThat(actualPlatform).isEqualTo(platform);
+  }
+
   @Captor
   ArgumentCaptor<Platform> platformCapture;
 

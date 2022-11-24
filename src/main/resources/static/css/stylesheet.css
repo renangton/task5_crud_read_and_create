@@ -122,6 +122,16 @@ a:visited {
     font-size: 15px;
 }
 
+.updateGame {
+    padding: 10px 3px;
+    font-size: 15px;
+}
+
+.updatePlatform {
+    padding: 10px 3px;
+    font-size: 15px;
+}
+
 table {
     margin: 10px 0;
 }

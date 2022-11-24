@@ -43,17 +43,16 @@
                 <th>プラットフォーム</th>
                 <th>オプション</th>
             </tr>
-                <tr th:each="platformCheck:${platformList}" th:object="${platformCheck}">
-                    <td th:text="*{id}">ID</td>
-                    <td th:text="*{platform}">プラットフォーム</td>
-                    <td>
-                        <button class="btn" id="update" type="submit" name="toUpdatePage" th:value="${platformCheck.id}" form="updateForm">変更</button>
-                        <button class="btn" id="delete" type="submit" name="delete" th:value="${platformCheck.id}" form="deleteForm">削除</button>
-                        <form id="updateForm" method="post" th:action="@{/update-platform}"></form>
-                        <form id="deleteForm" method="post" th:action="@{/create-platform}"></form>
-                    </td>
-                </tr>
-            </form>
+            <tr th:each="platformCheck:${platformList}" th:object="${platformCheck}">
+                <td th:text="*{id}">ID</td>
+                <td th:text="*{platform}">プラットフォーム</td>
+                <td>
+                    <button class="btn" id="update" type="submit" name="toUpdatePlatformPage" th:value="${platformCheck.id}" form="updateForm">変更</button>
+                    <button class="btn" id="delete" type="submit" name="delete" th:value="${platformCheck.id}" form="deleteForm">削除</button>
+                    <form id="updateForm" method="post" th:action="@{/update-platform}"></form>
+                    <form id="deleteForm" method="post" th:action="@{/create-platform}"></form>
+                </td>
+            </tr>
         </table>
     </div>
 </div>

@@ -58,8 +58,8 @@ public class PlatformController {
     return "redirect:/create-platform";
   }
 
-  @PostMapping(value = "/update-platform", params = "toUpdatePage")
-  public String toUpdatePlatform(@RequestParam("toUpdatePage") String strPlatformId, Model model) {
+  @PostMapping(value = "/update-platform", params = "toUpdatePlatformPage")
+  public String toUpdatePlatform(@RequestParam("toUpdatePlatformPage") String strPlatformId, Model model) {
     Integer platformId = Integer.valueOf(strPlatformId);
     model.addAttribute("platform", platformService.getByIdPlatform(platformId));
     return "updatePlatform";
@@ -71,7 +71,6 @@ public class PlatformController {
     if (bindingResult.hasErrors()) {
       model.addAttribute("platform", platformService.getByIdPlatform(platformId));
       model.addAttribute("updateFailed", "更新に失敗しました。");
-      return "updatePlatform";
     } else {
       try {
         platformService.updatePlatform(platformId, platformForm.getPlatform());
@@ -81,7 +80,6 @@ public class PlatformController {
         model.addAttribute("platform", platformService.getByIdPlatform(platformId));
         model.addAttribute("updateFailed", "更新に失敗しました。");
         model.addAttribute("duplicate", "プラットフォームが重複しています。");
-        return "updatePlatform";
       }
     }
     return "updatePlatform";

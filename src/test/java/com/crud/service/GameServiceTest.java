@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -30,6 +29,15 @@ class GameServiceTest {
   @Autowired
   private GameService gameService;
 
+  @Captor
+  ArgumentCaptor<Game> gameCapture;
+
+  @Captor
+  ArgumentCaptor<List<GamePlatform>> gamePlatformCapture;
+
+  @Captor
+  ArgumentCaptor<Integer> idCapture;
+
   @Test
   void idがnullの時_ゲームを全件取得できること() throws NotFoundException {
     List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
@@ -47,10 +55,6 @@ class GameServiceTest {
   void idに数字が入力されていてレコードが存在しない時_NotFoundExceptionが発生すること() {
     doReturn(Optional.empty()).when(gameMapper).findById(1);
     assertThrows(NotFoundException.class, () -> gameService.getGames(1, "asc"));
-    assertThatThrownBy(() -> {
-      throw new NotFoundException("レコードは存在しませんでした。");
-    })
-        .hasMessage("レコードは存在しませんでした。");
   }
 
   @Test
@@ -64,11 +68,21 @@ class GameServiceTest {
     assertThat(actualGameList).isEqualTo(gameViewList);
   }
 
-  @Captor
-  ArgumentCaptor<Game> gameCapture;
+  @Test
+  void idに紐づくレコードが存在する時_対象のゲームを取得できること() throws NotFoundException {
+    List<Platform> platformList = Arrays.asList(new Platform(1, "PS5"), new Platform(2, "Switch"));
+    Optional<Game> game = Optional.of(new Game(1, "R6E", "FPS", 6600, platformList));
+    doReturn(game).when(gameMapper).findById(1);
 
-  @Captor
-  ArgumentCaptor<List<GamePlatform>> gamePlatformCapture;
+    Optional<Game> actualGame = gameService.getGameByid(1);
+    assertThat(actualGame).isEqualTo(game);
+  }
+
+  @Test
+  void idに紐づくレコードが存在しない時_NotFoundExceptionが発生すること() {
+    doReturn(Optional.empty()).when(gameMapper).findById(1);
+    assertThrows(NotFoundException.class, () -> gameService.getGameByid(1));
+  }
 
   @Test
   void プラットフォームが1件のみ選択されている時_引数にしていたGameとそれに紐づくGameとPlatformの中間テーブルに正常に登録処理が実行されること() {
@@ -104,15 +118,21 @@ class GameServiceTest {
   @Test
   void ゲームを更新できること() {
     Game game = new Game(1, "ELDENRING", "ARPG", 9000);
+    String[] platformIds = {"1", "2"};
+    List<GamePlatform> gamePlatformList = Arrays.asList(new GamePlatform(game.getId(), platformIds[0]),
+        new GamePlatform(game.getId(), platformIds[1]));
 
-    gameService.updateGame(game.getId(), game.getName(), game.getGenre(), game.getPrice());
+    gameService.updateGame(game.getId(), game.getName(), game.getGenre(), game.getPrice(), platformIds);
     verify(gameMapper, times(1)).updateGame(gameCapture.capture());
+    verify(gameMapper, times(1)).deleteGamePlatformGameId(idCapture.capture());
+    verify(gameMapper, times(1)).createGamePlatform(gamePlatformCapture.capture());
     Game actualGame = gameCapture.getValue();
+    Integer actualId = idCapture.getValue();
+    List<GamePlatform> actualGamePlatformList = gamePlatformCapture.getValue();
     assertThat(actualGame).isEqualTo(game);
+    assertThat(actualId).isEqualTo(game.getId());
+    assertThat(actualGamePlatformList).isEqualTo(gamePlatformList);
   }
-
-  @Captor
-  ArgumentCaptor<Integer> idCapture;
 
   @Test
   void ゲームとゲームのIDに紐づく中間テーブルを削除できること() {

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <link th:href="@{/css/stylesheet.css}" rel="stylesheet">
+    <title>GameSearch</title>
+</head>
+<body>
+<header>
+    <div class="header-logo">GAMEの管理</div>
+    <div class="header-list">
+        <ul>
+            <li><a th:href="@{/search}">検索条件</a></li>
+            <li><a th:href="@{/create}">GAME登録</a></li>
+            <li><a th:href="@{/create-platform}">PLATFORM登録</a></li>
+        </ul>
+    </div>
+</header>
+<div class="main">
+    <div class="main-logo">GAME変更</div>
+    <form method="post" th:action="@{/update-game}" th:object="${gameForm}">
+        <table>
+            <tr class="field">
+                <th>ID</th>
+                <th>タイトル</th>
+                <th>ジャンル</th>
+                <th>プラットフォーム</th>
+                <th>価格</th>
+            </tr>
+            <tr>
+                <td th:text="${game.id}"></td>
+                <td><input class="updateGame" type="text" name="name" th:value="${game.name}"></td>
+                <td><input class="updateGame" type="text" name="genre" th:value="${game.genre}"></td>
+                <td><select th:field="*{platformId}" id="multiSelect" name="platformId" multiple size=4>
+                    <option class="createPlatform" th:each="platform:${platformList}" th:value="${platform.id}" th:text="${platform.platform}"></option>
+                </select></td>
+                <td><input class="updateGame" type="number" name="price" th:value="${game.price}"></td>
+            </tr>
+        </table>
+        <button class="btn" type="submit" name="update" th:value="${game.id}">更新</button>
+        <div class="success" th:text="${updateSuccess}"></div>
+        <div class="exception" th:text="${updateFailed}"></div>
+        <div class="none-match-platform" th:text="${noneMatchPlatform}"></div>
+        <div class="validation-error">
+            <p th:errors="*{name}"></p>
+            <p th:errors="*{genre}"></p>
+            <p th:errors="*{platformId}"></p>
+            <p th:errors="*{price}"></p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -30,19 +30,19 @@
                 <th>価格</th>
                 <th>オプション</th>
             </tr>
-            <form method="post" th:action="@{/search/db}" th:each="game:${gameList}" th:object="${game}">
-                <tr>
-                    <td th:text="*{id}">ID</td>
-                    <td th:text="*{name}">タイトル</td>
-                    <td th:text="*{genre}">ジャンル</td>
-                    <td th:text="*{platforms}">プラットフォーム</td>
-                    <td th:text="*{price}">価格</td>
-                    <td>
-                        <button class="btn" id="update" type="submit" name="update">変更</button>
-                        <button class="btn" id="delete" type="submit" name="delete" th:value="${game.id}">削除</button>
-                    </td>
-                </tr>
-            </form>
+            <tr th:each="game:${gameList}" th:object="${game}">
+                <td th:text="*{id}">ID</td>
+                <td th:text="*{name}">タイトル</td>
+                <td th:text="*{genre}">ジャンル</td>
+                <td th:text="*{platforms}">プラットフォーム</td>
+                <td th:text="*{price}">価格</td>
+                <td>
+                    <button class="btn" id="update" type="submit" name="toUpdateGamePage" th:value="${game.id}" form="updateForm">変更</button>
+                    <button class="btn" id="delete" type="submit" name="delete" th:value="${game.id}" form="deleteForm">削除</button>
+                    <form id="updateForm" method="post" th:action="@{/update-game}"></form>
+                    <form id="deleteForm" method="post" th:action="@{/search/db}"></form>
+                </td>
+            </tr>
         </table>
     </div>
     <div class=exception>

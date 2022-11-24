@@ -80,6 +80,32 @@ public class GameController {
     return "redirect:/create";
   }
 
+  @PostMapping(value = "/update-game", params = "toUpdateGamePage")
+  public String toUpdateGame(@RequestParam("toUpdateGamePage") String strGameId, Model model) {
+    Integer gameId = Integer.valueOf(strGameId);
+    try {
+      model.addAttribute("game", gameService.getGameByid(gameId).get());
+      model.addAttribute("platformList", platformService.getPlatform());
+    } catch (NotFoundException e) {
+      model.addAttribute("notFound", "レコードは存在しませんでした。");
+    }
+    return "updateGame";
+  }
+
+  @PostMapping(value = "/update-game", params = "update")
+  public String updateGame(@RequestParam("update") String strGameId, @Validated GameForm gameForm, BindingResult bindingResult, Model model) throws NotFoundException {
+    Integer gameId = Integer.valueOf(strGameId);
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("updateFailed", "更新に失敗しました。");
+    } else {
+      gameService.updateGame(gameId, gameForm.getName(), gameForm.getGenre(), gameForm.getPrice(), gameForm.getPlatformId());
+      model.addAttribute("updateSuccess", "更新に成功しました。");
+    }
+    model.addAttribute("game", gameService.getGameByid(gameId).get());
+    model.addAttribute("platformList", platformService.getPlatform());
+    return "updateGame";
+  }
+
   @PostMapping(value = "/search/db", params = "delete")
   public String deleteGame(@RequestParam("delete") String strGameId, Model model) {
     Integer gameId = Integer.valueOf(strGameId);

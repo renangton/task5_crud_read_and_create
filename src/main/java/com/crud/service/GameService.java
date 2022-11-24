@@ -37,6 +37,14 @@ public class GameService {
     return gameView;
   }
 
+  public Optional<Game> getGameByid(Integer id) throws NotFoundException {
+    Optional<Game> game = gameMapper.findById(id);
+    if (game.isEmpty()) {
+      throw new NotFoundException("レコードは存在しませんでした。");
+    }
+    return game;
+  }
+
   @Transactional
   public void createGame(Integer id, String name, String genre, Integer price, String[] platformIds) {
     Game game = new Game(id, name, genre, price);
@@ -46,9 +54,14 @@ public class GameService {
     gameMapper.createGamePlatform(gamePlatformList);
   }
 
-  public void updateGame(Integer id, String name, String genre, Integer price) {
+  @Transactional
+  public void updateGame(Integer id, String name, String genre, Integer price, String[] platformIds) {
     Game game = new Game(id, name, genre, price);
     gameMapper.updateGame(game);
+    gameMapper.deleteGamePlatformGameId(id);
+    List<GamePlatform> gamePlatformList = Arrays.stream(platformIds)
+        .map(platformId -> new GamePlatform(game.getId(), platformId)).collect(Collectors.toList());
+    gameMapper.createGamePlatform(gamePlatformList);
   }
 
   @Transactional

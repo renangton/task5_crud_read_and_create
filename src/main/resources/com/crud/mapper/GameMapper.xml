@@ -21,7 +21,7 @@
         FROM games
                  INNER JOIN games_platforms ON games.id = games_platforms.games_id
                  INNER JOIN platforms ON games_platforms.platforms_id = platforms.id
-        ORDER BY games_platforms.id ${orderBy}
+        ORDER BY games_id ${orderBy}
     </select>
 
     <select id="findById" resultMap="gameMap">
