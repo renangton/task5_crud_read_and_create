@@ -74,8 +74,8 @@ class GameServiceTest {
     Optional<Game> game = Optional.of(new Game(1, "R6E", "FPS", 6600, platformList));
     doReturn(game).when(gameMapper).findById(1);
 
-    Optional<Game> actualGame = gameService.getGameByid(1);
-    assertThat(actualGame).isEqualTo(game);
+    Game actualGame = gameService.getGameByid(1);
+    assertThat(actualGame).isEqualTo(game.get());
   }
 
   @Test

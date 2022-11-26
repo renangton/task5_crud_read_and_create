@@ -84,7 +84,7 @@ public class GameController {
   public String toUpdateGame(@RequestParam("toUpdateGamePage") String strGameId, Model model) {
     Integer gameId = Integer.valueOf(strGameId);
     try {
-      model.addAttribute("game", gameService.getGameByid(gameId).get());
+      model.addAttribute("game", gameService.getGameByid(gameId));
       model.addAttribute("platformList", platformService.getPlatform());
     } catch (NotFoundException e) {
       model.addAttribute("notFound", "レコードは存在しませんでした。");
@@ -101,7 +101,7 @@ public class GameController {
       gameService.updateGame(gameId, gameForm.getName(), gameForm.getGenre(), gameForm.getPrice(), gameForm.getPlatformId());
       model.addAttribute("updateSuccess", "更新に成功しました。");
     }
-    model.addAttribute("game", gameService.getGameByid(gameId).get());
+    model.addAttribute("game", gameService.getGameByid(gameId));
     model.addAttribute("platformList", platformService.getPlatform());
     return "updateGame";
   }

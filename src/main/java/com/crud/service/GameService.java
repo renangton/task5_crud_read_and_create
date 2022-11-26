@@ -37,12 +37,12 @@ public class GameService {
     return gameView;
   }
 
-  public Optional<Game> getGameByid(Integer id) throws NotFoundException {
-    Optional<Game> game = gameMapper.findById(id);
-    if (game.isEmpty()) {
+  public Game getGameByid(Integer id) throws NotFoundException {
+    Optional<Game> optionalGame = gameMapper.findById(id);
+    if (optionalGame.isEmpty()) {
       throw new NotFoundException("レコードは存在しませんでした。");
     }
-    return game;
+    return optionalGame.get();
   }
 
   @Transactional
