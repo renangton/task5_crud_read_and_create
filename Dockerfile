@@ -2,8 +2,7 @@ FROM openjdk:11-slim AS server-build
 WORKDIR /app
 COPY . .
 
-RUN ["sh"]
-RUN ["./gradlew", "build -x test check spotbugsMain spotbugsTest"]
+RUN ["sh", "./gradlew", "build", "-x test"]
 
 FROM ubuntu:22.04
 
