@@ -8,7 +8,7 @@ FROM ubuntu:22.04
 
 ENV PORT=8080
 
-COPY --from=server-build /app/build/libs/demo-0.0.1-SNAPSHOT.jar /usr/src
+COPY --from=server-build /app/build/libs/task5_crud_read_and_create-0.0.1-SNAPSHOT.jar /usr/src
 COPY ./sql/task5_create_game_table_and_insert_data.sql /usr/src
 
 RUN apt-get update
