@@ -34,7 +34,7 @@ class GameMapperTest {
     List<Game> games = gameMapper.findAll(OrderBy.from("asc"));
     assertThat(games).hasSize(2).isEqualTo(expectedGameList);
   }
-  
+
   @Test
   @DataSet(value = "common/games.yml")
   void 降順が選択されている時_ゲームを降順で全件取得できること() {

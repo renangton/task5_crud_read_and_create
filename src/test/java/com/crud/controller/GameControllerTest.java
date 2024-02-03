@@ -20,7 +20,7 @@ class GameControllerTest {
   void GETでsearchにアクセスする() throws Exception {
     mockMvc.perform(get("/search")).andExpect(status().isOk()).andExpect(view().name("search"));
   }
-  
+
   @Test
   void GETでcreateにアクセスする() throws Exception {
     mockMvc.perform(get("/create")).andExpect(status().isOk()).andExpect(view().name("create"));

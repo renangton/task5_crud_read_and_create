@@ -28,7 +28,7 @@ class PlatformFormTest {
     validator.validate(platformForm, bindingResult);
     assertNull(bindingResult.getFieldError());
   }
-  
+
   @Test
   void 必須項目に空文字を渡した時_バリデーションエラーとなること() {
     platformForm = new PlatformForm(1, "");

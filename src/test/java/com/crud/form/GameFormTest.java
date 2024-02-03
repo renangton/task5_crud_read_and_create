@@ -45,7 +45,7 @@ class GameFormTest {
         tuple("genre", "ジャンルが未入力です。")
     );
   }
-  
+
   @Test
   void 必須項目にnullを渡した時_バリデーションエラーとなること() {
     gameForm = new GameForm(1, null, null, null, platforms);

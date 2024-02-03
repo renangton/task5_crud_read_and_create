@@ -3,10 +3,7 @@ package com.crud.service;
 import com.crud.controller.view.GameView;
 import com.crud.entity.Game;
 import com.crud.entity.GamePlatform;
-import com.crud.entity.Platform;
 import com.crud.mapper.GameMapper;
-import com.crud.mapper.PlatformMapper;
-import com.crud.service.exception.DuplicateException;
 import com.crud.service.exception.NotFoundException;
 import java.util.Arrays;
 import java.util.List;
@@ -18,14 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class GameService {
   private final GameMapper gameMapper;
-  private final PlatformMapper platformMapper;
 
-  public GameService(GameMapper gameMapper, PlatformMapper platformMapper) {
+  public GameService(GameMapper gameMapper) {
     this.gameMapper = gameMapper;
-    this.platformMapper = platformMapper;
   }
 
   public List<GameView> getGames(Integer id, String order) throws NotFoundException {
+
     List<GameView> gameView;
     if (id == null) {
       List<Game> gameList = gameMapper.findAll(OrderBy.from(order));
@@ -41,8 +37,12 @@ public class GameService {
     return gameView;
   }
 
-  public List<Platform> getPlatform() {
-    return platformMapper.findPlatform();
+  public Game getGameByid(Integer id) throws NotFoundException {
+    Optional<Game> optionalGame = gameMapper.findById(id);
+    if (optionalGame.isEmpty()) {
+      throw new NotFoundException("レコードは存在しませんでした。");
+    }
+    return optionalGame.get();
   }
 
   @Transactional
@@ -50,17 +50,23 @@ public class GameService {
     Game game = new Game(id, name, genre, price);
     gameMapper.createGame(game);
     List<GamePlatform> gamePlatformList = Arrays.stream(platformIds)
-        .map(platformId -> new GamePlatform(game.getId(), platformId))
-        .collect(Collectors.toList());
+        .map(platformId -> new GamePlatform(game.getId(), platformId)).collect(Collectors.toList());
     gameMapper.createGamePlatform(gamePlatformList);
   }
 
-  public void createPlatform(Integer id, String platform) throws DuplicateException {
-    List<Platform> platformList = platformMapper.findPlatform();
-    if (platformList.stream().anyMatch(registeredPlatform -> registeredPlatform.getPlatform().equals(platform))) {
-      throw new DuplicateException("プラットフォームが重複しています。");
-    }
-    Platform platformData = new Platform(id, platform);
-    platformMapper.createPlatform(platformData);
+  @Transactional
+  public void updateGame(Integer id, String name, String genre, Integer price, String[] platformIds) {
+    Game game = new Game(id, name, genre, price);
+    gameMapper.updateGame(game);
+    gameMapper.deleteGamePlatformGameId(id);
+    List<GamePlatform> gamePlatformList = Arrays.stream(platformIds)
+        .map(platformId -> new GamePlatform(game.getId(), platformId)).collect(Collectors.toList());
+    gameMapper.createGamePlatform(gamePlatformList);
+  }
+
+  @Transactional
+  public void deleteGame(Integer id) {
+    gameMapper.deleteGamePlatformGameId(id);
+    gameMapper.deleteGame(id);
   }
 }

@@ -20,7 +20,7 @@ class GameSearchFormTest {
 
   private GameSearchForm gameSearchForm = new GameSearchForm();
   private BindingResult bindingResult = new BindException(gameSearchForm, "gameSearchForm");
-  
+
   @Test
   void 正しい値を渡した時_バリデーションエラーとならないこと() {
     gameSearchForm = new GameSearchForm("", "asc");

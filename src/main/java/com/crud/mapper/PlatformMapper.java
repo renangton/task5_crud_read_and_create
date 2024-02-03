@@ -9,6 +9,8 @@ public interface PlatformMapper {
 
   public List<Platform> findPlatform();
 
+  public Platform findByIdPlatform(Integer id);
+
   public void createPlatform(Platform platformData);
 
   public void updatePlatform(Platform platformData);

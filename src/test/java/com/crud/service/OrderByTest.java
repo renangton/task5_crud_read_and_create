@@ -1,5 +1,6 @@
 package com.crud.service;
 
+import org.assertj.core.api.Assertions;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,7 @@ class OrderByTest {
 
   @Test
   void ascを渡した時_ASCが返されること() {
-    assertThat(OrderBy.from("asc")).isEqualTo(OrderBy.ASC);
+    Assertions.assertThat(OrderBy.from("asc")).isEqualTo(OrderBy.ASC);
   }
 
   @Test

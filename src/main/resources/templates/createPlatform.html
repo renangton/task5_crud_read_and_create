@@ -1,51 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"></meta>
-<link th:href="@{/css/stylesheet.css}" rel="stylesheet">
-<title>GameSearch</title>
+    <meta charset="UTF-8"></meta>
+    <link th:href="@{/css/stylesheet.css}" rel="stylesheet">
+    <title>GameSearch</title>
 </head>
 <body>
-    <header>
-        <div class="header-logo">GAMEの検索と登録</div>
-        <div class="header-list">
-            <ul>
-                <li><a th:href="@{/search}">検索条件</a></li>
-                <li><a th:href="@{/create}">GAME登録</a></li>
-            </ul>
-        </div>
-    </header>
-    <div class="main">
-        <div class="main-logo">新規登録</div>
-        <form method="post" th:action="@{/create-platform}" th:object="${platformForm}">
-            <table>
-                <tr class="field">
-                    <th>プラットフォーム</th>
-                </tr>
-                <tr>
-                    <td><input class="createGame" type="text" name="platform" th:value="${platform_value}"></td>
-                </tr>
-            </table>
-            <input class="btn" type="submit" value="登録">
-            <div class="success" th:text="${createSuccess}"></div>
-            <div class="exception" th:text="${createFailed}"></div>
-            <div class="duplicate-error" th:text="${duplicate}"></div>
-            <div class="validation-error">
-                <p th:errors="*{platform}"></p>
-            </div>
-        </form>
-        <div th:if="${platformList} != null">
-            <table>
-                <tr class="field">
-                    <th>ID</th>
-                    <th>プラットフォーム</th>
-                </tr>
-                <tr th:each="platformCheck:${platformList}" th:object="${platformCheck}">
-                    <td th:text="*{id}">ID</td>
-                    <td th:text="*{platform}">プラットフォーム</td>
-                </tr>
-            </table>
-        </div>
+<header>
+    <div class="header-logo">GAMEの管理</div>
+    <div class="header-list">
+        <ul>
+            <li><a th:href="@{/search}">検索条件</a></li>
+            <li><a th:href="@{/create}">GAME登録</a></li>
+        </ul>
     </div>
+</header>
+<div class="main">
+    <div class="main-logo">PLATFORM新規登録</div>
+    <form method="post" th:action="@{/create-platform}" th:object="${platformForm}">
+        <table>
+            <tr class="field">
+                <th>プラットフォーム</th>
+            </tr>
+            <tr>
+                <td><input class="createGame" type="text" name="platform" th:value="${platform_value}"></td>
+            </tr>
+        </table>
+        <input class="btn" type="submit" value="登録">
+        <div class="success" th:text="${createSuccess}"></div>
+        <div class="exception" th:text="${createFailed}"></div>
+        <div class="duplicate-error" th:text="${duplicate}"></div>
+        <div class="validation-error">
+            <p th:errors="*{platform}"></p>
+        </div>
+    </form>
+    <div class="success" th:text="${deleteSuccess}"></div>
+    <div class="exception" th:text="${deleteFailed}"></div>
+    <div th:if="${platformList} != null">
+        <table>
+            <tr class="field">
+                <th>ID</th>
+                <th>プラットフォーム</th>
+                <th>オプション</th>
+            </tr>
+            <tr th:each="platformCheck:${platformList}" th:object="${platformCheck}">
+                <td th:text="*{id}">ID</td>
+                <td th:text="*{platform}">プラットフォーム</td>
+                <td>
+                    <button class="btn" id="update" type="submit" name="toUpdatePlatformPage" th:value="${platformCheck.id}" form="updateForm">変更</button>
+                    <button class="btn" id="delete" type="submit" name="delete" th:value="${platformCheck.id}" form="deleteForm">削除</button>
+                    <form id="updateForm" method="post" th:action="@{/update-platform}"></form>
+                    <form id="deleteForm" method="post" th:action="@{/create-platform}"></form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 </body>
 </html>
